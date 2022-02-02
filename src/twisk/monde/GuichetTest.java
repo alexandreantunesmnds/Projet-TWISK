@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ActiviteTest {
+class GuichetTest {
     Activite act ;
     Guichet guich;
     @BeforeEach
@@ -15,8 +15,8 @@ class ActiviteTest {
     }
 
     @Test
-    void estUneActivite() {
-        assertTrue(act.estUneActivite());
-        assertFalse(guich.estUneActivite());
+    void testEstUnGuichet() {
+        assertFalse(act.estUnGuichet());
+        assertTrue(guich.estUnGuichet());
     }
 }
