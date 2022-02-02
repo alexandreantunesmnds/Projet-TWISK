@@ -12,7 +12,7 @@ public class Guichet extends Etape {
     }
 
     @Override
-    public boolean estuneActivite() {
+    public boolean estUneActivite() {
         return false;
     }
 

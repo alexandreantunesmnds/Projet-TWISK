@@ -14,7 +14,7 @@ public abstract class Etape {
     public void ajouterSuccesseur(Etape... e){
         this.succ.ajouter(e);
     }
-    public abstract boolean estuneActivite();
+    public abstract boolean estUneActivite();
     public abstract boolean estUnGuichet();
     public Iterator<Etape> iterator(){
         return this.succ.iterator();

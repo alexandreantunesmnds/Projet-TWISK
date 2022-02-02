@@ -14,7 +14,7 @@ public class Activite extends Etape {
     }
 
     @Override
-    public boolean estuneActivite() {
+    public boolean estUneActivite() {
         return true;
     }
 
