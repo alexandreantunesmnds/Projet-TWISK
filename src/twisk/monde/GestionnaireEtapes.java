@@ -1,8 +1,6 @@
 package twisk.monde;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class GestionnaireEtapes implements Iterable<Etape>{
     private ArrayList<Etape> etapeList;
@@ -19,7 +17,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @param etapes Liste d'étape à ajouter
      */
     public void ajouter (Etape ... etapes){
-        this.etapeList.addAll(List.of(etapes));
+        Collections.addAll(this.etapeList, etapes);
     }
 
     /**
