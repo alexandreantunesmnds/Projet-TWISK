@@ -3,20 +3,23 @@ package twisk.monde.tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twisk.monde.Activite;
+import twisk.monde.ActiviteRestreinte;
+import twisk.monde.Etape;
 import twisk.monde.Guichet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-abstract class EtapeTest {
+public abstract class EtapeTest {
 
-    protected Guichet guich;
-    protected Activite act ;
-
+    protected Etape guich;
+    protected Etape act ;
+    protected Etape actRestreinte;
 
     @BeforeEach
     void setUp() {
         this.act = new Activite("Piscine");
         this.guich = new Guichet("Caisse");
+        this.actRestreinte = new ActiviteRestreinte("ActRestreinte");
     }
 
     @Test
