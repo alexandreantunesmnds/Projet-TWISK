@@ -3,6 +3,7 @@ package twisk.monde.tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twisk.monde.Activite;
+import twisk.monde.Etape;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
 
@@ -25,6 +26,11 @@ public class MondeTest {
 
     @Test
     void aCommeSortie() {
-        //assertEquals(0,this.world.nbSortie());
+        Etape Activite1 = new Activite("Piscine");
+        Etape Guichet1 = new Guichet("GuichetPiscine");
+        this.world.aCommeSortie(Activite1,Guichet1);
+
+        assertEquals(1,Activite1.nbSuccesseur());
+        assertEquals(1,Guichet1.nbSuccesseur());
     }
 }

@@ -12,6 +12,14 @@ public abstract class Etape {
         this.succ = new GestionnaireSuccesseurs();
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public GestionnaireSuccesseurs getSucc() {
+        return succ;
+    }
+
     public void ajouterSuccesseur(Etape... e){
         this.succ.ajouter(e);
     }
@@ -28,4 +36,11 @@ public abstract class Etape {
         return this.succ.iterator();
     }
 
+    @Override
+    public String toString() {
+        return "Etape{" +
+                "nom='" + nom + '\'' +
+                ", succ=" + succ +
+                '}';
+    }
 }

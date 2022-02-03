@@ -21,4 +21,11 @@ public class GestionnaireSuccesseurs {
     public Iterator<Etape> iterator(){
         return EtapeList.iterator();
     }
+
+    @Override
+    public String toString() {
+        return "GestionnaireSuccesseurs{" +
+                "EtapeList=" + EtapeList +
+                '}';
+    }
 }
