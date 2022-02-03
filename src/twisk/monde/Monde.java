@@ -1,6 +1,8 @@
 package twisk.monde;
 
-public class Monde {
+import java.util.Iterator;
+
+public class Monde implements Iterable<Etape> {
     private SasSortie sasSortie;
     private SasEntree sasEntree;
     private GestionnaireEtapes gestionEtapes;
@@ -68,6 +70,11 @@ public class Monde {
      */
     public int nbEntree(){
         return this.sasEntree.nbSuccesseur();
+    }
+
+    @Override
+    public Iterator<Etape> iterator() {
+        return null;
     }
 
     @Override
