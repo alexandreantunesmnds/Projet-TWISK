@@ -21,6 +21,10 @@ abstract class EtapeTest {
 
     @Test
     void ajouterSuccesseur() {
+        guich.ajouterSuccesseur(act);
+        assertEquals(1,guich.nbSuccesseur());
+
+        assertEquals(0,act.nbSuccesseur());
     }
 
     @Test
@@ -31,5 +35,6 @@ abstract class EtapeTest {
 
     @Test
     void iterator() {
+        
     }
 }
