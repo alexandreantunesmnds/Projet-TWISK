@@ -5,8 +5,8 @@ public class Monde {
     private SasEntree sasEntree;
     private GestionnaireEtapes gestionEtapes;
     public Monde(){
-        this.sasEntree = new SasEntree();
-        this.sasSortie = new SasSortie();
+        this.sasEntree = new SasEntree("Entrée");
+        this.sasSortie = new SasSortie("Sortie");
         this.gestionEtapes = new GestionnaireEtapes();
     }
     public void aCommeEntree(Etape... etapes){

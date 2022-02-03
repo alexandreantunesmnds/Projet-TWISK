@@ -1,22 +1,27 @@
-package twisk.monde;
+package twisk.monde.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import twisk.monde.Activite;
+import twisk.monde.Guichet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GuichetTest {
-    Activite act ;
+class GuichetTest extends EtapeTest{
     Guichet guich;
+
     @BeforeEach
     void setUp() {
-        this.act = new Activite("Piscine");
         this.guich = new Guichet("Caisse");
     }
 
     @Test
-    void testEstUnGuichet() {
-        assertFalse(act.estUnGuichet());
+    void estUnGuichet() {
         assertTrue(guich.estUnGuichet());
+    }
+
+    @Test
+    void estUneActivite() {
+        assertFalse(guich.estUneActivite());
     }
 }
