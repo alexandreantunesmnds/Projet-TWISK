@@ -15,15 +15,35 @@ public class Monde {
     }
 
     public void aCommeSortie(Etape... etapes){
-        this.sasSortie.ajouterSuccesseur(etapes);
+        for(Etape e : etapes){
+            e.ajouterSuccesseur(sasSortie);
+        }
+    }
+
+    public int nbEtapes(){
+        return this.gestionEtapes.nbEtapes();
+    }
+
+    public int nbGuichets(){
+        int cptGuichet = 0;
+        for(Etape etape : gestionEtapes){
+            if(etape.estUnGuichet()){
+                cptGuichet ++;
+            }
+        }
+        return cptGuichet;
     }
 
     public int nbEntree(){
         return this.sasEntree.nbSuccesseur();
     }
 
-    public int nbSortie(){
-        return this.sasSortie.nbSuccesseur();
+    @Override
+    public String toString() {
+        return "Monde{" +
+                "sasSortie=" + sasSortie +
+                ", sasEntree=" + sasEntree +
+                ", gestionEtapes=" + gestionEtapes +
+                '}';
     }
-
 }

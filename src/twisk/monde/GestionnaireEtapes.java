@@ -23,4 +23,10 @@ public class GestionnaireEtapes implements Iterable<Etape>{
         return EtapeList.iterator();
     }
 
+    @Override
+    public String toString() {
+        return "GestionnaireEtapes{" +
+                "EtapeList=" + EtapeList +
+                '}';
+    }
 }
