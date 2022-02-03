@@ -6,6 +6,7 @@ import java.util.Iterator;
 public abstract class Etape {
     private String nom;
     private GestionnaireSuccesseurs succ;
+    private int numero;
 
     /**
      * Constructeur

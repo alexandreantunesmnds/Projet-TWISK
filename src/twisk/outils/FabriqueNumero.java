@@ -4,26 +4,18 @@ public class FabriqueNumero {
     private static FabriqueNumero instance = new FabriqueNumero();
 
     private int cptEtape;
-    private int cptSemaphore;
-
-    private FabriqueNumero(){
-    }
 
     public static FabriqueNumero getInstance(){
         return instance;
     }
 
-    public int getNumeroEtape(){
-        int i = this.cptEtape++;
-        return i;
+    private FabriqueNumero(){}
+
+    int getNumeroEtape(){
+        return cptEtape;
     }
 
-    public int getNumeroSemaphore(){
-        return ++this.cptSemaphore;
-    }
+    void reset(){
 
-    public void reset(){
-        this.cptEtape = 0;
-        this.cptSemaphore = 0;
     }
 }
