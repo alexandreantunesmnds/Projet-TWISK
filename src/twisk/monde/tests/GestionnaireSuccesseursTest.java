@@ -4,15 +4,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twisk.monde.*;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestionnaireSuccesseursTest {
 
     private GestionnaireSuccesseurs gestS;
+    private GestionnaireSuccesseurs gestEmpty;
 
     @BeforeEach
     void setUp() {
         this.gestS = new GestionnaireSuccesseurs();
+        this.gestEmpty =new GestionnaireSuccesseurs();
     }
 
     @Test
@@ -27,5 +31,15 @@ class GestionnaireSuccesseursTest {
 
     @Test
     void iterator() {
+        Etape act = new Activite("Toboggan");
+        Etape guich = new Guichet("Caisse");
+        this.gestS.ajouter(act,guich);
+        Iterator<Etape> it, it2;
+        it = this.gestEmpty.iterator();
+        it2 = this.gestS.iterator();
+        assertFalse(it.hasNext());
+        assertEquals(it2.next().getNom(),"Toboggan");
+        assertEquals(it2.next().getNom(),"Caisse");
+        assertFalse(it2.hasNext());
     }
 }
