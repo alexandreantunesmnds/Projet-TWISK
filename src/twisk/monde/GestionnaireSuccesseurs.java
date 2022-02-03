@@ -9,12 +9,15 @@ public class GestionnaireSuccesseurs {
     public GestionnaireSuccesseurs(){
         this.EtapeList = new ArrayList<Etape>();
     }
+
     public void ajouter(Etape ... etapes){
         this.EtapeList.addAll(List.of(etapes));
     }
+
     public int nbEtapes(){
         return this.EtapeList.size();
     }
+
     public Iterator<Etape> iterator(){
         return EtapeList.iterator();
     }
