@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GestionnaireEtapesTest {
 
-    GestionnaireEtapes gestE;
+    private GestionnaireEtapes gestE;
 
     @BeforeEach
     void setUp() {
@@ -23,8 +23,7 @@ class GestionnaireEtapesTest {
         Etape E1 = new Activite("Activite1");
         Etape G1 = new Guichet("Guichet1");
 
-        this.gestE.ajouter(E1);
-        this.gestE.ajouter(G1);
+        this.gestE.ajouter(E1,G1);
 
         assertEquals(2,this.gestE.nbEtapes());
     }
