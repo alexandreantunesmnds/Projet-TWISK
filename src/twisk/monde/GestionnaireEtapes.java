@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class GestionnaireEtapes implements Iterable<Etape>{
-    private ArrayList<Etape> EtapeList;
+    private ArrayList<Etape> etapeList;
 
     /**
      * Constructeur
      */
     public GestionnaireEtapes (){
-        this.EtapeList = new ArrayList<Etape>();
+        this.etapeList = new ArrayList<Etape>();
     }
 
     /**
@@ -19,7 +19,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @param etapes Liste d'étape à ajouter
      */
     public void ajouter (Etape ... etapes){
-        this.EtapeList.addAll(List.of(etapes));
+        this.etapeList.addAll(List.of(etapes));
     }
 
     /**
@@ -27,7 +27,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @return Retourne le nombre d'étape dans la liste
      */
     public int nbEtapes(){
-        return this.EtapeList.size();
+        return this.etapeList.size();
     }
 
     /**
@@ -35,7 +35,7 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @return
      */
     public Iterator<Etape> iterator() {
-        return EtapeList.iterator();
+        return etapeList.iterator();
     }
 
     /**
@@ -44,8 +44,10 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      */
     @Override
     public String toString() {
-        return "GestionnaireEtapes{" +
-                "EtapeList=" + EtapeList +
-                '}';
+        StringBuilder listeEtape = new StringBuilder();
+        for(Etape e : etapeList){
+            listeEtape.append(e.toString() + "\n");
+        }
+        return listeEtape.toString();
     }
 }

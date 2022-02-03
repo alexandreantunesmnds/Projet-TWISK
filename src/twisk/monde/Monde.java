@@ -33,6 +33,14 @@ public class Monde {
     }
 
     /**
+     * Fonction qui ajoute les étapes dans le monde
+     * @param etapes les étapes à ajouter dans le monde
+     */
+    public void ajouter(Etape... etapes){
+        gestionEtapes.ajouter(etapes);
+    }
+
+    /**
      * Fonction qui indique le nombre d'étape dans le monde
      * @return Le nombre d'étape dans le monde
      */
@@ -64,10 +72,9 @@ public class Monde {
 
     @Override
     public String toString() {
-        return "Monde{" +
-                "sasSortie=" + sasSortie +
-                ", sasEntree=" + sasEntree +
-                ", gestionEtapes=" + gestionEtapes +
-                '}';
+        return "Entrées : " + sasEntree.nbSuccesseur() + " successeur(s) - " + sasEntree.getSucc().toString() + "\n" +
+                "Sorties : " + sasSortie.nbSuccesseur() + " successeur(s) \n" +
+                "Liste des " + this.nbEtapes() + " etapes : \n" +
+                gestionEtapes.toString();
     }
 }

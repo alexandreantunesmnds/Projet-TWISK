@@ -66,9 +66,6 @@ public class Activite extends Etape {
      */
     @Override
     public String toString() {
-        return "Activite{" +
-                "temps=" + temps +
-                ", ecartTemps=" + ecartTemps +
-                '}';
+        return this.getNom() + " : " + this.nbSuccesseur() + " successeurs -> " + this.getSucc().toString();
     }
 }

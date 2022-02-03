@@ -44,8 +44,10 @@ public class GestionnaireSuccesseurs {
      */
     @Override
     public String toString() {
-        return "GestionnaireSuccesseurs{" +
-                "EtapeList=" + EtapeList +
-                '}';
+        StringBuilder listeSuccesseur = new StringBuilder();
+        for(Etape e : EtapeList){
+            listeSuccesseur.append(e.getNom() + " - ");
+        }
+        return listeSuccesseur.toString() ;
     }
 }
