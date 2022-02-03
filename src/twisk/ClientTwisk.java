@@ -1,6 +1,10 @@
-package twisk.monde;
+package twisk;
 
-import twisk.monde.simulation.Simulation;
+import twisk.monde.Activite;
+import twisk.monde.Etape;
+import twisk.monde.Guichet;
+import twisk.monde.Monde;
+import twisk.simulation.Simulation;
 
 public class ClientTwisk {
 
