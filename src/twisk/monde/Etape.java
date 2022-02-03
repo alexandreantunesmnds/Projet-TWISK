@@ -3,7 +3,7 @@ package twisk.monde;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public abstract class Etape {
+public abstract class Etape implements Iterable<Etape>{
     private String nom;
     private GestionnaireSuccesseurs succ;
     private int numero;
