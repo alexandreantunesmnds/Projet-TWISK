@@ -7,14 +7,14 @@ import twisk.monde.Guichet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GuichetTest extends EtapeTest{
+class ActiviteTest extends EtapeTest{
     @Test
-    void estUnGuichet() {
-        assertTrue(guich.estUnGuichet());
+    void estUneActivite() {
+        assertTrue(act.estUneActivite());
     }
 
     @Test
-    void estUneActivite() {
-        assertFalse(guich.estUneActivite());
+    void estUnGuichet() {
+        assertFalse(act.estUnGuichet());
     }
 }

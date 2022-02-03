@@ -6,9 +6,14 @@ public class Guichet extends Etape {
     public Guichet(String nom) {
         super(nom);
     }
+
     public Guichet(String nom, int nb){
         super(nom);
         this.nbjetons = nb;
+    }
+
+    public int getNbjetons(){
+        return this.nbjetons;
     }
 
     @Override
