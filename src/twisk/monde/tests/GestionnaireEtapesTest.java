@@ -20,9 +20,6 @@ class GestionnaireEtapesTest {
     void setUp() {
         this.gestE = new GestionnaireEtapes();
         this.gestEmpty = new GestionnaireEtapes();
-        Etape act = new Activite("Toboggan");
-        Etape guich = new Guichet("Caisse");
-        this.gestE.ajouter(act,guich);
     }
 
     @Test
@@ -31,11 +28,14 @@ class GestionnaireEtapesTest {
         Etape G1 = new Guichet("Guichet1");
 
         this.gestE.ajouter(E1,G1);
-        assertEquals(4,this.gestE.nbEtapes());
+        assertEquals(2,this.gestE.nbEtapes());
     }
 
     @Test
     void iterator() {
+        Etape act = new Activite("Toboggan");
+        Etape guich = new Guichet("Caisse");
+        this.gestE.ajouter(act,guich);
         Iterator<Etape>  it, it2;
         it = this.gestEmpty.iterator();
         it2 = this.gestE.iterator();
