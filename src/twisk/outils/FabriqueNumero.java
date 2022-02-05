@@ -5,17 +5,20 @@ public class FabriqueNumero {
 
     private int cptEtape;
 
+    private FabriqueNumero(){
+        this.cptEtape = 0;
+    }
+
     public static FabriqueNumero getInstance(){
         return instance;
     }
 
-    private FabriqueNumero(){}
-
-    int getNumeroEtape(){
+    public int getNumeroEtape(){
+        this.cptEtape++;
         return cptEtape;
     }
 
-    void reset(){
-
+    public void reset(){
+        this.cptEtape = 0;
     }
 }
