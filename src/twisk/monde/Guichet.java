@@ -1,7 +1,10 @@
 package twisk.monde;
 
+import twisk.outils.FabriqueNumero;
+
 public class Guichet extends Etape {
     private int nbjetons;
+    private int numero;
 
     /**
      * Constructeur
@@ -10,6 +13,7 @@ public class Guichet extends Etape {
     public Guichet(String nom) {
         super(nom);
         this.nbjetons = 5;
+        this.numero = FabriqueNumero.getInstance().getNumeroSemaphore();
     }
 
     /**
@@ -20,6 +24,7 @@ public class Guichet extends Etape {
     public Guichet(String nom, int nb){
         super(nom);
         this.nbjetons = nb;
+        this.numero = FabriqueNumero.getInstance().getNumeroSemaphore();
     }
 
     /**
@@ -55,5 +60,9 @@ public class Guichet extends Etape {
     @Override
     public String toString() {
         return this.getNom() + " : " + this.nbSuccesseur() + " successeurs -> " + this.getSucc().toString();
+    }
+
+    public int getNumero() {
+        return this.numero;
     }
 }
