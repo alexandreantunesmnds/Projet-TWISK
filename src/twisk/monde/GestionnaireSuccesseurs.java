@@ -24,15 +24,15 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
 
     /**
      * Fonction qui retourne le nombre de successeur d'une étape
-     * @return
+     * @return le nombre de successeurs d'une étape
      */
     public int nbEtapes(){
         return this.EtapeList.size();
     }
 
     /**
-     *
-     * @return
+     * Fonction qui permet d'itérer des étapes
+     * @return Iterator<Etape>
      */
     public Iterator<Etape> iterator(){
         return EtapeList.iterator();

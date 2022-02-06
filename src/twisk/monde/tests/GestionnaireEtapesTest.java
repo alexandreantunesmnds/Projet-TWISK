@@ -26,7 +26,6 @@ class GestionnaireEtapesTest {
     void ajouter() {
         Etape E1 = new Activite("Activite1");
         Etape G1 = new Guichet("Guichet1");
-
         this.gestE.ajouter(E1,G1);
         assertEquals(2,this.gestE.nbEtapes());
     }

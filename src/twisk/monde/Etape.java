@@ -35,6 +35,10 @@ public abstract class Etape implements Iterable<Etape>{
         return succ;
     }
 
+    /**
+     * Getteur numero
+     * @return  Retourne le numéro de l'étape
+     */
     public int getNumero (){
         return this.numero;
     }
@@ -68,8 +72,8 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     /**
-     * Fonction qui
-     * @return
+     * Fonction qui permet d'itérer des étapes
+     * @return Iterator<Etape>
      */
     public Iterator<Etape> iterator(){
         return this.succ.iterator();
