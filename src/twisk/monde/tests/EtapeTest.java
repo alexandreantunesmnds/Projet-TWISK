@@ -6,20 +6,21 @@ import twisk.monde.Activite;
 import twisk.monde.ActiviteRestreinte;
 import twisk.monde.Etape;
 import twisk.monde.Guichet;
+import twisk.outils.FabriqueNumero;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class EtapeTest {
 
-    protected Etape guich;
-    protected Etape act ;
-    protected Etape actRestreinte;
+    protected Guichet guich;
+    protected Activite act ;
+    protected ActiviteRestreinte actRestreinte;
 
     @BeforeEach
     void setUp() {
-        this.act = new Activite("Piscine");
+        this.act = new Activite("Piscine",6,3);
         this.guich = new Guichet("Caisse");
-        this.actRestreinte = new ActiviteRestreinte("ActRestreinte");
+        this.actRestreinte = new ActiviteRestreinte("ActRestreinte",4,2);
     }
 
     @Test
@@ -37,18 +38,19 @@ public abstract class EtapeTest {
     abstract void estUnGuichet();
 
     @Test
-    void iterator() {
-        
-    }
+    void getNumero(){
+        FabriqueNumero.getInstance().reset();
+        Activite A = new Activite("Jeux");
+        Activite B = new Activite("Coloriage");
+        Guichet G = new Guichet("Caisse");
+        Guichet H = new Guichet("Caisse 2");
+        ActiviteRestreinte C = new ActiviteRestreinte("ActRestreinte");
+        assertEquals(A.getNumero(),0);
+        assertEquals(B.getNumero(),1);
+        assertEquals(G.getNumero(),2);
+        assertEquals(H.getNumero(),3);
+        assertEquals(C.getNumero(),4);
 
-    @Test
-    void testToString() {
-    }
-
-    @Test
-    void getNumero() {
-        assertEquals(this.act.getNumero(),0);
-        assertEquals(this.guich.getNumero(),1);
 
     }
 }

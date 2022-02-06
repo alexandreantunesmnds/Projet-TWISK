@@ -74,7 +74,7 @@ public class Monde implements Iterable<Etape> {
 
     @Override
     public Iterator<Etape> iterator() {
-        return null;
+        return this.gestionEtapes.iterator();
     }
 
     @Override

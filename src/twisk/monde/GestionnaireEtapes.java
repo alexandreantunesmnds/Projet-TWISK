@@ -29,8 +29,8 @@ public class GestionnaireEtapes implements Iterable<Etape>{
     }
 
     /**
-     *
-     * @return
+     * Fonction qui permet d'itérer des étapes
+     * @return Iterator<Etape>
      */
     public Iterator<Etape> iterator() {
         return etapeList.iterator();
