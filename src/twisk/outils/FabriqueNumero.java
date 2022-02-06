@@ -4,6 +4,7 @@ public class FabriqueNumero {
     private static FabriqueNumero instance = new FabriqueNumero();
 
     private int cptEtape;
+    private int cptSemaphore;
 
     private FabriqueNumero(){
     }
@@ -15,6 +16,10 @@ public class FabriqueNumero {
     public int getNumeroEtape(){
         int i = this.cptEtape++;
         return i;
+    }
+
+    public int getNumeroSemaphore(){
+        return ++this.cptSemaphore;
     }
 
     public void reset(){
