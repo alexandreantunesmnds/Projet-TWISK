@@ -15,12 +15,14 @@ public abstract class EtapeTest {
     protected Guichet guich;
     protected Activite act ;
     protected ActiviteRestreinte actRestreinte;
+    protected Guichet guich2;
 
     @BeforeEach
     void setUp() {
         this.act = new Activite("Piscine",6,3);
         this.guich = new Guichet("Caisse");
         this.actRestreinte = new ActiviteRestreinte("ActRestreinte",4,2);
+        this.guich2 = new Guichet("Attente",3);
     }
 
     @Test

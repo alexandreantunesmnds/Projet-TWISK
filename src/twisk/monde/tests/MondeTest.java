@@ -11,10 +11,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MondeTest {
     private Monde world;
+    private Activite act;
+    private Guichet guich;
 
     @BeforeEach
     void setUp() {
         this.world = new Monde();
+        this.act = new Activite("Piscine",6,3);
+        this.guich = new Guichet("Caisse");
     }
 
     @Test
@@ -32,5 +36,18 @@ public class MondeTest {
 
         assertEquals(1,Activite1.nbSuccesseur());
         assertEquals(1,Guichet1.nbSuccesseur());
+    }
+
+    @Test
+    void ajouter() {
+        this.world.ajouter(act,guich);
+        assertEquals(this.world.nbEtapes(),2);
+        assertEquals(this.world.nbGuichets(),1);
+    }
+
+    @Test
+    void nbEntree() {
+        this.world.aCommeEntree(this.act,this.guich);
+        assertEquals(this.world.nbEntree(),2);
     }
 }

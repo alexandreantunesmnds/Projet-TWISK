@@ -16,4 +16,10 @@ class GuichetTest extends EtapeTest{
     void estUneActivite() {
         assertFalse(guich.estUneActivite());
     }
+
+    @Test
+    void getNbjetons() {
+        assertEquals(guich.getNbjetons(),5);
+        assertEquals(guich2.getNbjetons(),3);
+    }
 }

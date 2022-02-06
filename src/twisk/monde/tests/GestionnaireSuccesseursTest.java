@@ -23,9 +23,7 @@ class GestionnaireSuccesseursTest {
     void ajouter() {
         Etape E1 = new Activite("Etape1");
         Etape G1 = new Guichet("Guichet1");
-
         this.gestS.ajouter(E1,G1);
-
         assertEquals(2,this.gestS.nbEtapes());
     }
 
