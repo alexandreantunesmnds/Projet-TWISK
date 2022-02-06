@@ -66,6 +66,6 @@ public class Activite extends Etape {
      */
     @Override
     public String toString() {
-        return this.getNom() + " : " + this.nbSuccesseur() + " successeurs -> " + this.getSucc().toString();
+        return "Activité " + this.getNom() + " : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
     }
 }
