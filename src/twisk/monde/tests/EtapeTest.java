@@ -42,17 +42,13 @@ public abstract class EtapeTest {
     @Test
     void getNumero(){
         FabriqueNumero.getInstance().reset();
-        Activite A = new Activite("Jeux");
-        Activite B = new Activite("Coloriage");
-        Guichet G = new Guichet("Caisse");
-        Guichet H = new Guichet("Caisse 2");
-        ActiviteRestreinte C = new ActiviteRestreinte("ActRestreinte");
+        Etape A = new Activite("Jeux");
+        Etape B = new Activite("Coloriage");
+        Etape C = new Guichet("Caisse");
+        Etape D = new ActiviteRestreinte("ActRestreinte");
         assertEquals(A.getNumero(),0);
         assertEquals(B.getNumero(),1);
-        assertEquals(G.getNumero(),2);
-        assertEquals(H.getNumero(),3);
-        assertEquals(C.getNumero(),4);
-
-
+        assertEquals(C.getNumero(),2);
+        assertEquals(D.getNumero(),3);
     }
 }

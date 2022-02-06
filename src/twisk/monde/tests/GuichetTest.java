@@ -25,8 +25,11 @@ class GuichetTest extends EtapeTest{
     }
 
     @Test
-    void testGetNumero() {
-        assertEquals(guich.getNumero(),1);
-        assertEquals(guich2.getNumero(),2);
+    void testGetNumeroSema() {
+        FabriqueNumero.getInstance().reset();
+        Guichet guichet = new Guichet("Guichet");
+        Guichet guichet2 = new Guichet("Guichet2");
+        assertEquals(guichet.getNumeroSema(),1);
+        assertEquals(guichet2.getNumeroSema(),2);
     }
 }
