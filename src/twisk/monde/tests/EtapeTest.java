@@ -40,4 +40,15 @@ public abstract class EtapeTest {
     void iterator() {
         
     }
+
+    @Test
+    void testToString() {
+    }
+
+    @Test
+    void getNumero() {
+        assertEquals(this.act.getNumero(),0);
+        assertEquals(this.guich.getNumero(),1);
+
+    }
 }

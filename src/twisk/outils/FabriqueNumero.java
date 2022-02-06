@@ -6,7 +6,6 @@ public class FabriqueNumero {
     private int cptEtape;
 
     private FabriqueNumero(){
-        this.cptEtape = 0;
     }
 
     public static FabriqueNumero getInstance(){
@@ -14,8 +13,8 @@ public class FabriqueNumero {
     }
 
     public int getNumeroEtape(){
-        this.cptEtape++;
-        return cptEtape;
+        int i = this.cptEtape++;
+        return i;
     }
 
     public void reset(){

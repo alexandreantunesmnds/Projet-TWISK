@@ -35,6 +35,10 @@ public abstract class Etape implements Iterable<Etape>{
         return succ;
     }
 
+    public int getNumero (){
+        return this.numero;
+    }
+
     /**
      * Fonction qui ajoute un successeur à une étape
      * @param e Etape qui succèdera à l'étape qui appelle la fonction
