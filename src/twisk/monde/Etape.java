@@ -72,6 +72,12 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     /**
+     * Fonction qui génère le code C de l'étape à partir de ces attributs
+     * @return Retourne le code C de l'étape
+     */
+    public abstract String toC();
+
+    /**
      * Fonction qui permet d'itérer des étapes
      * @return Iterator<Etape>
      */
