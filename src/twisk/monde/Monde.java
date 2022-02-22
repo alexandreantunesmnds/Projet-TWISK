@@ -72,6 +72,14 @@ public class Monde implements Iterable<Etape> {
         return this.sasEntree.nbSuccesseur();
     }
 
+    /**
+     * Fonction
+     * @return
+     */
+    public String toC(){
+        return "";
+    }
+
     @Override
     public Iterator<Etape> iterator() {
         return this.gestionEtapes.iterator();

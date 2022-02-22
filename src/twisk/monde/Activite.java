@@ -61,6 +61,15 @@ public class Activite extends Etape {
     }
 
     /**
+     * Fonction qui génère le code C de l'étape à partir de ces attributs
+     * @return Retourne le code C de l'étape
+     */
+    @Override
+    public String toC() {
+        return "delai("+this.temps+","+ this.ecartTemps +")";
+    }
+
+    /**
      * Fonction toString
      * @return Retourne les détails d'une Activité
      */
