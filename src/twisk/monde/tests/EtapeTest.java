@@ -19,6 +19,7 @@ public abstract class EtapeTest {
 
     @BeforeEach
     void setUp() {
+        FabriqueNumero.getInstance().reset();
         this.act = new Activite("Piscine",6,3);
         this.guich = new Guichet("Caisse");
         this.actRestreinte = new ActiviteRestreinte("ActRestreinte",4,2);
