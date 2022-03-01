@@ -66,8 +66,13 @@ public class Activite extends Etape {
      */
     @Override
     public String toC() {
-        StringBuilder code = new StringBuilder("delai("+this.temps+","+ this.ecartTemps +");" +
-                "\ntransfert("+this.getNumero()+","+this.getSucc()+");\n");
+        StringBuilder code = new StringBuilder("delai("+this.temps+","+ this.ecartTemps +");" + "\n");
+
+        for(Etape e : this.getSucc()){
+            code.append("transfert("+this.getNom()+","+e.getNom());
+        }
+
+        code.append(");\n");
 
         for(Etape e : this.getSucc()){ //On écrit le code C des successeurs
             code.append(e.toC());
