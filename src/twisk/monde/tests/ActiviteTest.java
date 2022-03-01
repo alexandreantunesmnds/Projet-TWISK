@@ -32,7 +32,11 @@ class ActiviteTest extends EtapeTest{
 
     @Test
     void toC(){
-        String actToC = "delai(6,3);\ntransfert(\n";
-        assertEquals(act.toC(),actToC);
+        Activite actS = new Activite("Toboggan",3,2);
+        act.ajouterSuccesseur(actS);
+        String actToC = "delai(6,3);\ntransfert(Piscine,Toboggan);\n" +
+                "delai(3,2);\n";
+        String res = act.toC();
+        assertEquals(res,actToC);
     }
 }

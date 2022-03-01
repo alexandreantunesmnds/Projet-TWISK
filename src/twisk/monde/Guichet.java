@@ -53,6 +53,11 @@ public class Guichet extends Etape {
         return true;
     }
 
+    @Override
+    public String toC() {
+        return null;
+    }
+
     /**
      * Fonction toString
      * @return Retourne les détails du guichet
