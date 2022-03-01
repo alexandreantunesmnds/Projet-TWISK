@@ -32,6 +32,7 @@ class ActiviteTest extends EtapeTest{
 
     @Test
     void toC(){
-        
+        String actToC = "delai(6,3);\ntransfert(\n";
+        assertEquals(act.toC(),actToC);
     }
 }
