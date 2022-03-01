@@ -1,6 +1,7 @@
 package twisk.monde.tests;
 
 import org.junit.jupiter.api.Test;
+import twisk.monde.Activite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,5 +28,10 @@ class ActiviteTest extends EtapeTest{
     void getEcartTemps() {
         assertEquals(act.getEcartTemps(),3);
         assertEquals(actRestreinte.getEcartTemps(),2);
+    }
+
+    @Test
+    void toC(){
+        
     }
 }
