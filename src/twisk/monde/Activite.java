@@ -69,10 +69,8 @@ public class Activite extends Etape {
         StringBuilder code = new StringBuilder("delai("+this.temps+","+ this.ecartTemps +");" + "\n");
 
         for(Etape e : this.getSucc()){
-            code.append("transfert("+this.getNom()+","+e.getNom());
+            code.append("transfert("+this.getNom()+","+e.getNom()+");\n");
         }
-
-        code.append(");\n");
 
         for(Etape e : this.getSucc()){ //On écrit le code C des successeurs
             code.append(e.toC());
