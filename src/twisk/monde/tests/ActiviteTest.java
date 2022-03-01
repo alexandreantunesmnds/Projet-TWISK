@@ -32,7 +32,7 @@ class ActiviteTest extends EtapeTest{
 
     @Test
     void toC(){
-        String actToC = "delai(6,3);\n";
+        String actToC = "delai(6,3);\n"; //coucou
         assertEquals(act.toC(),actToC);
     }
 }
