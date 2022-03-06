@@ -14,7 +14,7 @@ class GuichetTest extends EtapeTest{
     }
 
     @Test
-    void estUneActivite() {
+    public void estUneActivite() {
         assertFalse(guich.estUneActivite());
     }
 

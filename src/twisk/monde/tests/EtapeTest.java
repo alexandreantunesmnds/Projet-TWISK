@@ -34,7 +34,7 @@ public abstract class EtapeTest {
     }
 
     @Test
-    abstract void estUneActivite();
+    public abstract void estUneActivite();
 
     @Test
     abstract void estUnGuichet();

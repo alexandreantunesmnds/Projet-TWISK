@@ -5,9 +5,9 @@ import twisk.monde.Activite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ActiviteTest extends EtapeTest{
+public class ActiviteTest extends EtapeTest{
     @Test
-    void estUneActivite() {
+    public void estUneActivite() {
         assertTrue(act.estUneActivite());
         assertTrue(actRestreinte.estUneActivite());
     }
@@ -32,7 +32,7 @@ class ActiviteTest extends EtapeTest{
 
     @Test
     void toC(){
-        String actToC = "delai(6,3);\n"; //coucou
+        String actToC = "delai(6,3);\n";
         assertEquals(act.toC(),actToC);
         Activite actS = new Activite("Toboggan",3,2);
         act.ajouterSuccesseur(actS);
