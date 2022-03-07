@@ -77,6 +77,12 @@ public class Monde implements Iterable<Etape> {
      * @return
      */
     public String toC(){
+        StringBuilder code = new StringBuilder("#include <stdio.h>\n" +
+                "#include <stdlib.h>\n" +
+                "#include def.h\n" +
+                "\n" +
+                "void Simulation(int ids){\n" +
+                this.sasEntree.toC()+"}");
         return "";
     }
 
