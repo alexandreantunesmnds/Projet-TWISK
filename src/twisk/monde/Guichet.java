@@ -17,6 +17,15 @@ public class Guichet extends Etape {
     }
 
     /**
+     * Fixe le numéro sémaphore
+     * @param num
+     */
+    @Override
+    protected void setNumSemaphore(int num) {
+        this.num = num;
+    }
+
+    /**
      * Constructeur
      * @param nom nom du guichet
      * @param nb nombre de jetons
@@ -33,6 +42,14 @@ public class Guichet extends Etape {
      */
     public int getNbjetons(){
         return this.nbjetons;
+    }
+
+    /**
+     * Getteur numéro sémaphore
+     * @return Retourne le numéro sémaphore
+     */
+    public int getNum() {
+        return this.num;
     }
 
     /**
@@ -53,9 +70,21 @@ public class Guichet extends Etape {
         return true;
     }
 
+    /**
+     * Fonction qui génère le code C de l'étape à partir de ces attributs
+     * @return Retourne le code C de l'étape
+     */
     @Override
     public String toC() {
-        return null;
+        StringBuilder code = new StringBuilder("P(ids,"+this.num+");\n");
+
+        for(Etape e : this.getSucc()){
+            e.setNumSemaphore(this.num);
+            code.append("transfert("+this.getNom()+","+e.getNom()+");\n");
+            code.append(e.toC());
+        }
+
+        return code.toString();
     }
 
     /**

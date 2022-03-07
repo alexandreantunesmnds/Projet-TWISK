@@ -1,6 +1,8 @@
-package twisk.monde;
+package twisk.monde.tests;
 
 import org.junit.jupiter.api.Test;
+import twisk.monde.Activite;
+import twisk.monde.SasEntree;
 import twisk.monde.tests.ActiviteTest;
 
 import static org.junit.jupiter.api.Assertions.*;

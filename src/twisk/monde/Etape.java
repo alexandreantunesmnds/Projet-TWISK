@@ -44,6 +44,12 @@ public abstract class Etape implements Iterable<Etape>{
     }
 
     /**
+     * Fonction qui permet de donner son numéro sémaphore à une autre étape
+     * @param num
+     */
+    protected abstract void setNumSemaphore(int num);
+
+    /**
      * Fonction qui ajoute un successeur à une étape
      * @param e Etape qui succèdera à l'étape qui appelle la fonction
      */

@@ -33,6 +33,6 @@ public class SasEntree extends Activite {
      */
     @Override
     public String toString() {
-        return "SasEntree{}";
+        return this.getNom() + " : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
     }
 }
