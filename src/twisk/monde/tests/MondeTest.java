@@ -2,22 +2,21 @@ package twisk.monde.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import twisk.monde.Activite;
-import twisk.monde.Etape;
-import twisk.monde.Guichet;
-import twisk.monde.Monde;
+import twisk.monde.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MondeTest {
     private Monde world;
-    private Etape act;
-    private Etape guich;
+    private Activite act;
+    private ActiviteRestreinte actR;
+    private Guichet guich;
 
     @BeforeEach
     void setUp() {
         this.world = new Monde();
         this.act = new Activite("Piscine",6,3);
+        this.actR = new ActiviteRestreinte("Toboggan",3,2);
         this.guich = new Guichet("Caisse");
     }
 
@@ -52,8 +51,9 @@ public class MondeTest {
     }
     @Test
     void toC() {
-        this.world.ajouter(this.guich,this.act);
+        this.world.ajouter(this.guich,this.actR,this.act);
         this.world.aCommeEntree(this.guich);
+        this.guich.ajouterSuccesseur(this.actR);
         this.world.aCommeSortie(this.act);
         String code = this.world.toC();
         assertEquals(code,"#include <stdio.h>\n"+"#include <stdlib.h>\n" +
