@@ -29,4 +29,8 @@ public class ActiviteTest extends EtapeTest{
         assertEquals(act.getEcartTemps(),3);
         assertEquals(actRestreinte.getEcartTemps(),2);
     }
+
+    @Test
+    void toC() {
+    }
 }
