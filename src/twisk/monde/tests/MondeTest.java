@@ -68,7 +68,7 @@ public class MondeTest {
 
         String code = this.world.toC();
         assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
-                "#include def.h\n" +
+                "#include \"def.h\"\n" +
                 "\n" +
                 "void Simulation(int ids){\n" +
                 "entrer(SasEntree);\n" +
