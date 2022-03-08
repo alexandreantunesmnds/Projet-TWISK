@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MondeTest {
     private Monde world;
-    private Activite act;
-    private Guichet guich;
+    private Etape act;
+    private Etape guich;
 
     @BeforeEach
     void setUp() {
@@ -49,5 +49,17 @@ public class MondeTest {
     void nbEntree() {
         this.world.aCommeEntree(this.act,this.guich);
         assertEquals(this.world.nbEntree(),2);
+    }
+    @Test
+    void toC() {
+        this.world.ajouter(this.guich,this.act);
+        this.world.aCommeEntree(this.guich);
+        this.world.aCommeSortie(this.act);
+        String code = this.world.toC();
+        assertEquals(code,"#include <stdio.h>\n"+"#include <stdlib.h>\n" +
+                "#include def.h\n" +
+                "\n" +
+                "void Simulation(int ids){\n" +
+                this.world.getEntree().toC()+"}");
     }
 }

@@ -34,6 +34,10 @@ public class Monde implements Iterable<Etape> {
         }
     }
 
+    public SasEntree getEntree(){
+        return this.sasEntree;
+    }
+
     /**
      * Fonction qui ajoute les étapes dans le monde
      * @param etapes les étapes à ajouter dans le monde
@@ -83,7 +87,7 @@ public class Monde implements Iterable<Etape> {
                 "\n" +
                 "void Simulation(int ids){\n" +
                 this.sasEntree.toC()+"}");
-        return "";
+        return code.toString();
     }
 
     @Override
