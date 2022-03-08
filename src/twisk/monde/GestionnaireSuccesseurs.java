@@ -15,6 +15,15 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
     }
 
     /**
+     * Fonction qui retourne l'étape dont l'index est donnée en paramètre
+     * @param id index de l'étape
+     * @return l'étape à l'index id
+     */
+    public Etape getEtape(int id){
+        return EtapeList.get(id);
+    }
+
+    /**
      * Fonction qui ajoute à la liste des successeurs des étapes
      * @param etapes Liste d'étape à ajouter
      */

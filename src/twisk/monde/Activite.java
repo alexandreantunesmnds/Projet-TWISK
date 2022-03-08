@@ -43,14 +43,6 @@ public class Activite extends Etape {
     }
 
     /**
-     * Fixe le numéro sémaphore
-     * @param num
-     */
-    @Override
-    protected void setNumSemaphore(int num) {
-    }
-
-    /**
      * Fonction qui retourne vrai si c'est une Activité
      * @return retourne vrai
      */

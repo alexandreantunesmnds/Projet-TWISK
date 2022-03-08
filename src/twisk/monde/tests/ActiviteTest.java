@@ -29,16 +29,4 @@ public class ActiviteTest extends EtapeTest{
         assertEquals(act.getEcartTemps(),3);
         assertEquals(actRestreinte.getEcartTemps(),2);
     }
-
-    @Test
-    void toC(){
-        String actToC = "delai(6,3);\n";
-        assertEquals(act.toC(),actToC);
-        Activite actS = new Activite("Toboggan",3,2);
-        act.ajouterSuccesseur(actS);
-        actToC = "delai(6,3);\ntransfert(Piscine,Toboggan);\n" +
-                "delai(3,2);\n";
-        String res = act.toC();
-        assertEquals(res,actToC);
-    }
 }

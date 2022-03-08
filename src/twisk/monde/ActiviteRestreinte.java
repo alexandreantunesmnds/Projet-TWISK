@@ -21,15 +21,6 @@ public class ActiviteRestreinte extends Activite{
     }
 
     /**
-     * Retoune le numéro sémaphore lié au guichet de l'acitivté
-     * @return le numéro sémaphore lié au guichet de l'acitivté
-     */
-    public int getNumSemaphore() {
-        return numSemaphore;
-    }
-
-
-    /**
      * Fonction toString
      * @return retourne les détails de l'activité restreinte
      */
