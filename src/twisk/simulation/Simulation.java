@@ -4,13 +4,15 @@ import twisk.monde.Monde;
 import twisk.outils.KitC;
 
 public class Simulation {
+    private KitC kc;
+
     public Simulation(){
-        KitC kc = new KitC();
+        kc = new KitC();
         kc.creerEnvironnement();
     }
 
     public void simuler(Monde monde){
-        System.out.println(monde.toString());
-        monde.toC();
+        //System.out.println(monde.toString());
+        kc.creerFichier(monde.toC());
     }
 }
