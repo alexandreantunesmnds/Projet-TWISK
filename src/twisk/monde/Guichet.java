@@ -79,7 +79,6 @@ public class Guichet extends Etape {
         StringBuilder code = new StringBuilder("P(ids,"+this.num+");\n");
 
         for(Etape e : this.getSucc()){
-            e.setNumSemaphore(this.num);
             code.append("transfert("+this.getNom()+","+e.getNom()+");\n");
             code.append(e.toC());
         }

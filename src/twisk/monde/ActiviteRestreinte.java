@@ -28,14 +28,6 @@ public class ActiviteRestreinte extends Activite{
         return numSemaphore;
     }
 
-    /**
-     * Fixe le numéro sémaphore lié au guichet de l'acitivté
-     * @param numSemaphore
-     */
-    @Override
-    public void setNumSemaphore(int numSemaphore) {
-        this.numSemaphore = numSemaphore;
-    }
 
     /**
      * Fonction qui génère le code C de l'étape à partir de ces attributs
