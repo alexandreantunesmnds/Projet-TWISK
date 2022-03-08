@@ -1,6 +1,7 @@
 package twisk.outils.tests;
 
 import org.junit.jupiter.api.Test;
+import twisk.monde.Monde;
 import twisk.outils.KitC;
 
 import java.io.File;
@@ -20,5 +21,17 @@ class KitCTest {
         assertTrue(dos.exists() && dos.isDirectory()); //Teste si le chemin est bien un dossier et qu'il existe
         assertTrue(prog.exists() && !prog.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
         assertTrue(def.exists() && !def.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
+    }
+
+    @Test
+    void creerFichier(){
+        KitC kc = new KitC();
+        kc.creerEnvironnement();
+
+        File cl = new File("/tmp/twisk/client.c");
+
+        Monde world = new Monde();
+        kc.creerFichier(world.toC());
+        assertTrue(cl.exists() && !cl.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
     }
 }
