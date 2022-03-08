@@ -2,23 +2,26 @@ package twisk.monde.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import twisk.monde.Activite;
-import twisk.monde.Etape;
-import twisk.monde.Guichet;
-import twisk.monde.Monde;
+import twisk.monde.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MondeTest {
     private Monde world;
-    private Etape act;
-    private Etape guich;
+    private SasEntree sasEntree;
+    private Activite act;
+    private Guichet guich;
+    private ActiviteRestreinte actR;
+    private SasSortie sasSortie;
 
     @BeforeEach
     void setUp() {
         this.world = new Monde();
+        this.sasEntree = new SasEntree();
         this.act = new Activite("Piscine",6,3);
         this.guich = new Guichet("Caisse");
+        this.actR = new ActiviteRestreinte("Toboggan",4,2);
+        this.sasSortie = new SasSortie();
     }
 
     @Test
@@ -52,14 +55,31 @@ public class MondeTest {
     }
     @Test
     void toC() {
-        this.world.ajouter(this.guich,this.act);
+        //On crée le monde
         this.world.aCommeEntree(this.guich);
         this.world.aCommeSortie(this.act);
+
+        this.guich.ajouterSuccesseur(this.actR);
+
+        this.actR.ajouterSuccesseur(this.act);
+
+        this.world.ajouter(this.guich,this.actR,this.act);
+
+
         String code = this.world.toC();
-        assertEquals(code,"#include <stdio.h>\n"+"#include <stdlib.h>\n" +
+        assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
                 "#include def.h\n" +
                 "\n" +
                 "void Simulation(int ids){\n" +
-                this.world.getEntree().toC()+"}");
+                "entrer(SasEntree);\n" +
+                "transfert(SasEntree,Caisse);\n" +
+                "P(ids,1);\n" +
+                "transfert(Caisse,Toboggan);\n" +
+                "delai(4,2);\n"+
+                "V(ids,1);\n" +
+                "transfert(Toboggan,Piscine);\n" +
+                "delai(6,3);\n" +
+                "transfert(Piscine,SasSortie);\n" +
+                "}",code);
     }
 }

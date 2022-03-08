@@ -9,6 +9,15 @@ public class SasSortie extends Activite{
     }
 
     /**
+     * Fonction qui génère le code C de l'étape à partir de ces attributs
+     * @return Retourne le code C de l'étape
+     */
+    @Override
+    public String toC(){
+        return "";
+    }
+
+    /**
      * Fonction toString
      * @return Retourne les détails du SasSortie
      */

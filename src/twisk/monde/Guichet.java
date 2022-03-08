@@ -78,6 +78,7 @@ public class Guichet extends Etape {
         code.append("V(ids,"+this.num+");\n"); //Fonction fin sémaphore
 
         for(Etape e : ar.getSucc()){ //On écrit le code C des successeurs de l'activiteRestreinte
+            code.append("transfert("+ar.getNom()+","+e.getNom()+");\n");
             code.append(e.toC());
         }
 

@@ -13,7 +13,6 @@ class SasEntreeTest extends ActiviteTest {
         Activite sasEntree = new SasEntree();
         Activite act = new Activite("activite",5,3);
         String sasToC = "entrer(SasEntree);\n" +
-                "delai(6,3);\n" +
                 "transfert(SasEntree,activite);\n" +
                 "delai(5,3);\n";
         sasEntree.ajouterSuccesseur(act);

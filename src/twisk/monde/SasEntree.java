@@ -14,7 +14,7 @@ public class SasEntree extends Activite {
      */
     @Override
     public String toC(){
-        StringBuilder code = new StringBuilder("entrer("+this.getNom()+");\ndelai(6,3);\n");
+        StringBuilder code = new StringBuilder("entrer("+this.getNom()+");\n");
 
         for(Etape e : this.getSucc()){
             code.append("transfert("+this.getNom()+","+e.getNom()+");\n");
