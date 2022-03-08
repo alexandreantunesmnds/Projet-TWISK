@@ -51,15 +51,12 @@ public class ClientTwisk {
     }
 
     public static void testApresMidi(Monde aprem){
-        Etape baladeAuZoo = new Activite("BalladeAuZoo");
-        Etape attenteToboggan = new Guichet("AttenteToboggan",2);
-        Etape toboggan = new ActiviteRestreinte("Toboggan",2,1);
+        Etape attenteZoo = new Guichet("GUICHET_ZOO",2);
+        Etape baladeAuZoo = new ActiviteRestreinte("ZOO");
 
-        baladeAuZoo.ajouterSuccesseur(attenteToboggan);
-        attenteToboggan.ajouterSuccesseur(toboggan);
-
-        aprem.aCommeEntree(baladeAuZoo);
-        aprem.aCommeSortie(toboggan);
-        aprem.ajouter(baladeAuZoo,attenteToboggan,toboggan);
+        attenteZoo.ajouterSuccesseur(baladeAuZoo);
+        aprem.aCommeEntree(attenteZoo);
+        aprem.aCommeSortie(baladeAuZoo);
+        aprem.ajouter(attenteZoo,baladeAuZoo);
     }
 }
