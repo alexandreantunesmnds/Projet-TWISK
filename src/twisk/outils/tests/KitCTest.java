@@ -34,4 +34,31 @@ class KitCTest {
         kc.creerFichier(world.toC());
         assertTrue(cl.exists() && !cl.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
     }
+
+    @Test
+    void compiler(){
+        KitC kc = new KitC();
+        kc.creerEnvironnement();
+
+        File comp = new File("/tmp/twisk/client.o");
+
+        Monde world = new Monde();
+        kc.creerFichier(world.toC());
+        kc.compiler();
+        assertTrue(comp.exists() && !comp.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
+    }
+
+    @Test
+    void construireLaLibrairie(){
+        KitC kc = new KitC();
+        kc.creerEnvironnement();
+
+        File lib = new File("/tmp/twisk/libTwisk.so");
+
+        Monde world = new Monde();
+        kc.creerFichier(world.toC());
+        kc.compiler();
+        kc.construireLaLibrairie();
+        assertTrue(lib.exists() && !lib.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
+    }
 }
