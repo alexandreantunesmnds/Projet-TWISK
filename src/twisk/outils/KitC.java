@@ -10,6 +10,9 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class KitC {
     private Runtime runtime;
 
+    /**
+     * Constructeur
+     */
     public KitC() {
         runtime = Runtime.getRuntime();
     }
