@@ -28,8 +28,6 @@ public class Simulation {
         kc.compiler();
         kc.construireLaLibrairie();
 
-        System.load("tmp/twisk/libTwisk.so");
-
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();
         int nbGuichets = monde.nbGuichets();
@@ -90,6 +88,7 @@ public class Simulation {
             }
         }
         nettoyage();
+        System.load("/tmp/twisk/libTwisk.so") ;
     }
 
     /**
