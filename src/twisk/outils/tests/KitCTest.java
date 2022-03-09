@@ -16,10 +16,12 @@ class KitCTest {
         kc.creerEnvironnement();
         File dos = new File("/tmp/twisk");
         File prog = new File("/tmp/twisk/programmeC.o");
+        File cn = new File("/tmp/twisk/codeNatif.o");
         File def = new File("/tmp/twisk/def.h");
 
         assertTrue(dos.exists() && dos.isDirectory()); //Teste si le chemin est bien un dossier et qu'il existe
         assertTrue(prog.exists() && !prog.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
+        assertTrue(cn.exists() && !cn.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
         assertTrue(def.exists() && !def.isDirectory()); //Teste si le chemin est bien un fichier et qu'il existe
     }
 
