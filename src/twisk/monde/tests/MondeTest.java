@@ -70,16 +70,26 @@ public class MondeTest {
         assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
                 "\n" +
+                "#define SEM_TICKET_ZOO 1\n" +
+                "\n" +
+                "#define ENTREE 0\n" +
+                "\n" +
+                "#define GUICHET_ZOO 1\n" +
+                "\n" +
+                "#define ZOO 2\n" +
+                "\n" +
+                "#define SORTIE 3\n" +
+                "\n" +
                 "void Simulation(int ids){\n" +
-                "entrer(SasEntree);\n" +
-                "transfert(SasEntree,Caisse);\n" +
-                "P(ids,1);\n" +
+                "entrer(ENTREE);\n" +
+                "transfert(ENTREE,Caisse);\n" +
+                "P(ids,6);\n" +
                 "transfert(Caisse,Toboggan);\n" +
                 "delai(4,2);\n"+
-                "V(ids,1);\n" +
+                "V(ids,6);\n" +
                 "transfert(Toboggan,Piscine);\n" +
                 "delai(6,3);\n" +
-                "transfert(Piscine,SasSortie);\n" +
+                "transfert(Piscine,SORTIE);\n" +
                 "}",code);
     }
 }

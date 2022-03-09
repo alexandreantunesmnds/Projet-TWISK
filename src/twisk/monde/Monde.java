@@ -82,8 +82,8 @@ public class Monde implements Iterable<Etape> {
     }
 
     /**
-     * Fonction
-     * @return
+     * Fonction toC
+     * @return le code C demandé pour la Simulation
      */
     public String toC(){
         StringBuilder code = new StringBuilder("#include <stdio.h>\n" +
@@ -105,11 +105,19 @@ public class Monde implements Iterable<Etape> {
         return code.toString();
     }
 
+    /**
+     * Fonction iterator
+     * @return un Iterator <Etape> pour rendre les étapes du monde itérables
+     */
     @Override
     public Iterator<Etape> iterator() {
         return this.gestionEtapes.iterator();
     }
 
+    /**
+     * Fonction toString
+     * @return Les informations du monde sur la sortie standard
+     */
     @Override
     public String toString() {
         return "Entrées : " + sasEntree.nbSuccesseur() + " successeur(s) - " + sasEntree.getSucc().toString() + "\n" +

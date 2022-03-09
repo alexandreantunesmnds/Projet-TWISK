@@ -29,7 +29,7 @@ public class SasEntree extends Activite {
 
     /**
      * Fonction toString
-     * @return Retourne le détails du SasEntree
+     * @return Retourne les détails du SasEntree
      */
     @Override
     public String toString() {

@@ -12,8 +12,8 @@ class SasEntreeTest extends ActiviteTest {
     void toC() {
         Activite sasEntree = new SasEntree();
         Activite act = new Activite("activite",5,3);
-        String sasToC = "entrer(SasEntree);\n" +
-                "transfert(SasEntree,activite);\n" +
+        String sasToC = "entrer(ENTREE);\n" +
+                "transfert(ENTREE,activite);\n" +
                 "delai(5,3);\n";
         sasEntree.ajouterSuccesseur(act);
 

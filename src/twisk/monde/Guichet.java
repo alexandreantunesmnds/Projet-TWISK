@@ -94,6 +94,10 @@ public class Guichet extends Etape {
         return "Guichet " + this.getNom() + " : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
     }
 
+    /**
+     * Fonction getNumeroSema
+     * @return le numéro sémaphore du Guichet
+     */
     public int getNumeroSema() {
         return this.num;
     }
