@@ -24,5 +24,26 @@ public class Simulation {
         kc.compiler();
     }
 
+    /**
+     * Fonction native qui lance la simulation du monde
+     * @param nbEtapes nombre d'étapes dans le monde
+     * @param nbGuichets nombre de guichets dans le monde
+     * @param nbClients nombre de clients dans le monde
+     * @param tabJetonsGuichet tableau comportant les différents jetons de tout les guichets
+     * @return Un tableau d'id des clients
+     */
+    public native int[] start_simulation(int nbEtapes, int nbGuichets, int nbClients, int[] tabJetonsGuichet);
 
+    /**
+     * Fonction native qui résume la position des clients dans le monde
+     * @param nbEtapes nombre d'étapes dans le monde
+     * @param nbClients nombre de clients dans le monde
+     * @return Un tableau d'id des clients
+     */
+    public native int[] ou_sont_les_clients(int nbEtapes, int nbClients);
+
+    /**
+     * Fonction qui nettoie le monde
+     */
+    public native void nettoyage();
 }
