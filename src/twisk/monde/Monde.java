@@ -34,10 +34,6 @@ public class Monde implements Iterable<Etape> {
         }
     }
 
-    public SasEntree getEntree(){
-        return this.sasEntree;
-    }
-
     /**
      * Fonction qui ajoute les étapes dans le monde
      * @param etapes les étapes à ajouter dans le monde
@@ -74,6 +70,15 @@ public class Monde implements Iterable<Etape> {
      */
     public int nbEntree(){
         return this.sasEntree.nbSuccesseur();
+    }
+
+    /**
+     * Retourne l'étape à l'indice donnée
+     * @param indice l'indice donnée
+     * @return
+     */
+    public Etape getEtape(int indice) {
+        return this.gestionEtapes.getEtape(indice);
     }
 
     /**
