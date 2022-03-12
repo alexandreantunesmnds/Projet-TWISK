@@ -103,7 +103,7 @@ public abstract class Etape implements Iterable<Etape>{
     public String toDefine(){
         String nomEtape = this.nom.toUpperCase();
         nomEtape.replace(" ","_");
-        StringBuilder define = new StringBuilder("#define "+nomEtape+this.numero);
+        StringBuilder define = new StringBuilder("#define "+nomEtape+" "+this.numero + "\n");
         return define.toString();
     }
 }

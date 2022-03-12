@@ -89,19 +89,11 @@ public class Monde implements Iterable<Etape> {
         StringBuilder code = new StringBuilder("#include <stdio.h>\n" +
                 "#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
-                "\n" +
-                "#define SEM_TICKET_ZOO 1\n" +
-                "\n" +
-                "#define ENTREE 0\n" +
-                "\n" +
-                "#define GUICHET_ZOO 1\n" +
-                "\n" +
-                "#define ZOO 2\n" +
-                "\n" +
-                "#define SORTIE 3\n" +
-                "\n" +
-                "void Simulation(int ids){\n" +
-                this.sasEntree.toC()+"}");
+                "\n");
+        for (Etape e : this){
+            code.append(e.toDefine());
+        }
+        code.append("\nvoid Simulation(int ids){\n" + this.sasEntree.toC()+"}");
         return code.toString();
     }
 

@@ -10,6 +10,8 @@ public class FabriqueNumero {
      * Constructeur
      */
     private FabriqueNumero(){
+        this.cptEtape = 0;
+        this.cptSemaphore = 0;
     }
 
     /**
@@ -25,8 +27,7 @@ public class FabriqueNumero {
      * @return le numéro de l'étape qui commence à partir de 0
      */
     public int getNumeroEtape(){
-        int i = this.cptEtape++;
-        return i;
+        return this.cptEtape++;
     }
 
     /**

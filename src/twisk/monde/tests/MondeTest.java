@@ -3,25 +3,22 @@ package twisk.monde.tests;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twisk.monde.*;
+import twisk.outils.FabriqueNumero;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MondeTest {
     private Monde world;
-    private SasEntree sasEntree;
     private Activite act;
     private Guichet guich;
     private ActiviteRestreinte actR;
-    private SasSortie sasSortie;
 
     @BeforeEach
     void setUp() {
         this.world = new Monde();
-        this.sasEntree = new SasEntree();
         this.act = new Activite("Piscine",6,3);
         this.guich = new Guichet("Caisse");
         this.actR = new ActiviteRestreinte("Toboggan",4,2);
-        this.sasSortie = new SasSortie();
     }
 
     @Test
@@ -36,7 +33,6 @@ public class MondeTest {
         Etape Activite1 = new Activite("Piscine");
         Etape Guichet1 = new Guichet("GuichetPiscine");
         this.world.aCommeSortie(Activite1,Guichet1);
-
         assertEquals(1,Activite1.nbSuccesseur());
         assertEquals(1,Guichet1.nbSuccesseur());
     }
@@ -64,7 +60,6 @@ public class MondeTest {
         this.actR.ajouterSuccesseur(this.act);
 
         this.world.ajouter(this.guich,this.actR,this.act);
-
 
         String code = this.world.toC();
         assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
