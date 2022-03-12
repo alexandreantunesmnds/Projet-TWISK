@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class Simulation {
     private KitC kc;
+    private int nbClients;
 
     /**
      * Constructeur
@@ -17,7 +18,10 @@ public class Simulation {
         kc = new KitC();
         kc.creerEnvironnement();
     }
+    public void setNbClients(int nbClients){
+        this.nbClients = nbClients;
 
+    }
     /**
      * Fonction qui lance la simulation du monde
      * @param monde
