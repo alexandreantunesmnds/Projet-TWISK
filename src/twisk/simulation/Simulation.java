@@ -18,9 +18,13 @@ public class Simulation {
         kc = new KitC();
         kc.creerEnvironnement();
     }
+
+    /**
+     * Fonction qui détermine le nombre de clients
+     * @param nbClients
+     */
     public void setNbClients(int nbClients){
         this.nbClients = nbClients;
-
     }
     /**
      * Fonction qui lance la simulation du monde
@@ -35,7 +39,7 @@ public class Simulation {
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();
         int nbGuichets = monde.nbGuichets();
-        int nbClients = 5;
+        int nbClients = this.nbClients;
         Etape[] tabEtape = new Etape[nbEtapes];
         int[] tabJetonsGuichet = new int[nbGuichets];
 
