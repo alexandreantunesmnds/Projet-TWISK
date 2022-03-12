@@ -95,4 +95,15 @@ public abstract class Etape implements Iterable<Etape>{
                 ", succ=" + succ +
                 '}';
     }
+
+    /**
+     * Fonction toDefine qui renvoie la définition des constantes à intégrer au fichier C
+     * @return String
+     */
+    public String toDefine(){
+        String nomEtape = this.nom.toUpperCase();
+        nomEtape.replace(" ","_");
+        StringBuilder define = new StringBuilder("#define "+nomEtape+this.numero);
+        return define.toString();
+    }
 }
