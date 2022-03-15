@@ -16,9 +16,9 @@ public class MondeTest {
     @BeforeEach
     void setUp() {
         this.world = new Monde();
-        this.act = new Activite("Piscine",6,3);
         this.guich = new Guichet("Caisse");
         this.actR = new ActiviteRestreinte("Toboggan",4,2);
+        this.act = new Activite("Piscine",6,3);
     }
 
     @Test
@@ -52,39 +52,37 @@ public class MondeTest {
     @Test
     void toC() {
         //On crée le monde
-        this.world.aCommeEntree(this.guich);
-        this.world.aCommeSortie(this.act);
-
-        this.guich.ajouterSuccesseur(this.actR);
-
-        this.actR.ajouterSuccesseur(this.act);
-
-        this.world.ajouter(this.guich,this.actR,this.act);
-
-        String code = this.world.toC();
+        FabriqueNumero.getInstance().reset();
+        Monde monde = new Monde();
+        Guichet guichet = new Guichet("Caisse");
+        ActiviteRestreinte actR = new ActiviteRestreinte("Toboggan",3,2);
+        Activite act = new Activite("bac a sable",4,2);
+        monde.aCommeEntree(guichet);
+        guichet.ajouterSuccesseur(actR);
+        actR.ajouterSuccesseur(act);
+        monde.aCommeSortie(act);
+        monde.ajouter(guichet,actR,act);
+        String code = monde.toC();
         assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
                 "\n" +
-                "#define SEM_TICKET_ZOO 1\n" +
-                "\n" +
+                "#define SEM_CAISSE 1\n" +
                 "#define ENTREE 0\n" +
-                "\n" +
-                "#define GUICHET_ZOO 1\n" +
-                "\n" +
-                "#define ZOO 2\n" +
-                "\n" +
-                "#define SORTIE 3\n" +
+                "#define SORTIE 1\n" +
+                "#define CAISSE 2\n" +
+                "#define TOBOGGAN 3\n" +
+                "#define BAC_A_SABLE 4\n" +
                 "\n" +
                 "void Simulation(int ids){\n" +
                 "entrer(ENTREE);\n" +
-                "transfert(ENTREE,Caisse);\n" +
-                "P(ids,6);\n" +
-                "transfert(Caisse,Toboggan);\n" +
-                "delai(4,2);\n"+
-                "V(ids,6);\n" +
-                "transfert(Toboggan,Piscine);\n" +
-                "delai(6,3);\n" +
-                "transfert(Piscine,SORTIE);\n" +
+                "transfert(ENTREE,CAISSE);\n" +
+                "P(ids,CAISSE);\n" +
+                "transfert(CAISSE,TOBOGGAN);\n" +
+                "delai(3,2);\n"+
+                "V(ids,CAISSE);\n" +
+                "transfert(TOBOGGAN,BAC_A_SABLE);\n" +
+                "delai(4,2);\n" +
+                "transfert(BAC_A_SABLE,SORTIE);\n" +
                 "}",code);
     }
 }

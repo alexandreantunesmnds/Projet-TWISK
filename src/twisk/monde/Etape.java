@@ -14,6 +14,8 @@ public abstract class Etape implements Iterable<Etape>{
      */
     public Etape(String nom){
         this.nom = nom;
+        this.nom = this.nom.toUpperCase();
+        this.nom = this.nom.replaceAll("\\s", "_");
         this.succ = new GestionnaireSuccesseurs();
         this.numero = FabriqueNumero.getInstance().getNumeroEtape();
     }
@@ -101,9 +103,7 @@ public abstract class Etape implements Iterable<Etape>{
      * @return String
      */
     public String toDefine(){
-        String nomEtape = this.nom.toUpperCase();
-        nomEtape.replace(" ","_");
-        StringBuilder define = new StringBuilder("#define "+nomEtape+" "+this.numero + "\n");
+        StringBuilder define = new StringBuilder("#define "+this.nom+" "+this.numero + "\n");
         return define.toString();
     }
 }

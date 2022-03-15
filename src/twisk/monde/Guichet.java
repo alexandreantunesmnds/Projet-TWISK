@@ -67,7 +67,7 @@ public class Guichet extends Etape {
      */
     @Override
     public String toC() {
-        StringBuilder code = new StringBuilder("P(ids,"+this.num+");\n"); //Fonction début sémaphore
+        StringBuilder code = new StringBuilder("P(ids,"+this.getNom()+");\n"); //Fonction début sémaphore
 
         //On sait que seule une activité restreinte suit un guichet
         ActiviteRestreinte ar = (ActiviteRestreinte) this.getSucc().getEtape(0);
@@ -75,7 +75,7 @@ public class Guichet extends Etape {
         code.append("transfert("+this.getNom()+","+ar.getNom()+");\n");
         code.append("delai("+ar.getTemps()+","+ar.getEcartTemps()+");\n");
 
-        code.append("V(ids,"+this.num+");\n"); //Fonction fin sémaphore
+        code.append("V(ids,"+ this.getNom() +");\n"); //Fonction fin sémaphore
 
         for(Etape e : ar.getSucc()){ //On écrit le code C des successeurs de l'activiteRestreinte
             code.append("transfert("+ar.getNom()+","+e.getNom()+");\n");

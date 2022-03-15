@@ -14,6 +14,7 @@ public class Monde implements Iterable<Etape> {
         this.sasEntree = new SasEntree();
         this.sasSortie = new SasSortie();
         this.gestionEtapes = new GestionnaireEtapes();
+        this.gestionEtapes.ajouter(this.sasEntree, this.sasSortie);
     }
 
     /**
@@ -90,6 +91,15 @@ public class Monde implements Iterable<Etape> {
                 "#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
                 "\n");
+        for (Etape e : this){
+            if (e.estUnGuichet()){
+                Guichet guichet = (Guichet) e;
+                String nom_guichet = guichet.getNom();
+                nom_guichet = nom_guichet.toUpperCase();
+                nom_guichet = nom_guichet.replaceAll("\\s", "_");
+                code.append("#define SEM_"+nom_guichet+" "+ guichet.getNumeroSema()+ "\n");
+            }
+        }
         for (Etape e : this){
             code.append(e.toDefine());
         }
