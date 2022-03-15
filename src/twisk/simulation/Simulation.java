@@ -35,11 +35,12 @@ public class Simulation {
         kc.creerFichier(monde.toC());
         kc.compiler();
         kc.construireLaLibrairie();
+        System.load("/tmp/twisk/libTwisk.so");
 
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();
         int nbGuichets = monde.nbGuichets();
-        int nbClients = this.nbClients;
+        int nbClients = 5;
         Etape[] tabEtape = new Etape[nbEtapes];
         int[] tabJetonsGuichet = new int[nbGuichets];
 
@@ -61,13 +62,14 @@ public class Simulation {
         //On affiche les clients
         System.out.print("Les clients sont : ");
         for(int i = 0; i < nbClients; i++){
-            System.out.print(idClients[i]);
+            System.out.print(idClients[i]+" ");
         }
 
         while(!stop){
             //On récupère la position de tout les clients dans le monde
             etatDeLaSimulation = ou_sont_les_clients(nbEtapes, nbClients);
             int cptEtape = 0;
+            System.out.println("");
             for(int numeroEtape = 0; numeroEtape < nbEtapes ; numeroEtape++) {
                 //On récupère le nombre de clients dans l'étape
                 int nbClientsDansEtape = etatDeLaSimulation[cptEtape];
@@ -77,7 +79,7 @@ public class Simulation {
 
                 //On affiche les clients dans l'étape
                 for(int client = 0; client < nbClientsDansEtape; client++){
-                    System.out.println(etatDeLaSimulation[cptEtape+client]+" ");
+                    System.out.print(etatDeLaSimulation[cptEtape+client+1]+" ");
                 }
 
                 cptEtape += nbClients;

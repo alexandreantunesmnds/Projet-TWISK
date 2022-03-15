@@ -103,7 +103,7 @@ public class Monde implements Iterable<Etape> {
         for (Etape e : this){
             code.append(e.toDefine());
         }
-        code.append("\nvoid Simulation(int ids){\n" + this.sasEntree.toC()+"}");
+        code.append("\nvoid simulation(int ids){\n" + this.sasEntree.toC()+"}");
         return code.toString();
     }
 
