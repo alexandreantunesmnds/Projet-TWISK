@@ -6,6 +6,7 @@ import twisk.monde.Monde;
 import twisk.outils.KitC;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Simulation {
     private KitC kc;
@@ -45,8 +46,6 @@ public class Simulation {
         int[] tabJetonsGuichet = new int[nbGuichets];
 
         boolean stop = false;
-        int[] idClients = start_simulation(monde.nbEtapes(),monde.nbGuichets(),nbClients,tabJetonsGuichet);
-        int[] etatDeLaSimulation;
 
         //initialisation des etapes et des jetons
         for(int i = 0, jetons = 0; i < nbEtapes ; i++){
@@ -58,6 +57,9 @@ public class Simulation {
             }
         }
 
+        int[] idClients = start_simulation(monde.nbEtapes(),monde.nbGuichets(),nbClients,tabJetonsGuichet);
+        int[] etatDeLaSimulation;
+
 
         //On affiche les clients
         System.out.print("Les clients sont : ");
@@ -68,6 +70,7 @@ public class Simulation {
         while(!stop){
             //On récupère la position de tout les clients dans le monde
             etatDeLaSimulation = ou_sont_les_clients(nbEtapes, nbClients);
+            System.out.println(Arrays.toString(etatDeLaSimulation));
             int cptEtape = 0;
             System.out.println("");
             for(int numeroEtape = 0; numeroEtape < nbEtapes ; numeroEtape++) {
@@ -92,7 +95,7 @@ public class Simulation {
                 cptEtape++;
             }
             try {
-                Thread.sleep(1);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

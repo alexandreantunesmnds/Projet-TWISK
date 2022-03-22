@@ -7,7 +7,7 @@ public class ClientTwisk {
 
     public static void main(String[] args) {
         Monde world = new Monde();
-        testApresMidi(world);
+        brigitte(world);
         Simulation play = new Simulation();
         play.simuler(world);
     }
@@ -58,5 +58,23 @@ public class ClientTwisk {
         aprem.aCommeEntree(attenteZoo);
         aprem.aCommeSortie(baladeAuZoo);
         aprem.ajouter(attenteZoo,baladeAuZoo);
+    }
+
+    public static void brigitte(Monde monde){
+        Activite zoo = new Activite("balade au zoo", 3, 1);
+        Guichet guichet = new Guichet("acces au toboggan", 2);
+        Activite tob = new ActiviteRestreinte("toboggan", 2, 1);
+
+        zoo.ajouterSuccesseur(guichet);
+        guichet.ajouterSuccesseur(tob);
+
+        monde.ajouter(zoo, tob, guichet);
+
+        monde.aCommeEntree(zoo);
+        monde.aCommeSortie(tob);
+
+        Simulation s = new Simulation();
+        s.setNbClients(5);
+        s.simuler(monde);
     }
 }
