@@ -98,7 +98,7 @@ public class Monde implements Iterable<Etape> {
                 String nom_guichet = guichet.getNom();
                 nom_guichet = nom_guichet.toUpperCase();
                 nom_guichet = nom_guichet.replaceAll("\\s", "_");
-                code.append("#define RAND_MAX\n");
+                code.append("#define RAND_MAX 1\n");
                 code.append("#define SEM_"+nom_guichet+" "+ guichet.getNumeroSema()+ "\n");
             }
         }

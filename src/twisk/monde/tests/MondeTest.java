@@ -72,7 +72,7 @@ public class MondeTest {
         assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
                 "#include <time.h>\n\n"+
-                "#define RAND_MAX\n" +
+                "#define RAND_MAX 1\n" +
                 "#define SEM_CAISSE 1\n" +
                 "#define ENTREE 0\n" +
                 "#define SORTIE 1\n" +
