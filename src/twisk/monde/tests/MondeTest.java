@@ -84,13 +84,14 @@ public class MondeTest {
                 "#define VESTIAIRE 7\n"+
                 "\n" +
                 "void simulation(int ids){\n" +
-                "\tsrand(time(NULL));\n"+
+                "\tsrand(ids);\n"+
                 "\tentrer(ENTREE);\n" +
+                "\tdelai(6,3);\n"+
                 "\ttransfert(ENTREE,CAISSE);\n" +
-                "\tP(ids,CAISSE);\n" +
+                "\tP(ids,SEM_CAISSE);\n" +
                 "\ttransfert(CAISSE,TOBOGGAN);\n" +
                 "\tdelai(3,2);\n"+
-                "\tV(ids,CAISSE);\n" +
+                "\tV(ids,SEM_CAISSE);\n" +
                 "\ttransfert(TOBOGGAN,BAC_A_SABLE);\n" +
                 "\tdelai(4,2);\n" +
                 "\tint nb = (int)((rand()/(float)RAND_MAX*2);\n"+

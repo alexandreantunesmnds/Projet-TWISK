@@ -40,10 +40,10 @@ class GuichetTest extends EtapeTest{
         Guichet guichet = new Guichet("Guichet");
         ActiviteRestreinte ar = new ActiviteRestreinte("Zoo",4,2);
         guichet.ajouterSuccesseur(ar);
-        String code = "P(ids,1);\n" +
-                "transfert(Guichet,Zoo);\n"+
-                "delai(4,2);\n" +
-                "V(ids,1);\n";
+        String code = "\tP(ids,SEM_GUICHET);\n" +
+                "\ttransfert(GUICHET,ZOO);\n"+
+                "\tdelai(4,2);\n" +
+                "\tV(ids,SEM_GUICHET);\n";
         assertEquals(code,guichet.toC());
     }
 }

@@ -36,8 +36,8 @@ class GestionnaireSuccesseursTest {
         it = this.gestEmpty.iterator();
         it2 = this.gestS.iterator();
         assertFalse(it.hasNext());
-        assertEquals(it2.next().getNom(),"Toboggan");
-        assertEquals(it2.next().getNom(),"Caisse");
+        assertEquals(it2.next().getNom(),"TOBOGGAN");
+        assertEquals(it2.next().getNom(),"CAISSE");
         assertFalse(it2.hasNext());
     }
 }

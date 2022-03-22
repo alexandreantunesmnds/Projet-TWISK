@@ -88,7 +88,7 @@ public class Guichet extends Etape {
             code.append("\ttransfert("+ar.getNom()+","+e.getNom()+");\n");
             code.append("\t"+e.toC());
             if(this.getSucc().nbEtapes()>1) {
-                code.append("break;\n\t}\n");
+                code.append("break;\n}\n");
             }
             cpt++;
         }

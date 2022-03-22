@@ -66,7 +66,7 @@ public class Activite extends Etape {
      */
     @Override
     public String toC() {
-        StringBuilder code = new StringBuilder("delai("+this.temps+","+ this.ecartTemps +");" + "\n");
+        StringBuilder code = new StringBuilder("\tdelai("+this.temps+","+ this.ecartTemps +");" + "\n");
 
         if(this.getSucc().nbEtapes()>1) {
             code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
@@ -78,9 +78,9 @@ public class Activite extends Etape {
                 code.append("\tcase " + cpt + ":{\n");
             }
             code.append("\t\ttransfert("+this.getNom()+","+e.getNom()+");\n");
-            code.append("\t\t"+e.toC());
+            code.append("\t"+e.toC());
             if(this.getSucc().nbEtapes()>1) {
-                code.append("break;\n\t}\n");
+                code.append("\tbreak;\n\t}\n");
             }
             cpt++;
         }
