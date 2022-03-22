@@ -90,6 +90,7 @@ public class Monde implements Iterable<Etape> {
         StringBuilder code = new StringBuilder("#include <stdio.h>\n" +
                 "#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
+                "#include <time.h>\n"+
                 "\n");
         for (Etape e : this){
             if (e.estUnGuichet()){
@@ -97,13 +98,16 @@ public class Monde implements Iterable<Etape> {
                 String nom_guichet = guichet.getNom();
                 nom_guichet = nom_guichet.toUpperCase();
                 nom_guichet = nom_guichet.replaceAll("\\s", "_");
+                code.append("#define RAND_MAX\n");
                 code.append("#define SEM_"+nom_guichet+" "+ guichet.getNumeroSema()+ "\n");
             }
         }
         for (Etape e : this){
             code.append(e.toDefine());
         }
-        code.append("\nvoid simulation(int ids){\n" + this.sasEntree.toC()+"}");
+        code.append("\nvoid simulation(int ids){\n" +
+                "\tsrand(time(NULL));\n"+
+                "\t"+this.sasEntree.toC()+"}");
         return code.toString();
     }
 

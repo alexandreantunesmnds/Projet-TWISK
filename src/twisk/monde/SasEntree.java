@@ -17,7 +17,7 @@ public class SasEntree extends Activite {
         StringBuilder code = new StringBuilder("entrer("+this.getNom()+");\n");
 
         for(Etape e : this.getSucc()){
-            code.append("transfert("+this.getNom()+","+e.getNom()+");\n");
+            code.append("\ttransfert("+this.getNom()+","+e.getNom()+");\n");
         }
 
         for(Etape e : this.getSucc()){ //On écrit le code C des successeurs

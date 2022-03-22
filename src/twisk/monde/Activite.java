@@ -68,12 +68,21 @@ public class Activite extends Etape {
     public String toC() {
         StringBuilder code = new StringBuilder("delai("+this.temps+","+ this.ecartTemps +");" + "\n");
 
-        for(Etape e : this.getSucc()){
-            code.append("transfert("+this.getNom()+","+e.getNom()+");\n");
+        if(this.getSucc().nbEtapes()>1) {
+            code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
+            code.append("\tswitch(nb):\n");
         }
-
+        int cpt = 0;
         for(Etape e : this.getSucc()){ //On écrit le code C des successeurs
-            code.append(e.toC());
+            if(this.getSucc().nbEtapes()>1) {
+                code.append("\tcase " + cpt + ":{\n");
+            }
+            code.append("\t\ttransfert("+this.getNom()+","+e.getNom()+");\n");
+            code.append("\t\t"+e.toC());
+            if(this.getSucc().nbEtapes()>1) {
+                code.append("break;\n\t}\n");
+            }
+            cpt++;
         }
 
         return code.toString();
