@@ -70,7 +70,7 @@ public class Simulation {
         while(!stop){
             //On récupère la position de tout les clients dans le monde
             etatDeLaSimulation = ou_sont_les_clients(nbEtapes, nbClients);
-            System.out.println(Arrays.toString(etatDeLaSimulation));
+            //System.out.println(Arrays.toString(etatDeLaSimulation));
             int cptEtape = 0;
             System.out.println("");
             for(int numeroEtape = 0; numeroEtape < nbEtapes ; numeroEtape++) {
