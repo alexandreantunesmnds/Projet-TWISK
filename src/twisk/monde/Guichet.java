@@ -76,12 +76,22 @@ public class Guichet extends Etape {
         code.append("\tdelai("+ar.getTemps()+","+ar.getEcartTemps()+");\n");
 
         code.append("\tV(ids,SEM_"+ this.getNom() +");\n"); //Fonction fin sémaphore
-
+        if(this.getSucc().nbEtapes()>1) {
+            code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
+            code.append("\tswitch(nb):\n");
+        }
+        int cpt = 0;
         for(Etape e : ar.getSucc()){ //On écrit le code C des successeurs de l'activiteRestreinte
+            if(this.getSucc().nbEtapes()>1) {
+                code.append("\tcase " + cpt + ":{\n");
+            }
             code.append("\ttransfert("+ar.getNom()+","+e.getNom()+");\n");
             code.append("\t"+e.toC());
+            if(this.getSucc().nbEtapes()>1) {
+                code.append("break;\n\t}\n");
+            }
+            cpt++;
         }
-
         return code.toString();
     }
 
