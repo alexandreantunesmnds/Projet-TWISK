@@ -62,10 +62,11 @@ public class MondeTest {
         Activite act4 = new Activite("vestiaire",4,2);
         monde.aCommeEntree(guichet);
         guichet.ajouterSuccesseur(actR);
-        actR.ajouterSuccesseur(act1);
-        act1.ajouterSuccesseur(act2,act3);
+        act1.ajouterSuccesseur(act2);
         act2.ajouterSuccesseur(act4);
         act3.ajouterSuccesseur(act4);
+        actR.ajouterSuccesseur(act1);
+        actR.ajouterSuccesseur(act3);
         monde.aCommeSortie(act4);
         monde.ajouter(guichet,actR,act1,act2,act3,act4);
         String code = monde.toC();
