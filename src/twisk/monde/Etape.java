@@ -59,6 +59,12 @@ public abstract class Etape implements Iterable<Etape>{
     public abstract boolean estUneActivite();
 
     /**
+     * Fonction qui dit si l'étape est une activité restreinte ou non
+     * @return Retourne vrai si c'est une activité, faux sinon
+     */
+    public abstract boolean estUneActiviteRestreinte();
+
+    /**
      * Fonction qui dit si l'étape est un guichet ou non
      * @return Retourne vrai si c'est un guichet, faux sinon
      */
