@@ -135,7 +135,7 @@ public class MondeTest {
                 "\t\tbreak;\n" +
                 "\t}\n" +
                 "\tcase 1:{ //vers BAC_À_SABLE\n" +
-                "\ttransfert(BAIN_DE_SOLEIL,BAC_À_SABLE);\n" +
+                "\ttransfert(BAIN_DE_SOLEIL,BAC_A_SABLE);\n" +
                 "\t\tdelai(5,2);\n" +
                 "\ttransfert(BAC_À_SABLE,VESTIAIRE);\n" +
                 "\t\tdelai(5,2);\n" +
