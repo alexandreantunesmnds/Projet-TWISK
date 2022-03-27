@@ -17,12 +17,12 @@ class SasEntreeTest extends ActiviteTest {
                 "\tdelai(6,3);\n"+
                 "\tcase 0:{ //vers ACTIVITE\n"+
                 "\ttransfert(ENTREE,ACTIVITE);\n" +
-                "\tdelai(5,3);\n"+
+                "\t\tdelai(5,3);\n"+
                 "\tbreak;\n" +
                 "\t}\n"+
                 "\tcase 1:{ //vers BIFURCATION\n"+
                 "\ttransfert(ENTREE,BIFURCATION);\n" +
-                "\tdelai(1,2);\n"+
+                "\t\tdelai(1,2);\n"+
                 "\tbreak;\n"+
                 "\t}\n";
         sasEntree.ajouterSuccesseur(act,act2);

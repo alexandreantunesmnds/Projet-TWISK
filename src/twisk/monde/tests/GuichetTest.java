@@ -53,18 +53,18 @@ class GuichetTest extends EtapeTest{
                 "\tV(ids,SEM_GUICHET);\n"+
                 "\tint nb = (int)((rand()/(float)RAND_MAX*1);\n" +
                 "\tswitch(nb):\n" +
-                "\tcase 0:{ //vers BAC_À_SABLE\n" +
-                "\ttransfert(ZOO,BAC_À_SABLE);\n" +
-                "\tdelai(5,2);\n" +
-                "\ttransfert(BAC_À_SABLE,SOUVENIRS);\n" +
-                "\tdelai(5,2);\n" +
+                "\tcase 0:{ //vers BAC_A_SABLE\n" +
+                "\ttransfert(ZOO,BAC_A_SABLE);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(BAC_A_SABLE,SOUVENIRS);\n" +
+                "\t\tdelai(5,2);\n" +
                 "\tbreak;\n" +
                 "\t}\n" +
                 "\tcase 1:{ //vers TOBOGGAN\n" +
                 "\ttransfert(ZOO,TOBOGGAN);\n" +
-                "\tdelai(5,2);\n" +
+                "\t\tdelai(5,2);\n" +
                 "\ttransfert(TOBOGGAN,SOUVENIRS);\n" +
-                "\tdelai(5,2);\n" +
+                "\t\tdelai(5,2);\n" +
                 "\tbreak;\n" +
                 "\t}\n";
         assertEquals(code,guichet.toC());

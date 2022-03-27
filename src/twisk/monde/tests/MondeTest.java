@@ -40,7 +40,7 @@ public class MondeTest {
     @Test
     void ajouter() {
         this.world.ajouter(act,guich);
-        assertEquals(this.world.nbEtapes(),2);
+        assertEquals(this.world.nbEtapes(),4);
         assertEquals(this.world.nbGuichets(),1);
     }
 

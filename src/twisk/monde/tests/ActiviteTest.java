@@ -45,14 +45,14 @@ public class ActiviteTest extends EtapeTest{
                 "\tint nb = (int)((rand()/(float)RAND_MAX*2);\n" +
                 "\tswitch(nb):\n" +
                 "\tcase 0:{ //vers ACTIVITE\n" +
-                "\ttransfert(DÉBUT,ACTIVITE);\n" +
+                "\ttransfert(DEBUT,ACTIVITE);\n" +
                 "\t\tdelai(5,2);\n" +
                 "\ttransfert(ACTIVITE,FIN);\n" +
                 "\t\tdelai(5,2);\n" +
                 "\tbreak;\n" +
                 "\t}\n" +
                 "\tcase 1:{ //vers BIFURCATION\n" +
-                "\ttransfert(DÉBUT,BIFURCATION);\n" +
+                "\ttransfert(DEBUT,BIFURCATION);\n" +
                 "\t\tdelai(5,2);\n" +
                 "\ttransfert(BIFURCATION,FIN);\n" +
                 "\t\tdelai(5,2);\n" +
