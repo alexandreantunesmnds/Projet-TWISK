@@ -97,7 +97,7 @@ public class MondeTest {
                 "#define BAIN_DE_SOLEIL 6\n" +
                 "#define TOBOGGAN 5\n" +
                 "#define WATERPOLO 7\n" +
-                "#define BAC_À_SABLE 8\n" +
+                "#define BAC_A_SABLE 8\n" +
                 "\n" +
                 "void simulation(int ids){\n" +
                 "\tsrand(ids);\n" +
@@ -134,10 +134,10 @@ public class MondeTest {
                 "\ttransfert(VESTIAIRE,SORTIE);\n" +
                 "\t\tbreak;\n" +
                 "\t}\n" +
-                "\tcase 1:{ //vers BAC_À_SABLE\n" +
+                "\tcase 1:{ //vers BAC_A_SABLE\n" +
                 "\ttransfert(BAIN_DE_SOLEIL,BAC_A_SABLE);\n" +
                 "\t\tdelai(5,2);\n" +
-                "\ttransfert(BAC_À_SABLE,VESTIAIRE);\n" +
+                "\ttransfert(BAC_A_SABLE,VESTIAIRE);\n" +
                 "\t\tdelai(5,2);\n" +
                 "\ttransfert(VESTIAIRE,SORTIE);\n" +
                 "\t\tbreak;\n" +
