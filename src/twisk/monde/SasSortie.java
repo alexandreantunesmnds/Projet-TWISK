@@ -23,6 +23,6 @@ public class SasSortie extends Activite{
      */
     @Override
     public String toString() {
-        return "SasSortie{}";
+        return this.getNom() + " : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
     }
 }

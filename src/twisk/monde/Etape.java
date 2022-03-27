@@ -1,6 +1,8 @@
 package twisk.monde;
 
 import twisk.outils.FabriqueNumero;
+
+import java.text.Normalizer;
 import java.util.Iterator;
 
 public abstract class Etape implements Iterable<Etape>{
@@ -16,6 +18,7 @@ public abstract class Etape implements Iterable<Etape>{
         this.nom = nom;
         this.nom = this.nom.toUpperCase();
         this.nom = this.nom.replaceAll("\\s", "_");
+        this.nom = Normalizer.normalize(this.nom,Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]",""); //Supprime les accents
         this.succ = new GestionnaireSuccesseurs();
         this.numero = FabriqueNumero.getInstance().getNumeroEtape();
     }
