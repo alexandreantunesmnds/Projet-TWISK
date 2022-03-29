@@ -63,10 +63,9 @@ public class MondeTest {
         monde.aCommeEntree(guichet);
         guichet.ajouterSuccesseur(actR);
         act1.ajouterSuccesseur(act2);
-        act2.ajouterSuccesseur(act4);
+        act2.ajouterSuccesseur(act3);
         act3.ajouterSuccesseur(act4);
-        actR.ajouterSuccesseur(act1);
-        actR.ajouterSuccesseur(act3);
+        actR.ajouterSuccesseur(act1,act3);
         monde.aCommeSortie(act4);
         monde.ajouter(guichet,actR,act1,act2,act3,act4);
         String code = monde.toC();
