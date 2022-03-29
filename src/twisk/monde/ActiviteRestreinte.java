@@ -21,6 +21,15 @@ public class ActiviteRestreinte extends Activite{
     }
 
     /**
+     * Fonction qui dit si l'étape est une activité restreinte ou non
+     * @return Retourne vrai si c'est une activité, faux sinon
+     */
+    @Override
+    public boolean estUneActiviteRestreinte(){
+        return true;
+    }
+
+    /**
      * Fonction toString
      * @return retourne les détails de l'activité restreinte
      */

@@ -32,5 +32,32 @@ public class ActiviteTest extends EtapeTest{
 
     @Test
     void toC() {
+        Activite debut = new Activite("Début");
+        Activite act1 = new Activite("Activite");
+        Activite act2 = new Activite("Bifurcation");
+        Activite act3 = new Activite("Fin");
+        debut.ajouterSuccesseur(act1,act2);
+        act1.ajouterSuccesseur(act3);
+        act2.ajouterSuccesseur(act3);
+
+        StringBuilder code = new StringBuilder("");
+        code.append("\tdelai(5,2);\n" +
+                "\tint nb = (int)((rand()/(float)RAND_MAX*2);\n" +
+                "\tswitch(nb):\n" +
+                "\tcase 0:{ //vers ACTIVITE\n" +
+                "\ttransfert(DEBUT,ACTIVITE);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(ACTIVITE,FIN);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\tbreak;\n" +
+                "\t}\n" +
+                "\tcase 1:{ //vers BIFURCATION\n" +
+                "\ttransfert(DEBUT,BIFURCATION);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(BIFURCATION,FIN);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\tbreak;\n" +
+                "\t}\n");
+        assertEquals(code.toString(),debut.toC());
     }
 }

@@ -32,7 +32,9 @@ public class Simulation {
      * @param monde
      */
     public void simuler(Monde monde){
-        //System.out.println(monde.toString());
+        System.out.println("\n\n===        Le Monde        ===\n\n");
+        System.out.println(monde.toString());
+        System.out.println("\n\n=== Début de la simulation ===\n\n");
         kc.creerFichier(monde.toC());
         kc.compiler();
         kc.construireLaLibrairie();

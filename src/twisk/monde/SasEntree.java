@@ -14,14 +14,19 @@ public class SasEntree extends Activite {
      */
     @Override
     public String toC(){
-        StringBuilder code = new StringBuilder("entrer("+this.getNom()+");\n\tdelai(6,3);\n");
+        StringBuilder code = new StringBuilder("\tentrer("+this.getNom()+");\n\tdelai(6,3);\n");
 
-        for(Etape e : this.getSucc()){
-            code.append("\ttransfert("+this.getNom()+","+e.getNom()+");\n");
-        }
-
+        int cpt = 0;
         for(Etape e : this.getSucc()){ //On écrit le code C des successeurs
-            code.append(e.toC());
+            if(this.getSucc().nbEtapes()>1) {
+                code.append("\tcase " + cpt + ":{ //vers "+e.getNom()+"\n");
+            }
+            code.append("\ttransfert("+this.getNom()+","+e.getNom()+");\n");
+            code.append("\t"+e.toC());
+            if(this.getSucc().nbEtapes()>1) {
+                code.append("\tbreak;\n\t}\n");
+            }
+            cpt++;
         }
 
         return code.toString();

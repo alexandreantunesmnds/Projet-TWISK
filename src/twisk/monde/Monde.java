@@ -94,11 +94,12 @@ public class Monde implements Iterable<Etape> {
                 "\n");
         for (Etape e : this){
             if (e.estUnGuichet()){
-                Guichet guichet = (Guichet) e;
+                /*Guichet guichet = (Guichet) e;
                 String nom_guichet = guichet.getNom();
                 nom_guichet = nom_guichet.toUpperCase();
-                nom_guichet = nom_guichet.replaceAll("\\s", "_");
-                code.append("#define SEM_"+nom_guichet+" "+ guichet.getNumeroSema()+ "\n");
+                nom_guichet = nom_guichet.replaceAll("\\s", "_");*/
+                Guichet guichet = (Guichet) e;
+                code.append("#define SEM_"+guichet.getNom()+" "+ guichet.getNumeroSema()+ "\n");
             }
         }
         for (Etape e : this){
@@ -125,9 +126,7 @@ public class Monde implements Iterable<Etape> {
      */
     @Override
     public String toString() {
-        return "Entrées : " + sasEntree.nbSuccesseur() + " successeur(s) - " + sasEntree.getSucc().toString() + "\n" +
-                "Sorties : " + sasSortie.nbSuccesseur() + " successeur(s) \n" +
-                "Liste des " + this.nbEtapes() + " etapes : \n" +
+        return "Liste des " + this.nbEtapes() + " etapes : \n" +
                 gestionEtapes.toString();
     }
 }

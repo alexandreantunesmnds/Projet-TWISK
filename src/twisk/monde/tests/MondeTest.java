@@ -40,7 +40,7 @@ public class MondeTest {
     @Test
     void ajouter() {
         this.world.ajouter(act,guich);
-        assertEquals(this.world.nbEtapes(),2);
+        assertEquals(this.world.nbEtapes(),4);
         assertEquals(this.world.nbGuichets(),1);
     }
 
@@ -54,64 +54,96 @@ public class MondeTest {
         //On crée le monde
         FabriqueNumero.getInstance().reset();
         Monde monde = new Monde();
-        Guichet guichet = new Guichet("Caisse");
-        ActiviteRestreinte actR = new ActiviteRestreinte("Toboggan",3,2);
-        Activite act1 = new Activite("bac a sable",4,2);
-        Activite act2 = new Activite("bain de soleil",10,1);
-        Activite act3 = new Activite("water polo",6,2);
-        Activite act4 = new Activite("vestiaire",4,2);
-        monde.aCommeEntree(guichet);
-        guichet.ajouterSuccesseur(actR);
-        act1.ajouterSuccesseur(act2);
-        act2.ajouterSuccesseur(act3);
-        act3.ajouterSuccesseur(act4);
-        actR.ajouterSuccesseur(act1,act3);
-        monde.aCommeSortie(act4);
-        monde.ajouter(guichet,actR,act1,act2,act3,act4);
+
+        Guichet caisse = new Guichet("Caisse");
+        ActiviteRestreinte piscine = new ActiviteRestreinte("Piscine",10,2);
+
+        Guichet queueToboggan = new Guichet("Queue Toboggan");
+        ActiviteRestreinte toboggan = new ActiviteRestreinte("Toboggan");
+
+        Activite bainDeSoleil = new Activite("Bain de soleil",5,1);
+        Activite waterpolo = new Activite("Waterpolo",8,2);
+        Activite bacASable = new Activite("Bac à sable");
+
+        Activite vestiaire = new Activite("Vestiaire");
+
+        monde.aCommeEntree(caisse);
+        monde.aCommeSortie(vestiaire);
+
+        caisse.ajouterSuccesseur(piscine);
+        piscine.ajouterSuccesseur(queueToboggan,bainDeSoleil);
+        queueToboggan.ajouterSuccesseur(toboggan);
+        bainDeSoleil.ajouterSuccesseur(waterpolo,bacASable);
+        toboggan.ajouterSuccesseur(vestiaire);
+        waterpolo.ajouterSuccesseur(vestiaire);
+        bacASable.ajouterSuccesseur(vestiaire);
+
+        monde.ajouter(caisse,vestiaire,piscine,queueToboggan,bainDeSoleil,toboggan,waterpolo,bacASable);
+
         String code = monde.toC();
-        assertEquals("#include <stdio.h>\n"+"#include <stdlib.h>\n" +
+        assertEquals("#include <stdio.h>\n" +
+                "#include <stdlib.h>\n" +
                 "#include \"def.h\"\n" +
-                "#include <time.h>\n\n"+
-                "#define RAND_MAX 1\n" +
+                "#include <time.h>\n" +
+                "\n" +
                 "#define SEM_CAISSE 1\n" +
+                "#define SEM_QUEUE_TOBOGGAN 2\n" +
                 "#define ENTREE 0\n" +
                 "#define SORTIE 1\n" +
                 "#define CAISSE 2\n" +
-                "#define TOBOGGAN 3\n" +
-                "#define BAC_A_SABLE 4\n" +
-                "#define BAIN_DE_SOLEIL 5\n"+
-                "#define WATER_POLO 6\n"+
-                "#define VESTIAIRE 7\n"+
+                "#define VESTIAIRE 9\n" +
+                "#define PISCINE 3\n" +
+                "#define QUEUE_TOBOGGAN 4\n" +
+                "#define BAIN_DE_SOLEIL 6\n" +
+                "#define TOBOGGAN 5\n" +
+                "#define WATERPOLO 7\n" +
+                "#define BAC_A_SABLE 8\n" +
                 "\n" +
                 "void simulation(int ids){\n" +
-                "\tsrand(ids);\n"+
-                "\tentrer(ENTREE);\n" +
-                "\tdelai(6,3);\n"+
+                "\tsrand(ids);\n" +
+                "\t\tentrer(ENTREE);\n" +
+                "\tdelai(6,3);\n" +
                 "\ttransfert(ENTREE,CAISSE);\n" +
-                "\tP(ids,SEM_CAISSE);\n" +
-                "\ttransfert(CAISSE,TOBOGGAN);\n" +
-                "\tdelai(3,2);\n"+
+                "\t\tP(ids,SEM_CAISSE);\n" +
+                "\ttransfert(CAISSE,PISCINE);\n" +
+                "\tdelai(10,2);\n" +
                 "\tV(ids,SEM_CAISSE);\n" +
-                "\ttransfert(TOBOGGAN,BAC_A_SABLE);\n" +
-                "\tdelai(4,2);\n" +
-                "\tint nb = (int)((rand()/(float)RAND_MAX*2);\n"+
-                "\tswitch(nb):\n"+
-                "\tcase 0:{\n"+
-                    "\t\ttransfert(BAC_A_SABLE,BAIN_DE_SOLEIL);\n"+
-                    "\t\tdelai(10,1);\n"+
-                    "\t\ttransfert(BAIN_DE_SOLEIL,VESTIAIRE);\n"+
-                    "\t\tdelai(4,2);\n"+
-                    "\t\ttransfert(VESTIAIRE,SORTIE);\n"+
-                    "\t\tbreak;\n"+
-                "\t}\n"+
-                "\tcase 1:{\n"+
-                        "\t\ttransfert(BAC_A_SABLE,WATER_POLO);\n"+
-                        "\t\tdelai(6,2);\n"+
-                        "\t\ttransfert(WATER_POLO,VESTIAIRE);\n"+
-                        "\t\tdelai(4,2);\n"+
-                        "\t\ttransfert(VESTIAIRE,SORTIE);\n"+
-                        "\t\tbreak;\n"+
-                    "\t}\n"+
+                "\tint nb = (int)((rand()/(float)RAND_MAX*1);\n" +
+                "\tswitch(nb):\n" +
+                "\tcase 0:{ //vers QUEUE_TOBOGGAN\n" +
+                "\ttransfert(PISCINE,QUEUE_TOBOGGAN);\n" +
+                "\t\tP(ids,SEM_QUEUE_TOBOGGAN);\n" +
+                "\ttransfert(QUEUE_TOBOGGAN,TOBOGGAN);\n" +
+                "\tdelai(5,2);\n" +
+                "\tV(ids,SEM_QUEUE_TOBOGGAN);\n" +
+                "\ttransfert(TOBOGGAN,VESTIAIRE);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(VESTIAIRE,SORTIE);\n" +
+                "\t\tbreak;\n" +
+                "\t}\n" +
+                "\tcase 1:{ //vers BAIN_DE_SOLEIL\n" +
+                "\ttransfert(PISCINE,BAIN_DE_SOLEIL);\n" +
+                "\t\tdelai(5,1);\n" +
+                "\tint nb = (int)((rand()/(float)RAND_MAX*2);\n" +
+                "\tswitch(nb):\n" +
+                "\tcase 0:{ //vers WATERPOLO\n" +
+                "\ttransfert(BAIN_DE_SOLEIL,WATERPOLO);\n" +
+                "\t\tdelai(8,2);\n" +
+                "\ttransfert(WATERPOLO,VESTIAIRE);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(VESTIAIRE,SORTIE);\n" +
+                "\t\tbreak;\n" +
+                "\t}\n" +
+                "\tcase 1:{ //vers BAC_A_SABLE\n" +
+                "\ttransfert(BAIN_DE_SOLEIL,BAC_A_SABLE);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(BAC_A_SABLE,VESTIAIRE);\n" +
+                "\t\tdelai(5,2);\n" +
+                "\ttransfert(VESTIAIRE,SORTIE);\n" +
+                "\t\tbreak;\n" +
+                "\t}\n" +
+                "\tbreak;\n" +
+                "\t}\n" +
                 "}",code);
     }
 }

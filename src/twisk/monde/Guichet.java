@@ -52,6 +52,16 @@ public class Guichet extends Etape {
         return false;
     }
 
+
+    /**
+     * Fonction qui dit si l'étape est une activité restreinte ou non
+     * @return Retourne vrai si c'est une activité, faux sinon
+     */
+    @Override
+    public boolean estUneActiviteRestreinte() {
+        return false;
+    }
+
     /**
      * Fonction qui retourne vrai si c'est un guichet
      * @return Retourne vrai si c'est un guichet
@@ -67,30 +77,33 @@ public class Guichet extends Etape {
      */
     @Override
     public String toC() {
-        StringBuilder code = new StringBuilder("\tP(ids,SEM_"+this.getNom()+");\n"); //Fonction début sémaphore
-
+        StringBuilder code = new StringBuilder("");
         //On sait que seule une activité restreinte suit un guichet
-        ActiviteRestreinte ar = (ActiviteRestreinte) this.getSucc().getEtape(0);
+        if(this.getSucc().getEtape(0).estUneActiviteRestreinte()) {
+            ActiviteRestreinte ar = (ActiviteRestreinte) this.getSucc().getEtape(0);
 
-        code.append("\ttransfert("+this.getNom()+","+ar.getNom()+");\n");
-        code.append("\tdelai("+ar.getTemps()+","+ar.getEcartTemps()+");\n");
+            code.append("\tP(ids,SEM_"+this.getNom()+");\n"); //Fonction début sémaphore
+            code.append("\ttransfert("+this.getNom()+","+ar.getNom()+");\n");
+            code.append("\tdelai("+ar.getTemps()+","+ar.getEcartTemps()+");\n");
+            code.append("\tV(ids,SEM_"+ this.getNom() +");\n"); //Fonction fin sémaphore
 
-        code.append("\tV(ids,SEM_"+ this.getNom() +");\n"); //Fonction fin sémaphore
-        if(ar.getSucc().nbEtapes()>1) {
-            code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
-            code.append("\tswitch(nb):\n");
-        }
-        int cpt = 0;
-        for(Etape e : ar.getSucc()){ //On écrit le code C des successeurs de l'activiteRestreinte
+            //On transfère ensuite aux successeurs de l'activité restreinte
             if(ar.getSucc().nbEtapes()>1) {
-                code.append("\tcase " + cpt + ":{ //activité suivante : "+ar.getSucc().getEtape(cpt).getNom()+"\n");
+                code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
+                code.append("\tswitch(nb):\n");
             }
-            code.append("\ttransfert("+ar.getNom()+","+e.getNom()+");\n");
-            code.append("\t"+e.toC());
-            if(ar.getSucc().nbEtapes()>1) {
-                code.append("break;\n}\n");
+            int cpt = 0;
+            for(Etape e : ar.getSucc()){ //On écrit le code C des successeurs de l'activiteRestreinte
+                if(ar.getSucc().nbEtapes()>1) {
+                    code.append("\tcase " + cpt + ":{ //vers "+ar.getSucc().getEtape(cpt).getNom()+"\n");
+                }
+                code.append("\ttransfert("+ar.getNom()+","+e.getNom()+");\n");
+                code.append("\t"+e.toC());
+                if(ar.getSucc().nbEtapes()>1) {
+                    code.append("\tbreak;\n\t}\n");
+                }
+                cpt++;
             }
-            cpt++;
         }
         return code.toString();
     }
