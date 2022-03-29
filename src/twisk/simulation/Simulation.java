@@ -5,6 +5,7 @@ import twisk.monde.Guichet;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,6 +60,13 @@ public class Simulation {
             }
         }
 
+        //Debuggage, merci Brigitte et Etienne
+        /*for(int i = 0; i < nbEtapes; i++){
+            System.out.println(tabEtape[i].getNom()+" ; " + i);
+            System.out.println(tabEtape[i]);
+        }
+        System.exit(1);*/
+
         int[] idClients = start_simulation(monde.nbEtapes(),monde.nbGuichets(),nbClients,tabJetonsGuichet);
         int[] etatDeLaSimulation;
 
@@ -103,7 +111,6 @@ public class Simulation {
             }
         }
         nettoyage();
-        System.load("/tmp/twisk/libTwisk.so") ;
     }
 
     /**

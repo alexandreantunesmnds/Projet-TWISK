@@ -94,10 +94,6 @@ public class Monde implements Iterable<Etape> {
                 "\n");
         for (Etape e : this){
             if (e.estUnGuichet()){
-                /*Guichet guichet = (Guichet) e;
-                String nom_guichet = guichet.getNom();
-                nom_guichet = nom_guichet.toUpperCase();
-                nom_guichet = nom_guichet.replaceAll("\\s", "_");*/
                 Guichet guichet = (Guichet) e;
                 code.append("#define SEM_"+guichet.getNom()+" "+ guichet.getNumeroSema()+ "\n");
             }

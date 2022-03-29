@@ -6,9 +6,9 @@ import java.text.Normalizer;
 import java.util.Iterator;
 
 public abstract class Etape implements Iterable<Etape>{
-    private String nom;
-    private GestionnaireSuccesseurs succ;
-    private int numero;
+    protected String nom;
+    protected GestionnaireSuccesseurs succ;
+    protected int numero;
 
     /**
      * Constructeur
@@ -20,7 +20,6 @@ public abstract class Etape implements Iterable<Etape>{
         this.nom = this.nom.replaceAll("\\s", "_");
         this.nom = Normalizer.normalize(this.nom,Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]",""); //Supprime les accents
         this.succ = new GestionnaireSuccesseurs();
-        this.numero = FabriqueNumero.getInstance().getNumeroEtape();
     }
 
     /**
@@ -29,6 +28,10 @@ public abstract class Etape implements Iterable<Etape>{
      */
     public String getNom() {
         return nom;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     /**
@@ -101,7 +104,7 @@ public abstract class Etape implements Iterable<Etape>{
      */
     @Override
     public String toString() {
-        return "Etape{" +
+        return "Etape (" + numero + "){" +
                 "nom='" + nom + '\'' +
                 ", succ=" + succ +
                 '}';

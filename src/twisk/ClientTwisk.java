@@ -62,7 +62,7 @@ public class ClientTwisk {
 
     public static void brigitte(Monde monde){
         Activite zoo = new Activite("balade au zoo", 3, 1);
-        Guichet guichet = new Guichet("acces au toboggan", 2);
+        Guichet guichet = new Guichet("acces au toboggan", 1);
         Activite tob = new ActiviteRestreinte("toboggan", 2, 1);
 
         zoo.ajouterSuccesseur(guichet);

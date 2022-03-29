@@ -1,5 +1,7 @@
 package twisk.monde;
 
+import twisk.outils.FabriqueNumero;
+
 import java.util.*;
 
 public class GestionnaireEtapes implements Iterable<Etape>{
@@ -17,6 +19,9 @@ public class GestionnaireEtapes implements Iterable<Etape>{
      * @param etapes Liste d'étape à ajouter
      */
     public void ajouter (Etape ... etapes){
+        for(Etape e : etapes){
+            e.setNumero(FabriqueNumero.getInstance().getNumeroEtape());
+        }
         Collections.addAll(this.etapeList, etapes);
     }
 
