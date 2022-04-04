@@ -12,6 +12,7 @@ import java.util.Arrays;
 public class Simulation {
     private KitC kc;
     private int nbClients;
+    private GestionnaireClients gc;
 
     /**
      * Constructeur
@@ -27,6 +28,7 @@ public class Simulation {
      */
     public void setNbClients(int nbClients){
         this.nbClients = nbClients;
+        this.gc = new GestionnaireClients(nbClients);
     }
     /**
      * Fonction qui lance la simulation du monde
