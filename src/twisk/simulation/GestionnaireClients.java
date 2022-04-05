@@ -34,6 +34,15 @@ public class GestionnaireClients implements Iterable<Client>{
     }
 
     /**
+     * Fonction qui retourne le client à l'aide de son numéro
+     * @param numClient numéro du client
+     * @return Le client
+     */
+    public Client getClients(int numClient){
+        return this.listeClients.get(numClient);
+    }
+
+    /**
      * Fonction qui met à jour les données du client
      * @param numeroClient Le numéro du client à mettre à jour
      * @param etape L'étape où se situe le client
