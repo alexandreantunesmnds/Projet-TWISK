@@ -89,8 +89,8 @@ public class Guichet extends Etape {
 
             //On transfère ensuite aux successeurs de l'activité restreinte
             if(ar.getSucc().nbEtapes()>1) {
-                code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
-                code.append("\tswitch(nb):\n");
+                code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + "));\n");
+                code.append("\tswitch(nb){\n");
             }
             int cpt = 0;
             for(Etape e : ar.getSucc()){ //On écrit le code C des successeurs de l'activiteRestreinte
@@ -103,6 +103,9 @@ public class Guichet extends Etape {
                     code.append("\tbreak;\n\t}\n");
                 }
                 cpt++;
+            }
+            if(ar.getSucc().nbEtapes()>1) {
+                code.append("} //Guichet("+this.getNom()+")\n");
             }
         }
         return code.toString();

@@ -78,8 +78,8 @@ public class Activite extends Etape {
         StringBuilder code = new StringBuilder("\tdelai("+this.temps+","+ this.ecartTemps +");" + "\n");
 
         if(this.getSucc().nbEtapes()>1) {
-            code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + ");\n");
-            code.append("\tswitch(nb):\n");
+            code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + "));\n");
+            code.append("\tswitch(nb){\n");
         }
         int cpt = 0;
         for(Etape e : this.getSucc()){ //On écrit le code C des successeurs
@@ -92,6 +92,9 @@ public class Activite extends Etape {
                 code.append("\tbreak;\n\t}\n");
             }
             cpt++;
+        }
+        if(this.getSucc().nbEtapes()>1) {
+            code.append("} //Activite("+this.getNom()+")\n");
         }
 
         return code.toString();

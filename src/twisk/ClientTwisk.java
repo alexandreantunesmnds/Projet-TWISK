@@ -11,24 +11,27 @@ public class ClientTwisk {
         Simulation play = new Simulation();
         play.setNbClients(5);
         play.simuler(world);
+        //Monde world2 = new Monde();
+        //testPompeAEssence(world2);
+        //play.simuler(world2);
     }
 
     public static void testPompeAEssence(Monde stationEssence){
-        Etape attentePompe = new Guichet("FileDAttentePompe", 8);
-        Etape pompeAEssence = new ActiviteRestreinte("PompeAEssence", 10, 2);
-        Etape attenteCaisse = new Guichet("FileDAttenteCaisse",1);
-        Etape caisse = new ActiviteRestreinte("Caisse", 4, 2);
-        Etape attentePneu = new Guichet("FileDAttentePneu",2);
-        Etape gonflementPneu = new ActiviteRestreinte("GonflerPneu",8,5);
+        Etape attentePompe = new Guichet("Attente Pompe", 2);
+        Etape pompeEssence = new ActiviteRestreinte("Pompe à essence", 4,2);
+        Etape gonflerPneus = new Activite("Gonfler pneus", 3,2);
+        Etape attenteLavage = new Guichet("Attente Lavage", 1);
+        Etape lavageAuto = new ActiviteRestreinte("Lavage Auto",4,3);
 
-        attenteCaisse.ajouterSuccesseur(pompeAEssence);
-        pompeAEssence.ajouterSuccesseur(caisse,attentePneu);
-        caisse.ajouterSuccesseur(attentePneu);
-        attentePneu.ajouterSuccesseur(gonflementPneu);
+        attentePompe.ajouterSuccesseur(pompeEssence);
+        pompeEssence.ajouterSuccesseur(gonflerPneus,attenteLavage);
+        attenteLavage.ajouterSuccesseur(lavageAuto);
 
         stationEssence.aCommeEntree(attentePompe);
-        stationEssence.aCommeSortie(pompeAEssence,caisse,gonflementPneu);
-        stationEssence.ajouter(attentePompe,pompeAEssence,attenteCaisse,caisse,attentePneu,gonflementPneu);
+        stationEssence.aCommeSortie(lavageAuto,gonflerPneus);
+        stationEssence.ajouter(attentePompe,attenteLavage,pompeEssence,gonflerPneus,lavageAuto);
+
+
 
     }
 
