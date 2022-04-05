@@ -77,6 +77,7 @@ public class Simulation {
         System.out.print("Les clients sont : ");
         for(int i = 0; i < nbClients; i++){
             System.out.print(idClients[i]+" ");
+            this.gc.setClients(idClients[i]);
         }
 
         while(!stop){
@@ -93,8 +94,9 @@ public class Simulation {
                 System.out.print("\n"+tabEtape[numeroEtape].getNom() +" avec " + etatDeLaSimulation[cptEtape] + " clients : ");
 
                 //On affiche les clients dans l'étape
-                for(int client = 0; client < nbClientsDansEtape; client++){
+                for(int client = 0, rang = 1; client < nbClientsDansEtape && rang < nbClientsDansEtape; client++,rang++){
                     System.out.print(etatDeLaSimulation[cptEtape+client+1]+" ");
+                    this.gc.allerA(etatDeLaSimulation[cptEtape+client+1],tabEtape[numeroEtape],rang);
                 }
 
                 cptEtape += nbClients;
@@ -112,6 +114,7 @@ public class Simulation {
                 e.printStackTrace();
             }
         }
+        this.gc.nettoyer();
         nettoyage();
     }
 

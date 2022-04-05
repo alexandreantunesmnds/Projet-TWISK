@@ -1,5 +1,7 @@
 package twisk.simulation.tests;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import twisk.monde.Activite;
 import twisk.monde.Etape;
 import twisk.simulation.Client;
@@ -10,7 +12,7 @@ class ClientTest {
     Client cl;
     Etape etape2;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         cl = new Client(1234);
         cl.setEtape(new Activite("Activite 1"));
@@ -19,7 +21,7 @@ class ClientTest {
         etape2 = new Activite("Activite 2");
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void allerA() {
         cl.allerA(etape2,1);
 
