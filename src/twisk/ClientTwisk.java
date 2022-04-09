@@ -1,19 +1,30 @@
 package twisk;
 
 import twisk.monde.*;
-import twisk.simulation.Simulation;
+import twisk.outils.ClassLoaderPerso;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 public class ClientTwisk {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Monde world = new Monde();
         brigitte(world);
-        Simulation play = new Simulation();
-        play.setNbClients(5);
-        play.simuler(world);
-        //Monde world2 = new Monde();
-        //testPompeAEssence(world2);
-        //play.simuler(world2);
+        ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
+        Class<?> c = clp.loadClass("twisk.simulation.Simulation");
+        //Method m = clp.getClass().getMethod("Simulation");
+
+        //Récupération du construsteur
+        Constructor<?> co = c.getConstructor();
+        Object play =  co.newInstance();
+
+        //Appel des autres fonctions
+        Method md = c.getMethod("setNbClients",int.class);
+        md.invoke(play,5);
+
+        md = c.getMethod("simuler",Monde.class);
+        md.invoke(play,world);
     }
 
     public static void testPompeAEssence(Monde stationEssence){
