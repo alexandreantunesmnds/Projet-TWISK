@@ -9,6 +9,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class KitC {
     private Runtime runtime;
+    private int nb;
 
     /**
      * Constructeur
@@ -112,7 +113,8 @@ public class KitC {
      * Fonction qui crée la librairie
      */
     public void construireLaLibrairie(){
-        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk.so";
+        this.nb++;
+        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk"+this.nb+".so";
         try {
             Process p = runtime.exec(commande);
             p.waitFor();
@@ -130,5 +132,8 @@ public class KitC {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+    public int getNb(){
+        return this.nb;
     }
 }

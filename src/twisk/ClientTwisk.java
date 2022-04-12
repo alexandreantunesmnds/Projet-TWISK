@@ -14,6 +14,7 @@ public class ClientTwisk {
             brigitte(world);
             ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
             Class<?> c = clp.loadClass("twisk.simulation.Simulation");
+            clp = null;
 
             //Récupération du construsteur
             Constructor<?> co = c.getConstructor();
@@ -25,11 +26,11 @@ public class ClientTwisk {
 
             md = c.getMethod("simuler",Monde.class);
             md.invoke(play,world);
-
         //Deuxième monde
-        /*Monde world2 = new Monde();
+        Monde world2 = new Monde();
             ClassLoaderPerso clp2 = new ClassLoaderPerso(world2.getClass().getClassLoader());
             Class<?> c2 = clp2.loadClass("twisk.simulation.Simulation");
+            clp2 = null;
 
             //Récupération du construsteur
             Constructor<?> co2 = c2.getConstructor();
@@ -40,7 +41,7 @@ public class ClientTwisk {
             md2.invoke(play2,6);
 
             md2 = c2.getMethod("simuler",Monde.class);
-            md2.invoke(play2,world2);*/
+            md2.invoke(play2,world2);
     }
 
     public static void testPompeAEssence(Monde stationEssence){
