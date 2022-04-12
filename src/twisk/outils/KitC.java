@@ -113,7 +113,7 @@ public class KitC {
      * Fonction qui crée la librairie
      */
     public void construireLaLibrairie(){
-        this.nb++;
+        ++this.nb;
         String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk"+this.nb+".so";
         try {
             Process p = runtime.exec(commande);

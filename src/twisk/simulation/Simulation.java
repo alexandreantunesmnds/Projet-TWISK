@@ -13,6 +13,7 @@ public class Simulation {
     private KitC kc;
     private int nbClients;
     private GestionnaireClients gc;
+    private int nb;
 
     /**
      * Constructeur
@@ -35,14 +36,14 @@ public class Simulation {
      * @param monde
      */
     public void simuler(Monde monde){
+        ++this.nb;
         System.out.println("\n\n===        Le Monde        ===\n\n");
         System.out.println(monde.toString());
         System.out.println("\n\n=== Début de la simulation ===\n\n");
         kc.creerFichier(monde.toC());
         kc.compiler();
         kc.construireLaLibrairie();
-        System.out.println(this.kc.getNb());
-        System.load("/tmp/twisk/libTwisk"+this.kc.getNb()+".so");
+        System.load("/tmp/twisk/libTwisk1.so");
 
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();
