@@ -46,6 +46,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                 nouvelleEtape = new ActiviteIG("Etape "+ idf,idf, TailleComposants.getInstance().getLargeurEtape(), TailleComposants.getInstance().getHauteurEtape());
                 listeEtapes.put(nouvelleEtape.getIdentifiant(),nouvelleEtape);
                 break;
+            case "Guichet":
+                System.out.println("Ajout d'un guichet");
             default:
                 nouvelleEtape = new ActiviteIG("Etape "+ idf,idf,50,30);
                 break;

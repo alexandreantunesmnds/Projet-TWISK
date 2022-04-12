@@ -32,7 +32,7 @@ public class VueOutils extends TilePane implements Observateur{
         //Bouton guichet
         this.ajouterGuichet = new Button();
         this.ajouterGuichet.setText("");
-        this.ajouterActivite.setOnAction(event->this.monde.ajouter("Guichet"));
+        this.ajouterGuichet.setOnAction(event->this.monde.ajouter("Guichet"));
         this.ajouterGuichet.setTooltip(new Tooltip("Ajouter un guichet"));
 
         //Ajout icône
