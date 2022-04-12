@@ -9,22 +9,38 @@ import java.lang.reflect.Method;
 public class ClientTwisk {
 
     public static void main(String[] args) throws Exception {
-        Monde world = new Monde();
-        brigitte(world);
-        ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
-        Class<?> c = clp.loadClass("twisk.simulation.Simulation");
-        //Method m = clp.getClass().getMethod("Simulation");
+        //Premier Mde
+            Monde world = new Monde();
+            brigitte(world);
+            ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
+            Class<?> c = clp.loadClass("twisk.simulation.Simulation");
 
-        //Récupération du construsteur
-        Constructor<?> co = c.getConstructor();
-        Object play =  co.newInstance();
+            //Récupération du construsteur
+            Constructor<?> co = c.getConstructor();
+            Object play =  co.newInstance();
 
-        //Appel des autres fonctions
-        Method md = c.getMethod("setNbClients",int.class);
-        md.invoke(play,5);
+            //Appel des autres fonctions
+            Method md = c.getMethod("setNbClients",int.class);
+            md.invoke(play,5);
 
-        md = c.getMethod("simuler",Monde.class);
-        md.invoke(play,world);
+            md = c.getMethod("simuler",Monde.class);
+            md.invoke(play,world);
+
+        //Deuxième monde
+        /*Monde world2 = new Monde();
+            ClassLoaderPerso clp2 = new ClassLoaderPerso(world2.getClass().getClassLoader());
+            Class<?> c2 = clp2.loadClass("twisk.simulation.Simulation");
+
+            //Récupération du construsteur
+            Constructor<?> co2 = c2.getConstructor();
+            Object play2 =  co2.newInstance();
+
+            //Appel des autres fonctions
+            Method md2 = c2.getMethod("setNbClients",int.class);
+            md2.invoke(play2,6);
+
+            md2 = c2.getMethod("simuler",Monde.class);
+            md2.invoke(play2,world2);*/
     }
 
     public static void testPompeAEssence(Monde stationEssence){
