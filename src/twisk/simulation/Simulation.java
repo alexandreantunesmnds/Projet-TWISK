@@ -43,7 +43,7 @@ public class Simulation {
         kc.creerFichier(monde.toC());
         kc.compiler();
         kc.construireLaLibrairie();
-        System.load("/tmp/twisk/libTwisk1.so");
+        System.load("/tmp/twisk/libTwisk"+this.nb+".so");
 
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();
