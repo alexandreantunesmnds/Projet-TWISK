@@ -31,14 +31,17 @@ public class VueOutils extends TilePane implements Observateur{
 
         //Bouton guichet
         this.ajouterGuichet = new Button();
-        this.ajouterGuichet.setText("+");
+        this.ajouterGuichet.setText("");
         this.ajouterActivite.setOnAction(event->this.monde.ajouter("Guichet"));
         this.ajouterGuichet.setTooltip(new Tooltip("Ajouter un guichet"));
 
         //Ajout icône
-        Image plusActivite = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterActivite.png"),25,25,true,true);
-        ImageView iconPlus = new ImageView(plusActivite);
+        Image imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterActivite.png"),25,25,true,true);
+        ImageView iconPlus = new ImageView(imagePlus);
         this.ajouterActivite.setGraphic(iconPlus);
+        imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterGuichet.png"),25,25,true,true);
+        iconPlus = new ImageView(imagePlus);
+        this.ajouterGuichet.setGraphic(iconPlus);
 
         //ajout du style
         TailleComposants constantes = TailleComposants.getInstance();
