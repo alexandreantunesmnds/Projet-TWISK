@@ -11,7 +11,8 @@ import twisk.outils.TailleComposants;
 public class VueOutils extends TilePane implements Observateur{
 
     private MondeIG monde;
-    private Button ajouter;
+    private Button ajouterActivite;
+    private Button ajouterGuichet;
 
     /**
      * Constructeur
@@ -22,22 +23,29 @@ public class VueOutils extends TilePane implements Observateur{
         this.monde = monde;
         this.setStyle("-fx-background-color: "+this.monde.getStyle());
 
-        this.ajouter = new Button();
-        this.ajouter.setText("");
-        this.ajouter.setOnAction(event->this.monde.ajouter("Activité"));
-        this.ajouter.setTooltip(new Tooltip("Ajouter une activité"));
+        //Bouton activite
+        this.ajouterActivite = new Button();
+        this.ajouterActivite.setText("");
+        this.ajouterActivite.setOnAction(event->this.monde.ajouter("Activité"));
+        this.ajouterActivite.setTooltip(new Tooltip("Ajouter une activité"));
+
+        //Bouton guichet
+        this.ajouterGuichet = new Button();
+        this.ajouterGuichet.setText("+");
+        this.ajouterActivite.setOnAction(event->this.monde.ajouter("Guichet"));
+        this.ajouterGuichet.setTooltip(new Tooltip("Ajouter un guichet"));
 
         //Ajout icône
-        Image imageEntree = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouter.png"),25,25,true,true);
-        ImageView iconEntree = new ImageView(imageEntree);
-        this.ajouter.setGraphic(iconEntree);
+        Image plusActivite = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterActivite.png"),25,25,true,true);
+        ImageView iconPlus = new ImageView(plusActivite);
+        this.ajouterActivite.setGraphic(iconPlus);
 
         //ajout du style
         TailleComposants constantes = TailleComposants.getInstance();
-        this.ajouter.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
-        //this.ajouter.setStyle("-fx-text-fill: #619bdc; -fx-font-size: 20; -fx-border-weight: bold");
+        this.ajouterActivite.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
+        this.ajouterGuichet.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
 
-        this.getChildren().add(ajouter);
+        this.getChildren().addAll(ajouterActivite,ajouterGuichet);
 
         this.monde.ajouterObservateur(this);
     }
