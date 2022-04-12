@@ -28,6 +28,8 @@ public class ActiviteIG extends EtapeIG{
         this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+larg/2,this.getPosY()+haut,idf+" pdc 2",this)); //BAS
         this.pointsDeControle.add(new PointDeControleIG(this.getPosX()- (int)TailleComposants.getInstance().getTaillePDC()*2,this.getPosY()+haut/2,idf+" pdc 3",this)); //GAUCHE
         this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+larg,this.getPosY()+haut/2,idf+" pdc 4",this)); //DROITE
+
+        this.couleur = "#619bdc"; //Couleur bleu de base
     }
 
     /**

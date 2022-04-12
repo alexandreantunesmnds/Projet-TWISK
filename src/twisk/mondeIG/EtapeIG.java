@@ -33,7 +33,6 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
         this.sortie = false;
         this.largeur = larg;
         this.hauteur = haut;
-        this.couleur = "#619bdc"; //Couleur bleu de base
         this.posX = rand.nextInt(constantes.getLargeurFenetre()-constantes.getLargeurEtape());
         this.posY = rand.nextInt(constantes.getHauteurFenetre()-constantes.getHauteurEtape()-constantes.getLargeurBoutonAjouter());
     }
