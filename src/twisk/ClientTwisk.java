@@ -2,6 +2,7 @@ package twisk;
 
 import twisk.monde.*;
 import twisk.outils.ClassLoaderPerso;
+import twisk.outils.FabriqueSimulation;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -9,6 +10,9 @@ import java.lang.reflect.Method;
 public class ClientTwisk {
 
     public static void main(String[] args) throws Exception {
+        //On initialise le nombre de simulation
+        FabriqueSimulation.getInstance().reset();
+
         //Premier Mde
             Monde world = new Monde();
             brigitte(world);
@@ -26,8 +30,10 @@ public class ClientTwisk {
 
             md = c.getMethod("simuler",Monde.class);
             md.invoke(play,world);
+
         //Deuxième monde
-        Monde world2 = new Monde();
+            Monde world2 = new Monde();
+            testPompeAEssence(world2);
             ClassLoaderPerso clp2 = new ClassLoaderPerso(world2.getClass().getClassLoader());
             Class<?> c2 = clp2.loadClass("twisk.simulation.Simulation");
             clp2 = null;

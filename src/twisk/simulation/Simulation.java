@@ -5,15 +5,11 @@ import twisk.monde.Guichet;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
-import java.util.Arrays;
-
 public class Simulation {
     private KitC kc;
     private int nbClients;
     private GestionnaireClients gc;
-    private int nb;
+    private int noSimulation;
 
     /**
      * Constructeur
@@ -21,6 +17,7 @@ public class Simulation {
     public Simulation(){
         kc = new KitC();
         kc.creerEnvironnement();
+        noSimulation = kc.getNumeroSimulation();
     }
 
     /**
@@ -36,14 +33,13 @@ public class Simulation {
      * @param monde
      */
     public void simuler(Monde monde){
-        ++this.nb;
         System.out.println("\n\n===        Le Monde        ===\n\n");
         System.out.println(monde.toString());
         System.out.println("\n\n=== Début de la simulation ===\n\n");
         kc.creerFichier(monde.toC());
         kc.compiler();
         kc.construireLaLibrairie();
-        System.load("/tmp/twisk/libTwisk"+this.nb+".so");
+        System.load("/tmp/twisk/libTwisk"+this.noSimulation +".so");
 
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();

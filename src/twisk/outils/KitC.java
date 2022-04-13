@@ -9,13 +9,14 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class KitC {
     private Runtime runtime;
-    private int nb;
+    private int noSimulation;
 
     /**
      * Constructeur
      */
     public KitC() {
         runtime = Runtime.getRuntime();
+        noSimulation = FabriqueSimulation.getInstance().getNoSimulation();
     }
 
     /**
@@ -113,8 +114,7 @@ public class KitC {
      * Fonction qui crée la librairie
      */
     public void construireLaLibrairie(){
-        ++this.nb;
-        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk"+this.nb+".so";
+        String commande = "gcc -shared /tmp/twisk/programmeC.o /tmp/twisk/codeNatif.o /tmp/twisk/client.o -o /tmp/twisk/libTwisk"+this.noSimulation+".so";
         try {
             Process p = runtime.exec(commande);
             p.waitFor();
@@ -133,7 +133,7 @@ public class KitC {
             e.printStackTrace();
         }
     }
-    public int getNb(){
-        return this.nb;
+    public int getNumeroSimulation(){
+        return this.noSimulation;
     }
 }
