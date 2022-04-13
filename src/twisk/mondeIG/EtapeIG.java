@@ -153,6 +153,12 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
     public abstract boolean estUneActivite();
 
     /**
+     * Fonction qui dit si l'étape est unn guichet ou non
+     * @return Vrai si c'est un guichet
+     */
+    public abstract boolean estUnGuichet();
+
+    /**
      * Fonction qui indique si l'étape est une entrée ou non
      * @return vrai si c'est une entrée
      */

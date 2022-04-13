@@ -49,6 +49,11 @@ public class GuichetIG extends EtapeIG{
         return false;
     }
 
+    @Override
+    public boolean estUnGuichet() {
+        return true;
+    }
+
     /**
      * Fonction qui déplace les pdc d'une étape
      */

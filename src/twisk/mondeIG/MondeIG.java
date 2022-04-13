@@ -254,7 +254,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         switch (theme){
             case "CLAIR" :
                 for(EtapeIG etape : this){
-                    etape.setCouleur("#619bdc");
+                    if(etape.estUneActivite()) {
+                        etape.setCouleur("#619bdc");
+                    }else if(etape.estUnGuichet()){
+                        etape.setCouleur("#39bc58");
+                    }
                 }
                 this.style = "white";
                 for(ArcIG arc : this.iteratorArcIG()){

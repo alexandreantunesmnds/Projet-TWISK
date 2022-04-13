@@ -3,6 +3,8 @@ package twisk.simulation;
 import twisk.monde.Etape;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
+import twisk.outils.FabriqueIdentifiant;
+import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
 
 public class Simulation {

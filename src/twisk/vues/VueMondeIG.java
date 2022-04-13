@@ -82,6 +82,8 @@ public class VueMondeIG extends Pane implements Observateur{
             VueEtapeIG nouvelleEtape = null;
             if(etape.estUneActivite()) {
                 nouvelleEtape = new VueActiviteIG(this.monde,(ActiviteIG) etape);
+            }else if(etape.estUnGuichet()){
+                nouvelleEtape = new VueGuichetIG(this.monde,(GuichetIG) etape);
             }
             nouvelleEtape.relocate(etape.getPosX(),etape.getPosY());
 

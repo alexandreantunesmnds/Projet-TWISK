@@ -116,6 +116,11 @@ public class ActiviteIG extends EtapeIG{
         return true;
     }
 
+    @Override
+    public boolean estUnGuichet() {
+        return false;
+    }
+
     /**
      * Iterator
      * @return
