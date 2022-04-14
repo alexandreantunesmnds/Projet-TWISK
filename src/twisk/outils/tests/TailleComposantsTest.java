@@ -32,7 +32,7 @@ class TailleComposantsTest {
 
     @Test
     void getHauteurEtape() {
-        assertEquals(90,constantes.getHauteurEtape());
+        assertEquals(90,constantes.getHauteurActivite());
     }
 
     @Test

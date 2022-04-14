@@ -10,6 +10,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
     protected String nom;
     protected String identifiant;
     protected String couleur;
+    protected String couleurBord;
     protected int posX;
     protected int posY;
     protected int largeur;
@@ -34,7 +35,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
         this.largeur = larg;
         this.hauteur = haut;
         this.posX = rand.nextInt(constantes.getLargeurFenetre()-constantes.getLargeurEtape());
-        this.posY = rand.nextInt(constantes.getHauteurFenetre()-constantes.getHauteurEtape()-constantes.getLargeurBoutonAjouter());
+        this.posY = rand.nextInt(constantes.getHauteurFenetre()-constantes.getHauteurActivite()-constantes.getLargeurBoutonAjouter());
     }
 
     /**
@@ -120,8 +121,24 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      * Setteur
      * @param couleur La couleur de l'étape
      */
-    public void setCouleur(String couleur) {
+    public void setCouleurFond(String couleur) {
         this.couleur = couleur;
+    }
+
+    /**
+     * Setteur
+     * @param couleur la couleur du bord de l'étape
+     */
+    public void setCouleurBord(String couleur){
+        this.couleurBord = couleur;
+    }
+
+    /**
+     * Guetteur
+     * @return La couleur du bord de l'étape
+     */
+    public String getCouleurBord() {
+        return couleurBord;
     }
 
     /**

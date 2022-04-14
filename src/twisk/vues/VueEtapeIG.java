@@ -31,7 +31,8 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         this.titre = new Label();
 
         //Ajout du style
-        this.setPrefSize(etape.getLargeur(),etape.getHauteur());
+        this.setMinSize(etape.getLargeur(),etape.getHauteur());
+        this.setMaxSize(etape.getLargeur(),etape.getHauteur());
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10,10,10,10));
         this.setSpacing(10);

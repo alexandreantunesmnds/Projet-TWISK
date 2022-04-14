@@ -41,13 +41,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     public void ajouter(String type){
         EtapeIG nouvelleEtape;
         String idf = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
+        TailleComposants constantes = TailleComposants.getInstance();
         switch (type){
             case "Activité":
-                nouvelleEtape = new ActiviteIG("Etape "+ idf,idf, TailleComposants.getInstance().getLargeurEtape(), TailleComposants.getInstance().getHauteurEtape());
+                nouvelleEtape = new ActiviteIG("Etape "+ idf,idf, constantes.getLargeurEtape(), constantes.getHauteurActivite());
                 listeEtapes.put(nouvelleEtape.getIdentifiant(),nouvelleEtape);
                 break;
             case "Guichet":
-                nouvelleEtape = new GuichetIG("Guichet "+idf,idf,TailleComposants.getInstance().getLargeurEtape(), TailleComposants.getInstance().getHauteurEtape(),1);
+                nouvelleEtape = new GuichetIG("Guichet "+idf,idf,constantes.getLargeurEtape(), constantes.getHauteurGuichet(),10);
                 listeEtapes.put(nouvelleEtape.getIdentifiant(),nouvelleEtape);
             default:
                 nouvelleEtape = new ActiviteIG("Etape "+ idf,idf,50,30);
@@ -230,7 +231,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         TailleComposants constantes = TailleComposants.getInstance();
         EtapeIG etapeADeplacer = this.listeEtapes.get(idEtape);
         etapeADeplacer.setPosX((int) (x-constantes.getLargeurEtape()/2));
-        etapeADeplacer.setPosY((int) (y-constantes.getHauteurEtape()/2));
+        etapeADeplacer.setPosY((int) (y-constantes.getHauteurActivite()/2));
 
         etapeADeplacer.deplacerPdcEtape();
 
@@ -255,9 +256,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             case "CLAIR" :
                 for(EtapeIG etape : this){
                     if(etape.estUneActivite()) {
-                        etape.setCouleur("#619bdc");
+                        etape.setCouleurFond("#619bdc");
+                        etape.setCouleurBord("#3b69a6");
                     }else if(etape.estUnGuichet()){
-                        etape.setCouleur("#39bc58");
+                        etape.setCouleurFond("#39bc58");
+                        etape.setCouleurBord("#0c7c24");
                     }
                 }
                 this.style = "white";
@@ -267,7 +270,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                 break;
             case "FONCE" :
                 for(EtapeIG etape : this){
-                    etape.setCouleur("#aa26ff");
+                    if(etape.estUneActivite()) {
+                        etape.setCouleurFond("#2c6f97");
+                        etape.setCouleurBord("#10496b");
+                    }else if(etape.estUnGuichet()){
+                        etape.setCouleurFond("#c8254c");
+                        etape.setCouleurBord("#9d1f3d");
+                    }
                 }
                 for(ArcIG arc : this.iteratorArcIG()){
                     arc.setCouleur("green");

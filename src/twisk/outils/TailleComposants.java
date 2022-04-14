@@ -23,7 +23,7 @@ public class TailleComposants {
      * @return Retourne la largeur de la fenêtre
      */
     public int getLargeurFenetre(){
-        return 1000;
+        return 1200;
     }
 
     /**
@@ -31,7 +31,7 @@ public class TailleComposants {
      * @return Retourne la hauteur de la fenêtre
      */
     public int getHauteurFenetre(){
-        return 700;
+        return 900;
     }
 
     /**
@@ -46,8 +46,16 @@ public class TailleComposants {
      * Guetteur
      * @return Retourne la hauteur d'une étape
      */
-    public int getHauteurEtape(){
+    public int getHauteurActivite(){
         return 110;
+    }
+
+    /**
+     * Guetteur
+     * @return Retourne la hauteur d'une étape
+     */
+    public int getHauteurGuichet(){
+        return 70;
     }
 
     /**

@@ -25,9 +25,10 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
         //Ajout des styles
         TailleComposants constantes = TailleComposants.getInstance();
 
-        this.setStyle("-fx-background-color: "+ this.etape.getCouleur() +";-fx-background-radius: 10px,10px,10px,10px;-fx-border-color: #3b69a6; -fx-border-radius: 10px,10px,10px,10px;-fx-border-width: 2");
+        this.setStyle("-fx-background-color: "+ this.etape.getCouleur() +";-fx-background-radius: 10px,10px,10px,10px;-fx-border-color:"+etape.getCouleurBord()+"; -fx-border-radius: 10px,10px,10px,10px;-fx-border-width: 2");
 
-        zoneClient.setStyle("-fx-background-color: #c9c9c9 ;-fx-border-color: #3b69a6;-fx-border-width: 2");
+        //Ajout de la zone de client
+        zoneClient.setStyle("-fx-background-color: #c9c9c9 ;-fx-border-color: "+ etape.getCouleurBord()+";-fx-border-width: 2");
         zoneClient.setPrefSize(constantes.getLargeurZoneClient(), constantes.getHauteurZoneClient());
 
         this.getChildren().addAll(this.titre,zoneClient);
