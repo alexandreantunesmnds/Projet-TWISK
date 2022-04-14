@@ -28,6 +28,8 @@ public class GuichetIG extends EtapeIG{
         this.couleur = "#39bc58"; //Couleur verte de base
     }
 
+
+
     /**
      * Getteur
      * @return Le nombre de jetons

@@ -14,6 +14,7 @@ public class VueMenu extends MenuBar implements Observateur{
     private VueRenommerEtape VueRE;
     private VueChangerTemps VueCT;
     private VueChangerEcartTemps VueCET;
+    private VueChangerNbJetons VueCJ;
     private String style;
 
     public VueMenu(MondeIG monde) {
@@ -22,6 +23,7 @@ public class VueMenu extends MenuBar implements Observateur{
         this.VueRE = new VueRenommerEtape(this.monde);
         this.VueCT = new VueChangerTemps(this.monde);
         this.VueCET = new VueChangerEcartTemps(this.monde);
+        this.VueCJ = new VueChangerNbJetons(this.monde);
 
         //Menu Fichier
         Menu fichier = new Menu("Fichier");
@@ -87,7 +89,7 @@ public class VueMenu extends MenuBar implements Observateur{
         MenuItem temps = new MenuItem("Changer le temps");
         temps.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
-            if(etapeSelectionnees != null && etapeSelectionnees.size() == 1){
+            if(etapeSelectionnees != null && etapeSelectionnees.size() == 1 && etapeSelectionnees.get(0).estUneActivite()){
                 //System.out.println("blabla");
                 EtapeIG etapeAChanger = etapeSelectionnees.get(0);
                 this.VueCT.setEtapeAChanger(etapeAChanger);
@@ -97,15 +99,25 @@ public class VueMenu extends MenuBar implements Observateur{
         MenuItem ecartTemps = new MenuItem("Changer ecart-temps");
         ecartTemps.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
-            if(etapeSelectionnees != null && etapeSelectionnees.size() == 1){
+            if(etapeSelectionnees != null && etapeSelectionnees.size() == 1 && etapeSelectionnees.get(0).estUneActivite()){
                 //System.out.println("blabla");
                 EtapeIG etapeAChanger = etapeSelectionnees.get(0);
                 this.VueCET.setEtapeAChanger(etapeAChanger);
                 this.VueCET.show();
             }
         });
+        MenuItem nbJetons = new MenuItem("Changer le nombre de jetons");
+        nbJetons.setOnAction(event ->{
+            List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
+            if(etapeSelectionnees != null && etapeSelectionnees.size() == 1 && etapeSelectionnees.get(0).estUnGuichet()){
+                //System.out.println("blabla");
+                EtapeIG etapeAChanger = etapeSelectionnees.get(0);
+                this.VueCJ.setEtapeAChanger(etapeAChanger);
+                this.VueCJ.show();
+            }
+        });
 
-        param.getItems().addAll(temps,ecartTemps);
+        param.getItems().addAll(temps,ecartTemps,nbJetons);
 
         //Menu Style
         Menu style = new Menu("Style");
