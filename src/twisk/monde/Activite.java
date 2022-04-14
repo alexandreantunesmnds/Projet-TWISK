@@ -87,7 +87,7 @@ public class Activite extends Etape {
                 code.append("\tcase " + cpt + ":{ //vers "+e.getNom()+"\n");
             }
             code.append("\ttransfert("+this.getNom()+","+e.getNom()+");\n");
-            code.append("\t"+e.toC());
+            code.append(e.toC());
             if(this.getSucc().nbEtapes()>1) {
                 code.append("\tbreak;\n\t}\n");
             }

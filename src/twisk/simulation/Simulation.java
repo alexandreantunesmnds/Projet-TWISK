@@ -41,12 +41,12 @@ public class Simulation {
         kc.creerFichier(monde.toC());
         kc.compiler();
         kc.construireLaLibrairie();
+        System.out.println("/tmp/twisk/libTwisk"+this.noSimulation +".so");
         System.load("/tmp/twisk/libTwisk"+this.noSimulation +".so");
 
         //Définition des variables locales
         int nbEtapes = monde.nbEtapes();
         int nbGuichets = monde.nbGuichets();
-        int nbClients = 5;
         Etape[] tabEtape = new Etape[nbEtapes];
         int[] tabJetonsGuichet = new int[nbGuichets];
 

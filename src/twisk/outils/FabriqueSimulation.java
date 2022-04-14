@@ -22,8 +22,7 @@ public class FabriqueSimulation {
      * @return Le numéro de la simulation
      */
     public int getNoSimulation(){
-        this.noSimulation++;
-        return noSimulation;
+        return noSimulation++;
     }
 
     /**

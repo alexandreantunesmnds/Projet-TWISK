@@ -89,7 +89,7 @@ public class Guichet extends Etape {
 
             //On transfère ensuite aux successeurs de l'activité restreinte
             if(ar.getSucc().nbEtapes()>1) {
-                code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + this.getSucc().nbEtapes() + "));\n");
+                code.append("\tint nb = (int)((rand()/(float)RAND_MAX*" + ar.getSucc().nbEtapes() + "));\n");
                 code.append("\tswitch(nb){\n");
             }
             int cpt = 0;
@@ -98,14 +98,14 @@ public class Guichet extends Etape {
                     code.append("\tcase " + cpt + ":{ //vers "+ar.getSucc().getEtape(cpt).getNom()+"\n");
                 }
                 code.append("\ttransfert("+ar.getNom()+","+e.getNom()+");\n");
-                code.append("\t"+e.toC());
+                code.append(e.toC());
                 if(ar.getSucc().nbEtapes()>1) {
                     code.append("\tbreak;\n\t}\n");
                 }
                 cpt++;
             }
             if(ar.getSucc().nbEtapes()>1) {
-                code.append("} //Guichet("+this.getNom()+")\n");
+                code.append("\t} //Guichet("+this.getNom()+")\n");
             }
         }
         return code.toString();
