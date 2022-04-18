@@ -1,6 +1,7 @@
 package twisk.mondeIG;
 
 import twisk.exceptions.ArcException;
+import twisk.exceptions.MondeException;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.vues.Observateur;
@@ -304,5 +305,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     @Override
     public Iterator<EtapeIG> iterator() {
         return this.listeEtapes.values().iterator();
+    }
+
+    public void simuler() throws MondeException {
+
+
     }
 }
