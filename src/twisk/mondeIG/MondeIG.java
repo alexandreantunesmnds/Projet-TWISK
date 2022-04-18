@@ -2,6 +2,7 @@ package twisk.mondeIG;
 
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
+import twisk.monde.Monde;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.vues.Observateur;
@@ -20,7 +21,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private List<ArcIG> arcSelectionnes;
     private String style;
     private String theme;
-
+    private int valid; //vaut 0 si le monde n'est pas valide et 1 si le monde est valide
     /**
      * Constructeur
      */
@@ -33,6 +34,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.theme = "CLAIR";
         this.style = "white";
         this.ajouter("Activité");
+        this.valid = 1; //le monde est valide par défaut
     }
 
     /**
@@ -307,6 +309,37 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         return this.listeEtapes.values().iterator();
     }
 
+    /**
+     * Fonction qui vérifie la validité du monde créé
+     * @throws MondeException
+     */
+    private void verifierMondeIG() throws MondeException{
+        for(EtapeIG etapes : this){
+            int id = Integer.parseInt(String.valueOf(etapes.getIdentifiant()));
+            String idSucc = String.valueOf(id+1);
+            String idPrec = String.valueOf(id-1);
+
+            if (etapes.estUneActivite()){ // si une activité est entourée par 2 guichets : erreur !
+                if(this.listeEtapes.get(idSucc).estUnGuichet()){
+                    if(this.listeEtapes.get(idPrec).estUnGuichet()){
+                        this.valid = 0; // le monde n'est pas valide
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * FOnction qui créé un monde
+     * @return Monde monde
+     */
+    private Monde creerMonde(){
+
+    }
+    /**
+     * Fonction qui permet la simulation du monde créé
+     * @throws MondeException
+     */
     public void simuler() throws MondeException {
 
 
