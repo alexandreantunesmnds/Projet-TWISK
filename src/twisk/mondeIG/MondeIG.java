@@ -2,7 +2,7 @@ package twisk.mondeIG;
 
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
-import twisk.monde.Monde;
+import twisk.monde.*;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.vues.Observateur;
@@ -323,6 +323,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                 if(this.listeEtapes.get(idSucc).estUnGuichet()){
                     if(this.listeEtapes.get(idPrec).estUnGuichet()){
                         this.valid = 0; // le monde n'est pas valide
+                        throw new MondeException("Le monde n'est pas valide : vous avez 1 activité entourée par 2 guichets");
                     }
                 }
             }
@@ -334,7 +335,26 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      * @return Monde monde
      */
     private Monde creerMonde(){
-
+        Monde monde = new Monde();
+        for (EtapeIG etapes : this){
+            if(etapes.estUnGuichet()) {
+                Etape etape = new Guichet(etapes.getNom());
+                monde.ajouter(etape);
+            }
+            else if (etapes.estUneActivite()){
+                Etape etape = new Activite(etapes.getNom());
+                monde.ajouter(etape);
+            }
+            else if(etapes.estUneEntree()){
+                SasEntree entree = new SasEntree();
+                monde.ajouter(entree);
+            }
+            else{
+                SasSortie sortie = new SasSortie();
+                monde.ajouter(sortie);
+            }
+        }
+        return monde;
     }
     /**
      * Fonction qui permet la simulation du monde créé
