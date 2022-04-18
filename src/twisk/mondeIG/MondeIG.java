@@ -5,6 +5,7 @@ import twisk.exceptions.MondeException;
 import twisk.monde.*;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
+import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 import twisk.vues.SujetObserve;
 
@@ -363,7 +364,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     public void simuler() throws MondeException {
         this.verifierMondeIG();
         if(this.valid==1){ //le monde est donc valide
-            this.creerMonde();
+            Monde monde = this.creerMonde();
+            Simulation simulation = new Simulation();
+            simulation.simuler(monde); //on simule alors le monde valide
         }
         else{
             throw new MondeException("Erreur : vous essayez de simuler un monde invalide !");
