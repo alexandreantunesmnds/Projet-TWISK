@@ -361,7 +361,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      * @throws MondeException
      */
     public void simuler() throws MondeException {
-
-
+        this.verifierMondeIG();
+        if(this.valid==1){ //le monde est donc valide
+            this.creerMonde();
+        }
+        else{
+            throw new MondeException("Erreur : vous essayez de simuler un monde invalide !");
+        }
     }
 }
