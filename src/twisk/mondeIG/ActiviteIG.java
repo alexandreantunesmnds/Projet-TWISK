@@ -117,7 +117,7 @@ public class ActiviteIG extends EtapeIG{
     }
 
     @Override
-    public boolean estUnGuichet() {
+    public boolean estUneActiviteRestreinte() {
         return false;
     }
 

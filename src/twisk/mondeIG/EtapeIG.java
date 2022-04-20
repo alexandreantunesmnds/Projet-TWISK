@@ -167,13 +167,25 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      * Fonction qui dit si l'étape est une activité ou non
      * @return Vrai si c'est une activité
      */
-    public abstract boolean estUneActivite();
+    public boolean estUneActivite(){
+        return false;
+    }
+
+    /**
+     * Fonction qui dit si l'étape est une activité restreinte ou non
+     * @return Vrai si c'est une activité restreinte
+     */
+    public boolean estUneActiviteRestreinte(){
+        return false;
+    }
 
     /**
      * Fonction qui dit si l'étape est unn guichet ou non
      * @return Vrai si c'est un guichet
      */
-    public abstract boolean estUnGuichet();
+    public boolean estUnGuichet(){
+        return false;
+    }
 
     /**
      * Fonction qui indique si l'étape est une entrée ou non

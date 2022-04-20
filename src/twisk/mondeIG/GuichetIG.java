@@ -47,11 +47,6 @@ public class GuichetIG extends EtapeIG{
     }
 
     @Override
-    public boolean estUneActivite() {
-        return false;
-    }
-
-    @Override
     public boolean estUnGuichet() {
         return true;
     }
