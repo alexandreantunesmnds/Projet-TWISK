@@ -9,6 +9,8 @@ import java.util.Iterator;
 public class ActiviteIG extends EtapeIG{
     private int temps;
     private int ecartTemps;
+    private boolean estRestreinte;
+
     /**
      * Constructeur
      * @param nom Nom de l'activité
@@ -30,6 +32,8 @@ public class ActiviteIG extends EtapeIG{
         this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+larg,this.getPosY()+haut/2,idf+" pdc 4",this)); //DROITE
 
         this.couleur = "#619bdc"; //Couleur bleu de base
+
+        this.estRestreinte = false;
     }
 
     /**
@@ -111,6 +115,10 @@ public class ActiviteIG extends EtapeIG{
         pdc4.setPosY(this.getPosY()+hauteur/2);
     }
 
+    public void setEstRestreinte(boolean estRestreinte) {
+        this.estRestreinte = estRestreinte;
+    }
+
     @Override
     public boolean estUneActivite() {
         return true;
@@ -118,7 +126,7 @@ public class ActiviteIG extends EtapeIG{
 
     @Override
     public boolean estUneActiviteRestreinte() {
-        return false;
+        return this.estRestreinte;
     }
 
     /**

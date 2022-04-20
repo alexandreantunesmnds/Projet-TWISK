@@ -321,11 +321,20 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             String idPrec = String.valueOf(id-1);
 
             if (etapes.estUneActivite()){ // si une activité est entourée par 2 guichets : erreur !
-                if(this.listeEtapes.get(idSucc).estUnGuichet()){
-                    if(this.listeEtapes.get(idPrec).estUnGuichet()){
+                if(this.listeEtapes.get(idSucc).estUnGuichet()) {
+                    if (this.listeEtapes.get(idPrec).estUnGuichet()) {
                         this.valid = 0; // le monde n'est pas valide
                         throw new MondeException("Le monde n'est pas valide : vous avez 1 activité entourée par 2 guichets");
                     }
+                }
+            }else if (etapes.estUnGuichet()){
+                if(this.listeEtapes.get(idSucc).estUnGuichet()){
+                    this.valid = 0; //Le monde n'est pas valide
+                    throw new MondeException("Le monde n'est pas valide : vous avec deux guichet qui se suivent");
+                }else if (this.listeEtapes.get(idSucc).estUneActivite()){
+                    //L'étape qui suit est donc une activite restreinte
+                    ActiviteIG act = (ActiviteIG) this.listeEtapes.get(idSucc);
+                    act.setEstRestreinte(true);
                 }
             }
         }

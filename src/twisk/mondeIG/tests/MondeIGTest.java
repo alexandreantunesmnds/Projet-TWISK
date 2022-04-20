@@ -2,10 +2,7 @@ package twisk.mondeIG.tests;
 
 import org.junit.jupiter.api.Test;
 import twisk.exceptions.TwiskException;
-import twisk.mondeIG.ActiviteIG;
-import twisk.mondeIG.EtapeIG;
-import twisk.mondeIG.MondeIG;
-import twisk.mondeIG.PointDeControleIG;
+import twisk.mondeIG.*;
 
 import java.util.Iterator;
 
