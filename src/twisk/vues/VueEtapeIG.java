@@ -51,6 +51,16 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
             ImageView iconSortie = new ImageView(imageSortie);
             this.titre.setGraphic(iconSortie);
         }
+        if(this.etape.estUnGuichet()){
+            Image imageGuichet = new Image(getClass().getResourceAsStream("/twisk/ressources/images/guichet.png"),20,20,true,true);
+            ImageView iconGuichet = new ImageView(imageGuichet);
+            this.titre.setGraphic(iconGuichet);
+        }
+        if(this.etape.estUneActivite() || this.etape.estUneActiviteRestreinte()){
+            Image imageGuichet = new Image(getClass().getResourceAsStream("/twisk/ressources/images/activite.png"),20,20,true,true);
+            ImageView iconGuichet = new ImageView(imageGuichet);
+            this.titre.setGraphic(iconGuichet);
+        }
 
         //Ajout de la possibilité de sélectionné une étape
         this.setOnMouseClicked(mouseEvent -> this.monde.selectionneEtape(etape));
