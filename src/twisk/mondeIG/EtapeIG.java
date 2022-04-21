@@ -1,5 +1,6 @@
 package twisk.mondeIG;
 
+import twisk.monde.GestionnaireSuccesseurs;
 import twisk.outils.TailleComposants;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
     protected int hauteur;
     protected boolean entree;
     protected boolean sortie;
+    protected GestionnaireSuccesseurs succ;
 
     /**
      * Constructeur
