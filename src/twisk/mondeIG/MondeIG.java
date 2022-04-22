@@ -148,6 +148,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             this.arcSelectionnes.remove(arcSelectionne);
         }else {
             this.arcSelectionnes.add(arcSelectionne);
+            EtapeIG etape1 = arcSelectionne.getPt1().getEtapeLiee();
+            EtapeIG etape2 = arcSelectionne.getPt2().getEtapeLiee();
+            etape1.ajouterSuccesseur(etape2);
             //System.out.println(this.etapeSelectionne.toString());
         }
         this.notifierObservateurs();
@@ -173,6 +176,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         for(ArcIG arc : this.iteratorArcIG()){
             PointDeControleIG pdc1 = arc.getPt1();
             PointDeControleIG pdc2 = arc.getPt2();
+            EtapeIG etape1 = pdc1.getEtapeLiee();
+            EtapeIG etape2 = pdc2.getEtapeLiee();
+            etape1.retirerSuccesseur(etape2);
 
             if(etapeASuppr != null && (pdc1.getEtapeLiee().equals(etapeASuppr) || pdc2.getEtapeLiee().equals(etapeASuppr))) {
                 listeArcASuprr.add(arc);

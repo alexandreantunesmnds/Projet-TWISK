@@ -229,4 +229,10 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
                 ", hauteur=" + hauteur +
                 '}';
     }
+    public void ajouterSuccesseur(EtapeIG e){
+        this.succ.ajouter(e);
+    }
+    public void retirerSuccesseur(EtapeIG e){
+        this.succ.retirer(e);
+    }
 }
