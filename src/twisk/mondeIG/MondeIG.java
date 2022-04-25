@@ -76,6 +76,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         if(verifierArc(pdc1,pdc2)) {
             this.listeArc.add(new ArcIG(pdc1, pdc2));
             this.changerStyle(this.theme); //On met le theme du monde
+
+            //Puisque l'arc a été vérifié, on peut ajouter les successeurs
+            EtapeIG etape1 = pdc1.getEtapeLiee();
+            EtapeIG etape2 = pdc2.getEtapeLiee();
+            etape1.ajouterSuccesseur(etape2);
+            //System.out.println(etape1.getSucc().toString());
+
             this.notifierObservateurs();
         }
     }
@@ -149,10 +156,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             this.arcSelectionnes.remove(arcSelectionne);
         }else {
             this.arcSelectionnes.add(arcSelectionne);
-            EtapeIG etape1 = arcSelectionne.getPt1().getEtapeLiee();
-            EtapeIG etape2 = arcSelectionne.getPt2().getEtapeLiee();
-            etape1.ajouterSuccesseur(etape2);
-            //System.out.println(this.etapeSelectionne.toString());
         }
         this.notifierObservateurs();
     }

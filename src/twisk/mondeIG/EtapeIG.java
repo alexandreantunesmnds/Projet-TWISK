@@ -1,6 +1,5 @@
 package twisk.mondeIG;
 
-import twisk.monde.GestionnaireSuccesseurs;
 import twisk.outils.TailleComposants;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
     protected int hauteur;
     protected boolean entree;
     protected boolean sortie;
-    protected GestionnaireSuccesseurs succ;
+    protected GestionnaireSuccesseursIG succ;
 
     /**
      * Constructeur
@@ -38,6 +37,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
         this.hauteur = haut;
         this.posX = rand.nextInt(constantes.getLargeurFenetre()-constantes.getLargeurEtape());
         this.posY = rand.nextInt(constantes.getHauteurFenetre()-constantes.getHauteurActivite()-constantes.getLargeurBoutonAjouter());
+        this.succ = new GestionnaireSuccesseursIG();
     }
 
     /**
@@ -214,20 +214,11 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
     }
 
     /**
-     * Fonction qui déplace les pdc d'une étape
+     * Fonction qui retourne la liste des successeurs de l'étape
+     * @return La liste des successeurs de l'étape
      */
-    public abstract void deplacerPdcEtape();
-
-    @Override
-    public String toString() {
-        return "EtapeIG{" +
-                "nom='" + nom + '\'' +
-                ", identifiant='" + identifiant + '\'' +
-                ", posX=" + posX +
-                ", posY=" + posY +
-                ", largeur=" + largeur +
-                ", hauteur=" + hauteur +
-                '}';
+    public GestionnaireSuccesseursIG getSucc(){
+        return this.succ;
     }
 
     /**
@@ -243,5 +234,22 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      */
     public void retirerSuccesseur(EtapeIG e){
         this.succ.retirer(e);
+    }
+
+    /**
+     * Fonction qui déplace les pdc d'une étape
+     */
+    public abstract void deplacerPdcEtape();
+
+    @Override
+    public String toString() {
+        return "EtapeIG{" +
+                "nom='" + nom + '\'' +
+                ", identifiant='" + identifiant + '\'' +
+                ", posX=" + posX +
+                ", posY=" + posY +
+                ", largeur=" + largeur +
+                ", hauteur=" + hauteur +
+                '}';
     }
 }

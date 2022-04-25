@@ -1,20 +1,17 @@
 package twisk.monde;
 
-import twisk.mondeIG.EtapeIG;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class GestionnaireSuccesseurs implements Iterable<Etape>{
-    private ArrayList<Etape> EtapeList;
-    private ArrayList<EtapeIG> EtapeIGList;
+    private ArrayList<Etape> etapeList;
 
     /**
      * Constructeur
      */
     public GestionnaireSuccesseurs(){
-        this.EtapeList = new ArrayList<Etape>();
+        this.etapeList = new ArrayList<Etape>();
     }
 
     /**
@@ -23,15 +20,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
      * @return l'étape à l'index id
      */
     public Etape getEtape(int id){
-        return EtapeList.get(id);
-    }
-
-    /**
-     * Fonction qui ajoute à la liste des successeurs des étapes IG
-     * @param etapes Liste d'étape à ajouter
-     */
-    public void ajouter(EtapeIG etapes){
-        this.EtapeIGList.addAll(List.of(etapes));
+        return etapeList.get(id);
     }
 
     /**
@@ -39,7 +28,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
      * @param etapes Liste d'étape à ajouter
      */
     public void ajouter(Etape ... etapes){
-        this.EtapeList.addAll(List.of(etapes));
+        this.etapeList.addAll(List.of(etapes));
     }
 
 
@@ -48,7 +37,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
      * @return le nombre de successeurs d'une étape
      */
     public int nbEtapes(){
-        return this.EtapeList.size();
+        return this.etapeList.size();
     }
 
     /**
@@ -56,7 +45,7 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
      * @return Iterator<Etape>
      */
     public Iterator<Etape> iterator(){
-        return EtapeList.iterator();
+        return etapeList.iterator();
     }
 
     /**
@@ -66,17 +55,9 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
     @Override
     public String toString() {
         StringBuilder listeSuccesseur = new StringBuilder();
-        for(Etape e : EtapeList){
+        for(Etape e : etapeList){
             listeSuccesseur.append(e.getNom() + " - ");
         }
         return listeSuccesseur.toString() ;
-    }
-
-    /**
-     * Fonction qui retire le successeur de l'étape donnée en paramètre
-     * @param e
-     */
-    public void retirer(EtapeIG e) {
-        this.EtapeIGList.removeAll(List.of(e));
     }
 }
