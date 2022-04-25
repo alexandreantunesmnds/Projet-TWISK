@@ -24,6 +24,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private String theme;
     private boolean valid;
     private CorrespondanceEtapes corresEtap;
+
     /**
      * Constructeur
      */
@@ -36,6 +37,20 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.theme = "CLAIR";
         this.style = "white";
         this.ajouter("Activité");
+        this.valid = true; //le monde est valide par défaut
+    }
+    /**
+     * Constructeur
+     */
+    public MondeIG(EtapeIG ... etapeIG){
+        this.listeEtapes = new HashMap<>();
+        this.listeObservateur = new ArrayList<Observateur>();
+        this.listeArc = new ArrayList<ArcIG>();
+        this.arcSelectionnes = new ArrayList<ArcIG>();
+        this.etapeSelectionnees = new ArrayList<EtapeIG>();
+        this.theme = "CLAIR";
+        this.style = "white";
+        this.ajouter(etapeIG);
         this.valid = true; //le monde est valide par défaut
     }
 
@@ -358,6 +373,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                     if (etape.getSucc().getEtape(0).estUnGuichet()) {
                         this.valid = false;
                         throw new MondeException("Erreur : Deux guichets ne peuvent pas se succeder");
+                    }else if(etape.getSucc().getEtape(0).estUneActivite()){
+                        ActiviteIG act = (ActiviteIG) etape.getSucc().getEtape(0);
+                        act.setEstRestreinte();
                     }
                 }
             }

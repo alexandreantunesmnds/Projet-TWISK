@@ -89,6 +89,13 @@ public class ActiviteIG extends EtapeIG{
     }
 
     /**
+     * Fonction qui indique si l'étape doit être une activité restreinte ou non
+     */
+    public void setEstRestreinte() {
+        this.estRestreinte = !estRestreinte;
+    }
+
+    /**
      * Fonction qui déplace les pdc d'une étape
      */
     @Override
@@ -113,10 +120,6 @@ public class ActiviteIG extends EtapeIG{
         //Droite
         pdc4.setPosX(this.getPosX()+largeur);
         pdc4.setPosY(this.getPosY()+hauteur/2);
-    }
-
-    public void setEstRestreinte(boolean estRestreinte) {
-        this.estRestreinte = estRestreinte;
     }
 
     @Override
