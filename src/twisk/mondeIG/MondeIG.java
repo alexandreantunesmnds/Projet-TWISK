@@ -23,6 +23,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private String style;
     private String theme;
     private int valid; //vaut 0 si le monde n'est pas valide et 1 si le monde est valide
+    private CorrespondanceEtapes corresEtap;
     /**
      * Constructeur
      */
@@ -352,6 +353,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      */
     private Monde creerMonde(){
         Monde monde = new Monde();
+        this.corresEtap = new CorrespondanceEtapes();
         for (EtapeIG etapes : this){
             if(etapes.estUnGuichet()) {
                 Etape etape = new Guichet(etapes.getNom());
@@ -369,6 +371,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
                 SasSortie sortie = new SasSortie();
                 monde.ajouter(sortie);
             }
+            this.corresEtap.ajouter(etapes,this.corresEtap.get(etapes));
         }
         return monde;
     }

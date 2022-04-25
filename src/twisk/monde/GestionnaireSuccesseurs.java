@@ -33,13 +33,15 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
     public void ajouter(EtapeIG etapes){
         this.EtapeIGList.addAll(List.of(etapes));
     }
+
     /**
      * Fonction qui ajoute à la liste des successeurs des étapes
      * @param etapes Liste d'étape à ajouter
      */
-    public void ajouter(Etape etapes){
+    public void ajouter(Etape ... etapes){
         this.EtapeList.addAll(List.of(etapes));
     }
+
 
     /**
      * Fonction qui retourne le nombre de successeur d'une étape
@@ -70,6 +72,10 @@ public class GestionnaireSuccesseurs implements Iterable<Etape>{
         return listeSuccesseur.toString() ;
     }
 
+    /**
+     * Fonction qui retire le successeur de l'étape donnée en paramètre
+     * @param e
+     */
     public void retirer(EtapeIG e) {
         this.EtapeIGList.removeAll(List.of(e));
     }
