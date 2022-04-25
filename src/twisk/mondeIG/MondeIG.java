@@ -22,7 +22,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private List<ArcIG> arcSelectionnes;
     private String style;
     private String theme;
-    private int valid; //vaut 0 si le monde n'est pas valide et 1 si le monde est valide
+    private boolean valid;
     private CorrespondanceEtapes corresEtap;
     /**
      * Constructeur
@@ -36,7 +36,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.theme = "CLAIR";
         this.style = "white";
         this.ajouter("Activité");
-        this.valid = 1; //le monde est valide par défaut
+        this.valid = true; //le monde est valide par défaut
     }
 
     /**
@@ -65,6 +65,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.notifierObservateurs();
 
         //System.out.println("Ajout de l'étape : "+ nouvelleEtape.toString());
+    }
+
+    /**
+     * Fonction qui ajoute manuellement des étapes dans le monde
+     * @param etapes les étapes à ajouter
+     */
+    public void ajouter(EtapeIG ... etapes){
+        for(EtapeIG etape : etapes) {
+            listeEtapes.put(etape.getIdentifiant(), etape);
+        }
     }
 
     /**
@@ -308,20 +318,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     /**
-     * Fonction qui itère tous les arcs dans le monde
-     * @return iterateur d'arc
+     * Fonction qui retourne la validité du monde
+     * @return Vrai si le monde est valide, faux sinon
      */
-    public Iterable<ArcIG> iteratorArcIG(){
-        return this.listeArc;
-    }
-
-    /**
-     * Fonction qui itère toutes les étapes dans le monde
-     * @return iterateur d'arc
-     */
-    @Override
-    public Iterator<EtapeIG> iterator() {
-        return this.listeEtapes.values().iterator();
+    public boolean estValide() throws MondeException {
+        this.verifierMondeIG();
+        return this.valid;
     }
 
     /**
@@ -329,28 +331,45 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      * @throws MondeException
      */
     private void verifierMondeIG() throws MondeException{
-        for(EtapeIG etapes : this){
-            int id = Integer.parseInt(String.valueOf(etapes.getIdentifiant()));
-            String idSucc = String.valueOf(id+1);
-            String idPrec = String.valueOf(id-1);
+        int cptEntree = 0;
+        int cptSortie = 0;
 
-            if (etapes.estUneActivite()){ // si une activité est entourée par 2 guichets : erreur !
-                if(this.listeEtapes.get(idSucc).estUnGuichet()) {
-                    if (this.listeEtapes.get(idPrec).estUnGuichet()) {
-                        this.valid = 0; // le monde n'est pas valide
-                        throw new MondeException("Le monde n'est pas valide : vous avez 1 activité entourée par 2 guichets");
+        //Le monde est faux si :
+        for(EtapeIG etape : this){
+            //System.out.println(etape.getNom());
+            //Une etape n'a pas de successeur
+            if(etape.getSucc().nbEtapes() == 0 && !etape.estUneSortie()){
+                this.valid = false;
+                throw new MondeException("Erreur : Une ou des étapes ne possède pas de successeurs");
+            }
+            if(etape.estUneEntree()){
+                cptEntree++;
+            }
+            if(etape.estUneSortie()){
+                cptSortie++;
+            }
+            if(etape.estUnGuichet()){
+                //Un guichet possède plus d'un successeur
+                if(etape.getSucc().nbEtapes() != 1){
+                    this.valid = false;
+                    throw new MondeException("Erreur : Un guichet ne peut pas posséder deux successeurs");
+                }else {
+                    //Deux guichets se succèdent
+                    if (etape.getSucc().getEtape(0).estUnGuichet()) {
+                        this.valid = false;
+                        throw new MondeException("Erreur : Deux guichets ne peuvent pas se succeder");
                     }
                 }
-            }else if (etapes.estUnGuichet()){
-                if(this.listeEtapes.get(idSucc).estUnGuichet()){
-                    this.valid = 0; //Le monde n'est pas valide
-                    throw new MondeException("Le monde n'est pas valide : vous avec deux guichet qui se suivent");
-                }else if (this.listeEtapes.get(idSucc).estUneActivite()){
-                    //L'étape qui suit est donc une activite restreinte
-                    ActiviteIG act = (ActiviteIG) this.listeEtapes.get(idSucc);
-                    act.setEstRestreinte(true);
-                }
             }
+        }
+        //Il n'y a aucune sortie ou aucune entrée
+        if(cptEntree == 0){
+            this.valid = false;
+            throw new MondeException("Erreur : Le monde ne possède pas d'entrée");
+        }
+        if(cptSortie == 0){
+            this.valid = false;
+            throw new MondeException("Erreur : Le monde ne possède pas de sortie");
         }
     }
 
@@ -388,7 +407,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      */
     public void simuler() throws MondeException {
         this.verifierMondeIG();
-        if(this.valid==1){ //le monde est donc valide
+        if(this.valid){ //le monde est donc valide
             Monde monde = this.creerMonde();
             Simulation simulation = new Simulation();
             simulation.simuler(monde); //on simule alors le monde valide
@@ -396,5 +415,29 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         else{
             throw new MondeException("Erreur : vous essayez de simuler un monde invalide !");
         }
+    }
+
+    /**
+     * Fonction qui itère tous les arcs dans le monde
+     * @return iterateur d'arc
+     */
+    public Iterable<ArcIG> iteratorArcIG(){
+        return this.listeArc;
+    }
+
+    /**
+     * Fonction qui itère toutes les étapes dans le monde
+     * @return iterateur d'arc
+     */
+    @Override
+    public Iterator<EtapeIG> iterator() {
+        return this.listeEtapes.values().iterator();
+    }
+
+    @Override
+    public String toString() {
+        return "MondeIG{" +
+                "listeEtapes=" + listeEtapes +
+                '}';
     }
 }

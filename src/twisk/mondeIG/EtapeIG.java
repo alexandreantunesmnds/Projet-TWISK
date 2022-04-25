@@ -207,7 +207,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      */
     public boolean estUneSortie(){
         boolean rep = false;
-        if(this.sortie){
+        if(this.sortie && !this.estUnGuichet()){
             rep = true;
         }
         return rep;
@@ -225,7 +225,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      * Fonction qui ajoute un successeur à l'étape passée en paramètre
      * @param e
      */
-    public void ajouterSuccesseur(EtapeIG e){
+    public void ajouterSuccesseur(EtapeIG ... e){
         this.succ.ajouter(e);
     }
     /**
@@ -250,6 +250,9 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
                 ", posY=" + posY +
                 ", largeur=" + largeur +
                 ", hauteur=" + hauteur +
+                ", entree=" + entree +
+                ", sortie=" + sortie +
+                ", succ=" + succ +
                 '}';
     }
 }
