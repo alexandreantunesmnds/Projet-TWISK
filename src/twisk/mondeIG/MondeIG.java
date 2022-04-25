@@ -191,6 +191,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             }
         }
         for (ArcIG arcASuppr : listeArcASuprr){
+            EtapeIG etapePrec = arcASuppr.getPt1().getEtapeLiee();
+            EtapeIG etapeSucc = arcASuppr.getPt2().getEtapeLiee();
+            etapePrec.retirerSuccesseur(etapeSucc);
+            //System.out.println(etapePrec.getSucc().toString());
             this.listeArc.remove(arcASuppr);
         }
     }
