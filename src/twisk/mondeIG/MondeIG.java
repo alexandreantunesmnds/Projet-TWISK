@@ -398,24 +398,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private Monde creerMonde(){
         Monde monde = new Monde();
         this.corresEtap = new CorrespondanceEtapes();
-        for (EtapeIG etapes : this){
-            if(etapes.estUnGuichet()) {
-                Etape etape = new Guichet(etapes.getNom());
+        for (EtapeIG etapeIG : this){
+            Etape etape = null;
+
+            if(etapeIG.estUnGuichet()) {
+                etape = new Guichet(etapeIG.getNom());
+            }
+            else if (etapeIG.estUneActivite()){
+                if(etapeIG.estUneActiviteRestreinte()){
+                    etape = new ActiviteRestreinte(etapeIG.getNom());
+                }else {
+                    etape = new Activite(etapeIG.getNom());
+                }
+            }
+
+            if(etape != null){
                 monde.ajouter(etape);
             }
-            else if (etapes.estUneActivite()){
-                Etape etape = new Activite(etapes.getNom());
-                monde.ajouter(etape);
-            }
-            else if(etapes.estUneEntree()){
-                SasEntree entree = new SasEntree();
-                monde.ajouter(entree);
-            }
-            else{
-                SasSortie sortie = new SasSortie();
-                monde.ajouter(sortie);
-            }
-            this.corresEtap.ajouter(etapes,this.corresEtap.get(etapes));
+            this.corresEtap.ajouter(etapeIG,this.corresEtap.get(etapeIG));
         }
         return monde;
     }
