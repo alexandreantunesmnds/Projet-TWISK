@@ -348,7 +348,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private void verifierMondeIG() throws MondeException{
         int cptEntree = 0;
         int cptSortie = 0;
-
         //Le monde est faux si :
         for(EtapeIG etape : this){
             //System.out.println(etape.getNom());
