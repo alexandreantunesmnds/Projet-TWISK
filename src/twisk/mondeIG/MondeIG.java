@@ -398,7 +398,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private Monde creerMonde(){
         Monde monde = new Monde();
         this.corresEtap = new CorrespondanceEtapes();
-        for (EtapeIG etapeIG : this){
+
+        for (EtapeIG etapeIG : this){ //Pour chaque etapeIG on crée l'étape correspondante
             Etape etape = null;
 
             if(etapeIG.estUnGuichet()) {
@@ -414,8 +415,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             if(etape != null){
                 monde.ajouter(etape);
+                this.corresEtap.ajouter(etapeIG,etape);
             }
-            this.corresEtap.ajouter(etapeIG,this.corresEtap.get(etapeIG));
+        }
+
+        for(EtapeIG etapeIG : this){ //Maintenant on ajoute tous les successeurs
+            Etape etape = this.corresEtap.get(etapeIG);
+            for(EtapeIG succ : etapeIG.getSucc()){
+                etape.ajouterSuccesseur(this.corresEtap.get(succ));
+            }
         }
         return monde;
     }
