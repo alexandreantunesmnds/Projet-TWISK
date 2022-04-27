@@ -405,13 +405,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             Etape etape = null;
 
             if(etapeIG.estUnGuichet()) {
-                etape = new Guichet(etapeIG.getNom());
+                etape = new Guichet(etapeIG.getNom(),4);
             }
             else if (etapeIG.estUneActivite()){
                 if(etapeIG.estUneActiviteRestreinte()){
-                    etape = new ActiviteRestreinte(etapeIG.getNom());
+                    etape = new ActiviteRestreinte(etapeIG.getNom(),4,2);
                 }else {
-                    etape = new Activite(etapeIG.getNom());
+                    etape = new Activite(etapeIG.getNom(),4,2);
                 }
             }
 
