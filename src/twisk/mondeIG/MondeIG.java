@@ -3,12 +3,15 @@ package twisk.mondeIG;
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
 import twisk.monde.*;
+import twisk.outils.ClassLoaderPerso;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 import twisk.vues.SujetObserve;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -430,12 +433,24 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      * Fonction qui permet la simulation du monde créé
      * @throws MondeException
      */
-    public void simuler() throws MondeException {
+    public void simuler() throws MondeException, Exception {
         this.verifierMondeIG();
         if(this.valid){ //le monde est donc valide
-            Monde monde = this.creerMonde();
-            Simulation simulation = new Simulation();
-            simulation.simuler(monde); //on simule alors le monde valide
+            Monde world = this.creerMonde();
+            ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
+            Class<?> c = clp.loadClass("twisk.simulation.Simulation");
+            clp = null;
+
+            //Récupération du construsteur
+            Constructor<?> co = c.getConstructor();
+            Object play =  co.newInstance();
+
+            //Appel des autres fonctions
+            Method md = c.getMethod("setNbClients",int.class);
+            md.invoke(play,5);
+
+            md = c.getMethod("simuler",Monde.class);
+            md.invoke(play,world);
         }
         else{
             throw new MondeException("Erreur : vous essayez de simuler un monde invalide !");

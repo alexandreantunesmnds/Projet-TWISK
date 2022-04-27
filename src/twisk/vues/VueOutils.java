@@ -38,7 +38,7 @@ public class VueOutils extends TilePane implements Observateur{
         this.ajouterGuichet.setOnAction(event->this.monde.ajouter("Guichet"));
         this.ajouterGuichet.setTooltip(new Tooltip("Ajouter un guichet"));
 
-        //Bouton guichet
+        //Bouton simulation
         this.playSim = new Button();
         this.playSim.setText("");
         this.playSim.setOnAction(event-> {
@@ -50,6 +50,8 @@ public class VueOutils extends TilePane implements Observateur{
                 alert.setHeaderText("Simulation impossible");
                 alert.setContentText("Veuillez vérifier la validité de votre monde");
                 alert.showAndWait();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
         this.playSim.setTooltip(new Tooltip("Lancer la simulation"));
