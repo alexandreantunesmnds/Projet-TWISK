@@ -24,7 +24,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
         zoneClient.setPrefSize(constantes.getLargeurZoneClient(), constantes.getHauteurZoneClient());
         //zoneClient.setStyle("-fx-background-color: purple");
         zoneClient.setSpacing(2);
-        for(int i = 0; i< nbJetons;i++){
+        for(int i = 0; i< 10;i++){
             HBox client = new HBox();
             client.setStyle("-fx-background-color: #c9c9c9 ;-fx-border-color: "+ guichet.getCouleurBord()+";-fx-border-width: 2");
             client.setPrefSize(25,25);
