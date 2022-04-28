@@ -25,7 +25,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     private List<ArcIG> arcSelectionnes;
     private String style;
     private String theme;
-    private boolean valid;
     private CorrespondanceEtapes corresEtap;
 
     /**
@@ -40,7 +39,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.theme = "CLAIR";
         this.style = "white";
         this.ajouter("Activité");
-        this.valid = true; //le monde est valide par défaut
     }
     /**
      * Constructeur
@@ -54,7 +52,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         this.theme = "CLAIR";
         this.style = "white";
         this.ajouter(etapeIG);
-        this.valid = true; //le monde est valide par défaut
     }
 
     /**
@@ -336,15 +333,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
     }
 
     /**
-     * Fonction qui retourne la validité du monde
-     * @return Vrai si le monde est valide, faux sinon
-     */
-    public boolean estValide() throws MondeException {
-        this.verifierMondeIG();
-        return this.valid;
-    }
-
-    /**
      * Fonction qui vérifie la validité du monde créé
      * @throws MondeException
      */
@@ -356,7 +344,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             //System.out.println(etape.getNom());
             //Une etape n'a pas de successeur
             if(etape.getSucc().nbEtapes() == 0 && !etape.estUneSortie()){
-                this.valid = false;
                 throw new MondeException("Erreur : Une ou des étapes ne possède pas de successeurs");
             }
             if(etape.estUneEntree()){
@@ -368,12 +355,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             if(etape.estUnGuichet()){
                 //Un guichet possède plus d'un successeur
                 if(etape.getSucc().nbEtapes() != 1){
-                    this.valid = false;
                     throw new MondeException("Erreur : Un guichet ne peut pas posséder deux successeurs");
                 }else {
                     //Deux guichets se succèdent
                     if (etape.getSucc().getEtape(0).estUnGuichet()) {
-                        this.valid = false;
                         throw new MondeException("Erreur : Deux guichets ne peuvent pas se succeder");
                     }else if(etape.getSucc().getEtape(0).estUneActivite()){
                         ActiviteIG act = (ActiviteIG) etape.getSucc().getEtape(0);
@@ -384,11 +369,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         }
         //Il n'y a aucune sortie ou aucune entrée
         if(cptEntree == 0){
-            this.valid = false;
             throw new MondeException("Erreur : Le monde ne possède pas d'entrée");
         }
         if(cptSortie == 0){
-            this.valid = false;
             throw new MondeException("Erreur : Le monde ne possède pas de sortie");
         }
     }
@@ -445,9 +428,12 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
      * Fonction qui permet la simulation du monde créé
      * @throws MondeException
      */
-    public void simuler() throws MondeException, Exception {
-        this.verifierMondeIG();
-        if(this.valid){ //le monde est donc valide
+    public void simuler() throws Exception {
+        try {
+            this.verifierMondeIG();
+        }catch (MondeException e){
+            throw new MondeException(e.getMessage());
+        }
             Monde world = this.creerMonde();
             ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
             Class<?> c = clp.loadClass("twisk.simulation.Simulation");
@@ -463,10 +449,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
 
             md = c.getMethod("simuler",Monde.class);
             md.invoke(play,world);
-        }
-        else{
-            throw new MondeException("Erreur : vous essayez de simuler un monde invalide !");
-        }
     }
 
     /**

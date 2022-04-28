@@ -46,9 +46,10 @@ public class VueOutils extends TilePane implements Observateur{
                 this.monde.simuler();
             } catch (MondeException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur simulation impossible");
+                alert.setHeight(250);
+                alert.setTitle("Erreur : simulation impossible");
                 alert.setHeaderText("Simulation impossible");
-                alert.setContentText("Veuillez vérifier la validité de votre monde");
+                alert.setContentText("La simulation est impossible car le monde n'est pas valide dû à :\n"+e.getMessage());
                 alert.showAndWait();
             } catch (Exception e) {
                 e.printStackTrace();
