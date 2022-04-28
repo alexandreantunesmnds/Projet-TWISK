@@ -72,6 +72,7 @@ public class VueOutils extends TilePane implements Observateur{
         TailleComposants constantes = TailleComposants.getInstance();
         this.ajouterActivite.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
         this.ajouterGuichet.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
+        this.playSim.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
 
         this.getChildren().addAll(ajouterActivite,ajouterGuichet,playSim);
 
