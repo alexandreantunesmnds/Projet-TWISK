@@ -35,6 +35,6 @@ public class ActiviteRestreinte extends Activite{
      */
     @Override
     public String toString() {
-        return "Activité Restreinte " + this.getNom()  + "(" + numero + "){" +  " : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
+        return "Activité Restreinte " + this.getNom()  + " (" + numero + ")" +  " : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
     }
 }

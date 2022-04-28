@@ -1,11 +1,12 @@
-package twisk.monde;
+package twisk.outils;
 
+import twisk.monde.Etape;
 import twisk.mondeIG.EtapeIG;
 
 import java.util.HashMap;
 
 public class CorrespondanceEtapes {
-    private HashMap<EtapeIG,Etape> listeCorrespondance;
+    private HashMap<EtapeIG, Etape> listeCorrespondance;
 
     /**
      * Constructeur

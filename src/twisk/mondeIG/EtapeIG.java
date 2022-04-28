@@ -194,11 +194,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      * @return vrai si c'est une entrée
      */
     public boolean estUneEntree(){
-        boolean rep = false;
-        if(this.entree){
-            rep = true;
-        }
-        return rep;
+        return this.entree;
     }
 
     /**
@@ -206,11 +202,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      * @return vrai si c'est une sortie
      */
     public boolean estUneSortie(){
-        boolean rep = false;
-        if(this.sortie && !this.estUnGuichet()){
-            rep = true;
-        }
-        return rep;
+        return this.sortie;
     }
 
     /**

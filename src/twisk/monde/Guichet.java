@@ -117,7 +117,7 @@ public class Guichet extends Etape {
      */
     @Override
     public String toString() {
-        return "Guichet " + this.getNom() + "(" + numero + "){" +" : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
+        return "Guichet " + this.getNom() + " (" + numero + ")" +" : " + this.nbSuccesseur() + " successeur(s) -> " + this.getSucc().toString();
     }
 
     /**

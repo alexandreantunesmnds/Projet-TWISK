@@ -88,6 +88,22 @@ public class Monde implements Iterable<Etape> {
     }
 
     /**
+     * Fonction qui retourne le sasSortie
+     * @return sasSortie
+     */
+    public SasSortie getSasSortie() {
+        return sasSortie;
+    }
+
+    /**
+     * Fonction qui retourne le sasEntrée
+     * @return sasEntree
+     */
+    public SasEntree getSasEntree() {
+        return sasEntree;
+    }
+
+    /**
      * Fonction toC
      * @return le code C demandé pour la Simulation
      */

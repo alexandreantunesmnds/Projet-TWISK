@@ -4,9 +4,9 @@ import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
 import twisk.monde.*;
 import twisk.outils.ClassLoaderPerso;
+import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
-import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 import twisk.vues.SujetObserve;
 
@@ -401,17 +401,20 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         Monde monde = new Monde();
         this.corresEtap = new CorrespondanceEtapes();
 
-        for (EtapeIG etapeIG : this){ //Pour chaque etapeIG on crée l'étape correspondante
+        //Pour chaque etapeIG on crée l'étape correspondante
+        for (EtapeIG etapeIG : this){
             Etape etape = null;
 
             if(etapeIG.estUnGuichet()) {
-                etape = new Guichet(etapeIG.getNom(),4);
+                GuichetIG guichet = (GuichetIG) etapeIG;
+                etape = new Guichet(etapeIG.getNom(),guichet.getNbJetons());
             }
             else if (etapeIG.estUneActivite()){
+                ActiviteIG act = (ActiviteIG) etapeIG;
                 if(etapeIG.estUneActiviteRestreinte()){
-                    etape = new ActiviteRestreinte(etapeIG.getNom(),4,2);
+                    etape = new ActiviteRestreinte(act.getNom(),act.getTemps(),act.getEcartTemps());
                 }else {
-                    etape = new Activite(etapeIG.getNom(),4,2);
+                    etape = new Activite(etapeIG.getNom(),act.getTemps(),act.getEcartTemps());
                 }
             }
 
@@ -421,10 +424,19 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
             }
         }
 
-        for(EtapeIG etapeIG : this){ //Maintenant on ajoute tous les successeurs
+        //Maintenant on ajoute tous les successeurs
+        for(EtapeIG etapeIG : this){
             Etape etape = this.corresEtap.get(etapeIG);
             for(EtapeIG succ : etapeIG.getSucc()){
                 etape.ajouterSuccesseur(this.corresEtap.get(succ));
+            }
+            if(etapeIG.estUneEntree()){
+                Etape sasEntree = monde.getSasEntree();
+                sasEntree.ajouterSuccesseur(this.corresEtap.get(etapeIG));
+            }
+            if(etapeIG.estUneSortie()){
+                Etape sasSortie = monde.getSasSortie();
+                this.corresEtap.get(etapeIG).ajouterSuccesseur(sasSortie);
             }
         }
         return monde;

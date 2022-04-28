@@ -63,9 +63,9 @@ public class VueOutils extends TilePane implements Observateur{
         imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterGuichet.png"),25,25,true,true);
         iconPlus = new ImageView(imagePlus);
         this.ajouterGuichet.setGraphic(iconPlus);
-        imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/play.png"),25,25,true,true);
+        /*imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/play.png"),25,25,true,true);
         iconPlus = new ImageView(imagePlus);
-        this.playSim.setGraphic(iconPlus);
+        this.playSim.setGraphic(iconPlus);*/
 
         //ajout du style
         TailleComposants constantes = TailleComposants.getInstance();
