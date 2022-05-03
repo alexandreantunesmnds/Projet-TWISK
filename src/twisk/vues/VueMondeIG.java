@@ -6,7 +6,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import twisk.mondeIG.*;
 
-public class VueMondeIG extends Pane implements Observateur{
+public class  VueMondeIG extends Pane implements Observateur{
 
     private MondeIG monde;
 
