@@ -5,6 +5,8 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import twisk.mondeIG.*;
+import twisk.simulation.Client;
+import twisk.simulation.Simulation;
 
 public class VueMondeIG extends Pane implements Observateur{
 
@@ -94,11 +96,23 @@ public class VueMondeIG extends Pane implements Observateur{
 
             this.getChildren().add(nouvelleEtape);
 
+
             for(PointDeControleIG pdc : etape){
                 VuePointDeControleIG nouveaupdc = new VuePointDeControleIG(this.monde,pdc);
                 //System.out.println( pdc.getPosX()+","+pdc.getPosY());
                 this.getChildren().add(nouveaupdc);
             }
+        }
+
+        try {
+            if (this.monde.estEnSimulation()){
+                System.out.println("test");
+                for (Client cl : this.monde.getClients()) {
+                    System.out.println(cl);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

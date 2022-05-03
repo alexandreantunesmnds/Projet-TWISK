@@ -7,10 +7,13 @@ import twisk.outils.ClassLoaderPerso;
 import twisk.outils.CorrespondanceEtapes;
 import twisk.outils.FabriqueIdentifiant;
 import twisk.outils.TailleComposants;
+import twisk.simulation.GestionnaireClients;
+import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 import twisk.vues.SujetObserve;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,26 +29,28 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private String style;
     private String theme;
     private CorrespondanceEtapes corresEtap;
+    private Class<?> c;
+    private Object play;
+    private boolean estEnSimulation;
 
     /**
      * Constructeur
      */
     public MondeIG(){
         this.listeEtapes = new HashMap<>();
-        this.listeObservateur = new ArrayList<Observateur>();
         this.listeArc = new ArrayList<ArcIG>();
         this.arcSelectionnes = new ArrayList<ArcIG>();
         this.etapeSelectionnees = new ArrayList<EtapeIG>();
         this.theme = "CLAIR";
         this.style = "white";
         this.ajouter("Activité");
+        this.estEnSimulation = false;
     }
     /**
      * Constructeur
      */
     public MondeIG(EtapeIG ... etapeIG){
         this.listeEtapes = new HashMap<>();
-        this.listeObservateur = new ArrayList<Observateur>();
         this.listeArc = new ArrayList<ArcIG>();
         this.arcSelectionnes = new ArrayList<ArcIG>();
         this.etapeSelectionnees = new ArrayList<EtapeIG>();
@@ -424,6 +429,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }
         return monde;
     }
+
+    public GestionnaireClients getClients() throws Exception {
+        System.out.println("blabla"+c);
+        Method md = this.c.getMethod("getGestionnaireClients",GestionnaireClients.class);
+
+        return (GestionnaireClients) md.invoke(play);
+    }
+
     /**
      * Fonction qui permet la simulation du monde créé
      * @throws MondeException
@@ -435,13 +448,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             throw new MondeException(e.getMessage());
         }
             Monde world = this.creerMonde();
+            this.estEnSimulation = true;
             ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
-            Class<?> c = clp.loadClass("twisk.simulation.Simulation");
-            clp = null;
+            this.c = clp.loadClass("twisk.simulation.Simulation");
 
             //Récupération du construsteur
             Constructor<?> co = c.getConstructor();
-            Object play =  co.newInstance();
+            this.play =  co.newInstance();
 
             //Appel des autres fonctions
             Method md = c.getMethod("setNbClients",int.class);
@@ -449,6 +462,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
             md = c.getMethod("simuler",Monde.class);
             md.invoke(play,world);
+    }
+
+    /**
+     * Fonction qui dit si le monde est en simulation ou non
+     * @return Retourne vrai si le monde est en simulation, faux sinon
+     */
+    public boolean estEnSimulation() {
+        return this.estEnSimulation;
     }
 
     /**

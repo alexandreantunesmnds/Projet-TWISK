@@ -72,4 +72,13 @@ public class Client {
     public void setEtape(Etape etape) {
         this.etape = etape;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "numeroClient=" + numeroClient +
+                ", rang=" + rang +
+                ", etape=" + etape +
+                '}';
+    }
 }

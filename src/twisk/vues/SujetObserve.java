@@ -3,7 +3,7 @@ package twisk.vues;
 import java.util.ArrayList;
 
 public class SujetObserve {
-    protected ArrayList<Observateur> listeObservateur;
+    protected ArrayList<Observateur> listeObservateur = new ArrayList<Observateur>();
 
     public SujetObserve() {
     }

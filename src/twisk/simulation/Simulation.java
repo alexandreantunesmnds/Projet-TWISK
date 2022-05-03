@@ -29,6 +29,15 @@ public class Simulation extends SujetObserve {
         this.nbClients = nbClients;
         this.gc = new GestionnaireClients(nbClients);
     }
+
+    /**
+     * Guetteur
+     * @return Retourne le gestionnaire de clients
+     */
+    public GestionnaireClients getGestionnaireClients(){
+        return this.gc;
+    }
+
     /**
      * Fonction qui lance la simulation du monde
      * @param monde
@@ -109,6 +118,7 @@ public class Simulation extends SujetObserve {
             }
             try {
                 Thread.sleep(1000);
+                notifierObservateurs();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
