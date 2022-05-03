@@ -8,7 +8,7 @@ import twisk.mondeIG.*;
 import twisk.simulation.Client;
 import twisk.simulation.Simulation;
 
-public class VueMondeIG extends Pane implements Observateur{
+public class  VueMondeIG extends Pane implements Observateur{
 
     private MondeIG monde;
 

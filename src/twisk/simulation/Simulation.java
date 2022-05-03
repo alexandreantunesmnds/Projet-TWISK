@@ -4,6 +4,7 @@ import twisk.monde.Etape;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
 import twisk.outils.KitC;
+import twisk.outils.ThreadsManager;
 import twisk.vues.SujetObserve;
 
 public class Simulation extends SujetObserve {
@@ -120,7 +121,7 @@ public class Simulation extends SujetObserve {
                 Thread.sleep(1000);
                 notifierObservateurs();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+
             }
         }
         this.gc.nettoyer();
