@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
+public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur{
     private HashMap<String,EtapeIG> listeEtapes; //La clé est l'identifiant de l'étape
     private List<ArcIG> listeArc;
     private PointDeControleIG pointSelectionne;
@@ -473,5 +473,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>{
         return "MondeIG{" +
                 "listeEtapes=" + listeEtapes +
                 '}';
+    }
+
+    @Override
+    public void reagir() {
+        this.notifierObservateurs();
     }
 }

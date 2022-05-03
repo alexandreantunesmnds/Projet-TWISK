@@ -3,11 +3,10 @@ package twisk.simulation;
 import twisk.monde.Etape;
 import twisk.monde.Guichet;
 import twisk.monde.Monde;
-import twisk.outils.FabriqueIdentifiant;
-import twisk.outils.FabriqueNumero;
 import twisk.outils.KitC;
+import twisk.vues.SujetObserve;
 
-public class Simulation {
+public class Simulation extends SujetObserve {
     private KitC kc;
     private int nbClients;
     private GestionnaireClients gc;
