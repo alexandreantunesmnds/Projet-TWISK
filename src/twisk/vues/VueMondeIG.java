@@ -1,5 +1,6 @@
 package twisk.vues;
 
+import javafx.application.Platform;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -73,58 +74,70 @@ public class  VueMondeIG extends Pane implements Observateur{
 
     @Override
     public void reagir() {
-        this.getChildren().clear();
-        this.setStyle("-fx-background-color: "+this.monde.getStyle());
+        Pane panneau = this;
+        Runnable command = new Runnable() {
+            @Override
+            public void run() {
+                panneau.getChildren().clear();
+                setStyle("-fx-background-color: "+ monde.getStyle());
 
-        for(ArcIG arc: this.monde.iteratorArcIG()){
-            VueArcIG nouvelArc = new VueArcIG(monde,arc);
-            if(this.monde.getArcSelectionnes().contains(arc)){
-                nouvelArc.selectionnerArc();
-            }
-            this.getChildren().add(nouvelArc);
-        }
-
-        for(EtapeIG etape: this.monde){
-            VueEtapeIG nouvelleEtape = null;
-            if(etape.estUneActivite()) {
-                nouvelleEtape = new VueActiviteIG(this.monde,(ActiviteIG) etape);
-            }else if(etape.estUnGuichet()){
-                nouvelleEtape = new VueGuichetIG(this.monde,(GuichetIG) etape);
-            }
-            nouvelleEtape.relocate(etape.getPosX(),etape.getPosY());
-
-            //On vérifie qu'une étape a été selectionné et si oui on lui change de couleur
-            if(this.monde.getEtapeSelectionnees().contains(etape)) {
-                nouvelleEtape.setStyle("-fx-background-color: "+etape.getCouleur()+";-fx-background-radius: 10px,10px,10px,10px;-fx-border-color: red; -fx-border-radius: 10px,10px,10px,10px;-fx-border-width: 2");
-            }
-
-            this.getChildren().add(nouvelleEtape);
-
-
-            for(PointDeControleIG pdc : etape){
-                VuePointDeControleIG nouveaupdc = new VuePointDeControleIG(this.monde,pdc);
-                //System.out.println( pdc.getPosX()+","+pdc.getPosY());
-                this.getChildren().add(nouveaupdc);
-            }
-
-            try {
-                if (this.monde.estEnSimulation()){
-                    for (Client cl : this.monde.getClients()) {
-                        if(monde.getCorresEtap().get(etape).equals(cl.getEtape())) {
-                            Circle client = new Circle();
-                            int x = (int) (Math.random() * (TailleComposants.getInstance().getLargeurZoneClient()));
-                            int y = (int) (Math.random() * (TailleComposants.getInstance().getHauteurZoneClient()));
-                            client.setCenterX(etape.getPosX()+x+15);
-                            client.setCenterY(etape.getPosY()+y+15);
-                            client.setRadius(TailleComposants.getInstance().getTailleClient());
-                            this.getChildren().add(client);
-                            System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
-                        }
+                for(ArcIG arc: monde.iteratorArcIG()){
+                    VueArcIG nouvelArc = new VueArcIG(monde,arc);
+                    if(monde.getArcSelectionnes().contains(arc)){
+                        nouvelArc.selectionnerArc();
                     }
+                    panneau.getChildren().add(nouvelArc);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                for(EtapeIG etape: monde){
+                    VueEtapeIG nouvelleEtape = null;
+                    if(etape.estUneActivite()) {
+                        nouvelleEtape = new VueActiviteIG(monde,(ActiviteIG) etape);
+                    }else if(etape.estUnGuichet()){
+                        nouvelleEtape = new VueGuichetIG(monde,(GuichetIG) etape);
+                    }
+                    nouvelleEtape.relocate(etape.getPosX(),etape.getPosY());
+
+                    //On vérifie qu'une étape a été selectionné et si oui on lui change de couleur
+                    if(monde.getEtapeSelectionnees().contains(etape)) {
+                        nouvelleEtape.setStyle("-fx-background-color: "+etape.getCouleur()+";-fx-background-radius: 10px,10px,10px,10px;-fx-border-color: red; -fx-border-radius: 10px,10px,10px,10px;-fx-border-width: 2");
+                    }
+
+                    panneau.getChildren().add(nouvelleEtape);
+
+
+                    for(PointDeControleIG pdc : etape){
+                        VuePointDeControleIG nouveaupdc = new VuePointDeControleIG(monde,pdc);
+                        //System.out.println( pdc.getPosX()+","+pdc.getPosY());
+                        panneau.getChildren().add(nouveaupdc);
+                    }
+
+                    try {
+                        if (monde.estEnSimulation()){
+                            for (Client cl : monde.getClients()) {
+                                if(monde.getCorresEtap().get(etape).equals(cl.getEtape())) {
+                                    Circle client = new Circle();
+                                    int x = (int) (Math.random() * (TailleComposants.getInstance().getLargeurZoneClient()));
+                                    int y = (int) (Math.random() * (TailleComposants.getInstance().getHauteurZoneClient()));
+                                    client.setCenterX(etape.getPosX()+x+15);
+                                    client.setCenterY(etape.getPosY()+y+15);
+                                    client.setRadius(TailleComposants.getInstance().getTailleClient());
+                                    panneau.getChildren().add(client);
+                                    System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
             }
+        }
+        };
+        if(Platform.isFxApplicationThread()){
+            command.run();
+        }
+        else{
+            Platform.runLater(command);
         }
     }
 }

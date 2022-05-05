@@ -1,10 +1,12 @@
 package twisk.outils;
 
+import javafx.concurrent.Task;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ThreadsManager implements Iterable <Thread>{
+public class ThreadsManager{
     private static ThreadsManager instance = new ThreadsManager();
     private List <Thread> listThread;
     /**
@@ -25,26 +27,18 @@ public class ThreadsManager implements Iterable <Thread>{
     /**
      * Fonction qui permet de créer un thread et d'en demander son exécution
      */
-    public void lancerTask(){
-        Thread thread = new Thread();
+    public void lancer(Task task){
+        Thread thread = new Thread(task);
         this.listThread.add(thread);
         thread.start();
-    }
-
-    @Override
-    public Iterator<Thread> iterator() {
-        return this.listThread.iterator();
     }
 
     /**
      * Fonction qui tue les threads
      */
     public void detruireTout(){
-        for(Thread threads : this){
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-            }
+        for(Thread threads : listThread){
+            threads.interrupt();
         }
     }
 }

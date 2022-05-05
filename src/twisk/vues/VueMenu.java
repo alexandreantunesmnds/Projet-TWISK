@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
+import twisk.outils.ThreadsManager;
 
 import java.util.List;
 
@@ -28,7 +29,9 @@ public class VueMenu extends MenuBar implements Observateur{
         //Menu Fichier
         Menu fichier = new Menu("Fichier");
         MenuItem quitter = new MenuItem("Quitter");
-        quitter.setOnAction(event-> Platform.exit());
+        quitter.setOnAction(event-> {Platform.exit();
+            ThreadsManager.getInstance().detruireTout();
+        });
 
         fichier.getItems().addAll(quitter);
 

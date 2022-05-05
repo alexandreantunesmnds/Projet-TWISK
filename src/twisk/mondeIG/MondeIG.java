@@ -1,12 +1,10 @@
 package twisk.mondeIG;
 
+import javafx.concurrent.Task;
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
 import twisk.monde.*;
-import twisk.outils.ClassLoaderPerso;
-import twisk.outils.CorrespondanceEtapes;
-import twisk.outils.FabriqueIdentifiant;
-import twisk.outils.TailleComposants;
+import twisk.outils.*;
 import twisk.simulation.GestionnaireClients;
 import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
@@ -20,8 +18,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur{
-    private HashMap<String,EtapeIG> listeEtapes; //La clé est l'identifiant de l'étape
+public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
+    private HashMap<String, EtapeIG> listeEtapes; //La clé est l'identifiant de l'étape
     private List<ArcIG> listeArc;
     private PointDeControleIG pointSelectionne;
     private List<EtapeIG> etapeSelectionnees;
@@ -36,7 +34,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     /**
      * Constructeur
      */
-    public MondeIG(){
+    public MondeIG() {
         this.listeEtapes = new HashMap<>();
         this.listeArc = new ArrayList<ArcIG>();
         this.arcSelectionnes = new ArrayList<ArcIG>();
@@ -46,10 +44,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.ajouter("Activité");
         this.estEnSimulation = false;
     }
+
     /**
      * Constructeur
      */
-    public MondeIG(EtapeIG ... etapeIG){
+    public MondeIG(EtapeIG... etapeIG) {
         this.listeEtapes = new HashMap<>();
         this.listeArc = new ArrayList<ArcIG>();
         this.arcSelectionnes = new ArrayList<ArcIG>();
@@ -61,22 +60,23 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui ajoute une étape
+     *
      * @param type le type de l'étape à ajouter
      */
-    public void ajouter(String type){
+    public void ajouter(String type) {
         EtapeIG nouvelleEtape;
         String idf = FabriqueIdentifiant.getInstance().getIdentifiantEtape();
         TailleComposants constantes = TailleComposants.getInstance();
-        switch (type){
+        switch (type) {
             case "Activité":
-                nouvelleEtape = new ActiviteIG("Etape "+ idf,idf, constantes.getLargeurEtape(), constantes.getHauteurActivite());
-                listeEtapes.put(nouvelleEtape.getIdentifiant(),nouvelleEtape);
+                nouvelleEtape = new ActiviteIG("Etape " + idf, idf, constantes.getLargeurEtape(), constantes.getHauteurActivite());
+                listeEtapes.put(nouvelleEtape.getIdentifiant(), nouvelleEtape);
                 break;
             case "Guichet":
-                nouvelleEtape = new GuichetIG("Guichet "+idf,idf,constantes.getLargeurEtape(), constantes.getHauteurGuichet(),10);
-                listeEtapes.put(nouvelleEtape.getIdentifiant(),nouvelleEtape);
+                nouvelleEtape = new GuichetIG("Guichet " + idf, idf, constantes.getLargeurEtape(), constantes.getHauteurGuichet(), 10);
+                listeEtapes.put(nouvelleEtape.getIdentifiant(), nouvelleEtape);
             default:
-                nouvelleEtape = new ActiviteIG("Etape "+ idf,idf,50,30);
+                nouvelleEtape = new ActiviteIG("Etape " + idf, idf, 50, 30);
                 break;
         }
 
@@ -89,21 +89,23 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui ajoute manuellement des étapes dans le monde
+     *
      * @param etapes les étapes à ajouter
      */
-    public void ajouter(EtapeIG ... etapes){
-        for(EtapeIG etape : etapes) {
+    public void ajouter(EtapeIG... etapes) {
+        for (EtapeIG etape : etapes) {
             listeEtapes.put(etape.getIdentifiant(), etape);
         }
     }
 
     /**
      * Fonction qui ajoute un Arc
+     *
      * @param pdc1 Le premier point de contrôle
      * @param pdc2 Le deuxième point de contrôle
      */
     public void ajouterArc(PointDeControleIG pdc1, PointDeControleIG pdc2) throws ArcException {
-        if(verifierArc(pdc1,pdc2)) {
+        if (verifierArc(pdc1, pdc2)) {
             this.listeArc.add(new ArcIG(pdc1, pdc2));
             this.changerStyle(this.theme); //On met le theme du monde
 
@@ -119,13 +121,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui indique au monde quel point a été selectionné
+     *
      * @param pointSelectionne
      */
     public void selectionnerPoint(PointDeControleIG pointSelectionne) throws ArcException {
-        if(this.pointSelectionne == null) {
+        if (this.pointSelectionne == null) {
             this.pointSelectionne = pointSelectionne;
-        }else{
-            this.ajouterArc(this.pointSelectionne,pointSelectionne);
+        } else {
+            this.ajouterArc(this.pointSelectionne, pointSelectionne);
             this.pointSelectionne = null;
             //System.out.println("test");
         }
@@ -133,13 +136,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui vérifie les contraintes liées à la création des arcs
+     *
      * @param pdc1 Le premier point de contrôle
      * @param pdc2 Le deuxième point de contrôle
      * @return Retourne vrai si les contraintes sont vérifiées, faux sinon
      */
     public boolean verifierArc(PointDeControleIG pdc1, PointDeControleIG pdc2) throws ArcException {
         boolean rep = true;
-        if(pdc1.equals(pdc2)){ //Si c'est le même point
+        if (pdc1.equals(pdc2)) { //Si c'est le même point
             this.pointSelectionne = null;
             throw new ArcException("Erreur: Vous avez saisi deux fois le même point");
         }
@@ -147,14 +151,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             this.pointSelectionne = null;
             throw new ArcException("Erreur: Vous avez saisi deux points de la même étape");
         }
-        for(ArcIG arcSaisi : this.listeArc) { //Si un des deux points à déjà été saisi
+        for (ArcIG arcSaisi : this.listeArc) { //Si un des deux points à déjà été saisi
             PointDeControleIG pdcSaisi1 = arcSaisi.getPt1();
             PointDeControleIG pdcSaisi2 = arcSaisi.getPt2();
-            if (pdcSaisi1.equals(pdc1) || pdcSaisi1.equals(pdc2)){ //Si le point à déjà été saisi
+            if (pdcSaisi1.equals(pdc1) || pdcSaisi1.equals(pdc2)) { //Si le point à déjà été saisi
                 this.pointSelectionne = null;
                 throw new ArcException("Erreur: Un des points a déjà été saisi");
             }
-            if (pdcSaisi2.equals(pdc1) || pdcSaisi2.equals(pdc2)){
+            if (pdcSaisi2.equals(pdc1) || pdcSaisi2.equals(pdc2)) {
                 this.pointSelectionne = null;
                 throw new ArcException("Erreur: Un des points a déjà été saisi");
             }
@@ -165,12 +169,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui indique au monde quelle étape a été selectionnée
+     *
      * @param etapeSelectionne etape selectionnée
      */
-    public void selectionneEtape(EtapeIG etapeSelectionne){
-        if(this.etapeSelectionnees.contains(etapeSelectionne)) {
+    public void selectionneEtape(EtapeIG etapeSelectionne) {
+        if (this.etapeSelectionnees.contains(etapeSelectionne)) {
             this.etapeSelectionnees.remove(etapeSelectionne);
-        }else {
+        } else {
             this.etapeSelectionnees.add(etapeSelectionne);
             //System.out.println(this.etapeSelectionne.toString());
         }
@@ -179,12 +184,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui indique au monde quelle étape a été selectionnée
+     *
      * @param arcSelectionne arc selectionné
      */
     public void selectionneArc(ArcIG arcSelectionne) {
-        if(this.arcSelectionnes.contains(arcSelectionne)) {
+        if (this.arcSelectionnes.contains(arcSelectionne)) {
             this.arcSelectionnes.remove(arcSelectionne);
-        }else {
+        } else {
             this.arcSelectionnes.add(arcSelectionne);
         }
         this.notifierObservateurs();
@@ -193,8 +199,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     /**
      * Fonction qui supprime les étapes selectionnées
      */
-    public void supprimerEtapesSelectionnees(){
-        for(EtapeIG etapeASuppr : this.etapeSelectionnees){
+    public void supprimerEtapesSelectionnees() {
+        for (EtapeIG etapeASuppr : this.etapeSelectionnees) {
             supprimerArc(etapeASuppr);
             this.listeEtapes.remove(etapeASuppr.getIdentifiant());
         }
@@ -203,24 +209,25 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui supprime les arcs liées aux étapes selectionnées
+     *
      * @param etapeASuppr Les étapes selectionnées
      */
-    public void supprimerArc(EtapeIG etapeASuppr){
+    public void supprimerArc(EtapeIG etapeASuppr) {
         List<ArcIG> listeArcASuprr = new ArrayList();
-        for(ArcIG arc : this.iteratorArcIG()){
+        for (ArcIG arc : this.iteratorArcIG()) {
             PointDeControleIG pdc1 = arc.getPt1();
             PointDeControleIG pdc2 = arc.getPt2();
             EtapeIG etape1 = pdc1.getEtapeLiee();
             EtapeIG etape2 = pdc2.getEtapeLiee();
             etape1.retirerSuccesseur(etape2);
 
-            if(etapeASuppr != null && (pdc1.getEtapeLiee().equals(etapeASuppr) || pdc2.getEtapeLiee().equals(etapeASuppr))) {
+            if (etapeASuppr != null && (pdc1.getEtapeLiee().equals(etapeASuppr) || pdc2.getEtapeLiee().equals(etapeASuppr))) {
                 listeArcASuprr.add(arc);
-            }else if(arcSelectionnes.contains(arc)){
+            } else if (arcSelectionnes.contains(arc)) {
                 listeArcASuprr.add(arc);
             }
         }
-        for (ArcIG arcASuppr : listeArcASuprr){
+        for (ArcIG arcASuppr : listeArcASuprr) {
             EtapeIG etapePrec = arcASuppr.getPt1().getEtapeLiee();
             EtapeIG etapeSucc = arcASuppr.getPt2().getEtapeLiee();
             etapePrec.retirerSuccesseur(etapeSucc);
@@ -231,20 +238,27 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Guetteur
+     *
      * @return Retourne l'étape selectionnée
      */
-    public List<EtapeIG> getEtapeSelectionnees(){
+    public List<EtapeIG> getEtapeSelectionnees() {
         return this.etapeSelectionnees;
     }
 
     /**
      * Guetteur
+     *
      * @return Retourne les arcs selectionés
      */
-    public List<ArcIG> getArcSelectionnes(){return this.arcSelectionnes;};
+    public List<ArcIG> getArcSelectionnes() {
+        return this.arcSelectionnes;
+    }
+
+    ;
 
     /**
      * Guetteur
+     *
      * @return récupère le style du monde
      */
     public String getStyle() {
@@ -253,6 +267,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Guetteur
+     *
      * @return récupère la correspondanceEtape
      */
     public CorrespondanceEtapes getCorresEtap() {
@@ -261,6 +276,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Setteuur
+     *
      * @param style le style a donné au monde
      */
     public void setStyle(String style) {
@@ -270,7 +286,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     /**
      * Fonction qui supprime les arcs et étapes selectionnés
      */
-    public void effacerSelection(){
+    public void effacerSelection() {
         this.arcSelectionnes.clear();
         this.etapeSelectionnees.clear();
 
@@ -279,15 +295,16 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction permettant de déplacer une étape
+     *
      * @param idEtape L'identifiant de l'étape
-     * @param x La nouvelle coordonnée x de l'étape
-     * @param y La nouvelle coordonnée y de l'étape
+     * @param x       La nouvelle coordonnée x de l'étape
+     * @param y       La nouvelle coordonnée y de l'étape
      */
     public void deplacerEtape(String idEtape, double x, double y) {
         TailleComposants constantes = TailleComposants.getInstance();
         EtapeIG etapeADeplacer = this.listeEtapes.get(idEtape);
-        etapeADeplacer.setPosX((int) (x-constantes.getLargeurEtape()/2));
-        etapeADeplacer.setPosY((int) (y-constantes.getHauteurActivite()/2));
+        etapeADeplacer.setPosX((int) (x - constantes.getLargeurEtape() / 2));
+        etapeADeplacer.setPosY((int) (y - constantes.getHauteurActivite() / 2));
 
         etapeADeplacer.deplacerPdcEtape();
 
@@ -296,45 +313,47 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui retourne le nombre d'étape dans le monde
+     *
      * @return Le nombre d'étape dans le monde
      */
-    public int nbEtape(){
+    public int nbEtape() {
         return this.listeEtapes.size();
     }
 
     /**
      * Fonction qui change le theme de chaque composée du monde
+     *
      * @param theme
      */
-    public void changerStyle(String theme){
+    public void changerStyle(String theme) {
         this.theme = theme;
-        switch (theme){
-            case "CLAIR" :
-                for(EtapeIG etape : this){
-                    if(etape.estUneActivite()) {
+        switch (theme) {
+            case "CLAIR":
+                for (EtapeIG etape : this) {
+                    if (etape.estUneActivite()) {
                         etape.setCouleurFond("#619bdc");
                         etape.setCouleurBord("#3b69a6");
-                    }else if(etape.estUnGuichet()){
+                    } else if (etape.estUnGuichet()) {
                         etape.setCouleurFond("#39bc58");
                         etape.setCouleurBord("#0c7c24");
                     }
                 }
                 this.style = "white";
-                for(ArcIG arc : this.iteratorArcIG()){
+                for (ArcIG arc : this.iteratorArcIG()) {
                     arc.setCouleur("black");
                 }
                 break;
-            case "FONCE" :
-                for(EtapeIG etape : this){
-                    if(etape.estUneActivite()) {
+            case "FONCE":
+                for (EtapeIG etape : this) {
+                    if (etape.estUneActivite()) {
                         etape.setCouleurFond("#2c6f97");
                         etape.setCouleurBord("#10496b");
-                    }else if(etape.estUnGuichet()){
+                    } else if (etape.estUnGuichet()) {
                         etape.setCouleurFond("#c8254c");
                         etape.setCouleurBord("#9d1f3d");
                     }
                 }
-                for(ArcIG arc : this.iteratorArcIG()){
+                for (ArcIG arc : this.iteratorArcIG()) {
                     arc.setCouleur("green");
                 }
                 this.style = "#5b5b5b";
@@ -347,33 +366,34 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui vérifie la validité du monde créé
+     *
      * @throws MondeException
      */
-    private void verifierMondeIG() throws MondeException{
+    private void verifierMondeIG() throws MondeException {
         int cptEntree = 0;
         int cptSortie = 0;
         //Le monde est faux si :
-        for(EtapeIG etape : this){
+        for (EtapeIG etape : this) {
             //System.out.println(etape.getNom());
             //Une etape n'a pas de successeur
-            if(etape.getSucc().nbEtapes() == 0 && !etape.estUneSortie()){
+            if (etape.getSucc().nbEtapes() == 0 && !etape.estUneSortie()) {
                 throw new MondeException("Erreur : Une ou des étapes ne possède pas de successeurs");
             }
-            if(etape.estUneEntree()){
+            if (etape.estUneEntree()) {
                 cptEntree++;
             }
-            if(etape.estUneSortie()){
+            if (etape.estUneSortie()) {
                 cptSortie++;
             }
-            if(etape.estUnGuichet()){
+            if (etape.estUnGuichet()) {
                 //Un guichet possède plus d'un successeur
-                if(etape.getSucc().nbEtapes() != 1){
+                if (etape.getSucc().nbEtapes() != 1) {
                     throw new MondeException("Erreur : Un guichet ne peut pas posséder deux successeurs");
-                }else {
+                } else {
                     //Deux guichets se succèdent
                     if (etape.getSucc().getEtape(0).estUnGuichet()) {
                         throw new MondeException("Erreur : Deux guichets ne peuvent pas se succeder");
-                    }else if(etape.getSucc().getEtape(0).estUneActivite()){
+                    } else if (etape.getSucc().getEtape(0).estUneActivite()) {
                         ActiviteIG act = (ActiviteIG) etape.getSucc().getEtape(0);
                         act.setEstRestreinte();
                     }
@@ -381,56 +401,56 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             }
         }
         //Il n'y a aucune sortie ou aucune entrée
-        if(cptEntree == 0){
+        if (cptEntree == 0) {
             throw new MondeException("Erreur : Le monde ne possède pas d'entrée");
         }
-        if(cptSortie == 0){
+        if (cptSortie == 0) {
             throw new MondeException("Erreur : Le monde ne possède pas de sortie");
         }
     }
 
     /**
      * FOnction qui créé un monde
+     *
      * @return Monde monde
      */
-    private Monde creerMonde(){
+    private Monde creerMonde() {
         Monde monde = new Monde();
         this.corresEtap = new CorrespondanceEtapes();
 
         //Pour chaque etapeIG on crée l'étape correspondante
-        for (EtapeIG etapeIG : this){
+        for (EtapeIG etapeIG : this) {
             Etape etape = null;
 
-            if(etapeIG.estUnGuichet()) {
+            if (etapeIG.estUnGuichet()) {
                 GuichetIG guichet = (GuichetIG) etapeIG;
-                etape = new Guichet(etapeIG.getNom(),guichet.getNbJetons());
-            }
-            else if (etapeIG.estUneActivite()){
+                etape = new Guichet(etapeIG.getNom(), guichet.getNbJetons());
+            } else if (etapeIG.estUneActivite()) {
                 ActiviteIG act = (ActiviteIG) etapeIG;
-                if(etapeIG.estUneActiviteRestreinte()){
-                    etape = new ActiviteRestreinte(act.getNom(),act.getTemps(),act.getEcartTemps());
-                }else {
-                    etape = new Activite(etapeIG.getNom(),act.getTemps(),act.getEcartTemps());
+                if (etapeIG.estUneActiviteRestreinte()) {
+                    etape = new ActiviteRestreinte(act.getNom(), act.getTemps(), act.getEcartTemps());
+                } else {
+                    etape = new Activite(etapeIG.getNom(), act.getTemps(), act.getEcartTemps());
                 }
             }
 
-            if(etape != null){
+            if (etape != null) {
                 monde.ajouter(etape);
-                this.corresEtap.ajouter(etapeIG,etape);
+                this.corresEtap.ajouter(etapeIG, etape);
             }
         }
 
         //Maintenant on ajoute tous les successeurs
-        for(EtapeIG etapeIG : this){
+        for (EtapeIG etapeIG : this) {
             Etape etape = this.corresEtap.get(etapeIG);
-            for(EtapeIG succ : etapeIG.getSucc()){
+            for (EtapeIG succ : etapeIG.getSucc()) {
                 etape.ajouterSuccesseur(this.corresEtap.get(succ));
             }
-            if(etapeIG.estUneEntree()){
+            if (etapeIG.estUneEntree()) {
                 Etape sasEntree = monde.getSasEntree();
                 sasEntree.ajouterSuccesseur(this.corresEtap.get(etapeIG));
             }
-            if(etapeIG.estUneSortie()){
+            if (etapeIG.estUneSortie()) {
                 Etape sasSortie = monde.getSasSortie();
                 this.corresEtap.get(etapeIG).ajouterSuccesseur(sasSortie);
             }
@@ -440,6 +460,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui returne le gestionnaire clients de la simulation
+     *
      * @return le gestionnaire clients de la simulation
      * @throws Exception
      */
@@ -451,32 +472,40 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     /**
      * Fonction qui permet la simulation du monde créé
+     *
      * @throws MondeException
      */
     public void simuler() throws Exception {
-        try {
-            this.verifierMondeIG();
-        }catch (MondeException e){
-            throw new MondeException(e.getMessage());
-        }
-            this.estEnSimulation = true;
-            Monde world = this.creerMonde();
-            ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
-            this.c = clp.loadClass("twisk.simulation.Simulation");
+        MondeIG mIG = this;
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    verifierMondeIG();
+                } catch (MondeException e) {
+                    throw new MondeException(e.getMessage());
+                }
+                estEnSimulation = true;
+                Monde world = creerMonde();
+                ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
+                c = clp.loadClass("twisk.simulation.Simulation");
 
-            //Récupération du construsteur
-            Constructor<?> co = c.getConstructor();
-            this.play =  co.newInstance();
+                //Récupération du construsteur
+                Constructor<?> co = c.getConstructor();
+                play = co.newInstance();
 
-        ((SujetObserve) this.play).ajouterObservateur(this);
+                ((SujetObserve) play).ajouterObservateur(mIG);
 
-        //Appel des autres fonctions
-        Method md = c.getMethod("setNbClients",int.class);
-        md.invoke(play,5);
+                //Appel des autres fonctions
+                Method md = c.getMethod("setNbClients", int.class);
+                md.invoke(play, 5);
 
-        md = c.getMethod("simuler",Monde.class);
-        md.invoke(play,world);
-
+                md = c.getMethod("simuler", Monde.class);
+                md.invoke(play, world);
+                return null;
+            }
+        };
+        ThreadsManager.getInstance().lancer(task);
     }
 
     /**
