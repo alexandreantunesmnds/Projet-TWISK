@@ -4,9 +4,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import twisk.mondeIG.*;
+import twisk.outils.TailleComposants;
 import twisk.simulation.Client;
 import twisk.simulation.Simulation;
+
+import java.util.Random;
 
 public class  VueMondeIG extends Pane implements Observateur{
 
@@ -102,17 +106,25 @@ public class  VueMondeIG extends Pane implements Observateur{
                 //System.out.println( pdc.getPosX()+","+pdc.getPosY());
                 this.getChildren().add(nouveaupdc);
             }
-        }
 
-        try {
-            if (this.monde.estEnSimulation()){
-                System.out.println("test");
-                for (Client cl : this.monde.getClients()) {
-                    System.out.println(cl);
+            try {
+                if (this.monde.estEnSimulation()){
+                    for (Client cl : this.monde.getClients()) {
+                        if(monde.getCorresEtap().get(etape).equals(cl.getEtape())) {
+                            Circle client = new Circle();
+                            int x = (int) (Math.random() * (TailleComposants.getInstance().getLargeurZoneClient()));
+                            int y = (int) (Math.random() * (TailleComposants.getInstance().getHauteurZoneClient()));
+                            client.setCenterX(etape.getPosX()+x+15);
+                            client.setCenterY(etape.getPosY()+y+15);
+                            client.setRadius(TailleComposants.getInstance().getTailleClient());
+                            this.getChildren().add(client);
+                            System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
+                        }
+                    }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

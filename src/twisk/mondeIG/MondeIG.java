@@ -252,6 +252,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
+     * Guetteur
+     * @return récupère la correspondanceEtape
+     */
+    public CorrespondanceEtapes getCorresEtap() {
+        return corresEtap;
+    }
+
+    /**
      * Setteuur
      * @param style le style a donné au monde
      */
@@ -430,9 +438,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return monde;
     }
 
+    /**
+     * Fonction qui returne le gestionnaire clients de la simulation
+     * @return le gestionnaire clients de la simulation
+     * @throws Exception
+     */
     public GestionnaireClients getClients() throws Exception {
-        System.out.println("blabla"+c);
-        Method md = this.c.getMethod("getGestionnaireClients",GestionnaireClients.class);
+        Method md = this.c.getMethod("getGestionnaireClients");
 
         return (GestionnaireClients) md.invoke(play);
     }
@@ -447,8 +459,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         }catch (MondeException e){
             throw new MondeException(e.getMessage());
         }
-            Monde world = this.creerMonde();
             this.estEnSimulation = true;
+            Monde world = this.creerMonde();
             ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
             this.c = clp.loadClass("twisk.simulation.Simulation");
 
@@ -456,12 +468,15 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             Constructor<?> co = c.getConstructor();
             this.play =  co.newInstance();
 
-            //Appel des autres fonctions
-            Method md = c.getMethod("setNbClients",int.class);
-            md.invoke(play,5);
+        ((SujetObserve) this.play).ajouterObservateur(this);
 
-            md = c.getMethod("simuler",Monde.class);
-            md.invoke(play,world);
+        //Appel des autres fonctions
+        Method md = c.getMethod("setNbClients",int.class);
+        md.invoke(play,5);
+
+        md = c.getMethod("simuler",Monde.class);
+        md.invoke(play,world);
+
     }
 
     /**
@@ -498,6 +513,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
     @Override
     public void reagir() {
-        this.notifierObservateurs();
+        notifierObservateurs();
     }
 }

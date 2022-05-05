@@ -24,4 +24,11 @@ public class SujetObserve {
             o.reagir();
         }
     }
+
+    @Override
+    public String toString() {
+        return "SujetObserve{" +
+                "listeObservateur=" + listeObservateur +
+                '}';
+    }
 }

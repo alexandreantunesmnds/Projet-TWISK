@@ -93,4 +93,10 @@ public class TailleComposants {
      * @return Retourne la taille du triangle de la flèche
      */
     public double getTailleTriangle(){return 20;}
+
+    /**
+     * Guetteur
+     * @return Retourne la taille du client
+     */
+    public double getTailleClient(){return 5;}
 }

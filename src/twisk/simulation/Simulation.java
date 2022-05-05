@@ -105,7 +105,7 @@ public class Simulation extends SujetObserve {
                 //On affiche les clients dans l'étape
                 for(int client = 0, rang = 1; client < nbClientsDansEtape && rang < nbClientsDansEtape+1; client++,rang++){
                     System.out.print(etatDeLaSimulation[cptEtape+client+1]+" ");
-                    //this.gc.allerA(etatDeLaSimulation[cptEtape+client+1],tabEtape[numeroEtape],rang); //a revoir
+                    this.gc.allerA(etatDeLaSimulation[cptEtape+client+1],tabEtape[numeroEtape],rang); //a revoir
                 }
 
                 cptEtape += nbClients;

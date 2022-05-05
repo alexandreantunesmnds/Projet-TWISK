@@ -78,7 +78,7 @@ public class Client {
         return "Client{" +
                 "numeroClient=" + numeroClient +
                 ", rang=" + rang +
-                ", etape=" + etape +
+                ", etape=" + this.etape +
                 '}';
     }
 }
