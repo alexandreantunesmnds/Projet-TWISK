@@ -41,4 +41,15 @@ public class ThreadsManager{
             threads.interrupt();
         }
     }
+
+    /**
+     * Fonction qui tue les threads actifs (permet l'arrêt de la simulation en cours)
+     */
+    public void detruireTacheActive(){
+        for(Thread threads : listThread){
+            if (threads.isAlive()){
+                threads.interrupt();
+            }
+        }
+    }
 }

@@ -17,14 +17,16 @@ import java.util.Random;
 public class  VueMondeIG extends Pane implements Observateur{
 
     private MondeIG monde;
+    private VueOutils vueOutils;
 
     /**
      * Constructeur
      * @param monde Un monde
      */
-    public VueMondeIG(MondeIG monde){
+    public VueMondeIG(MondeIG monde, VueOutils vueOutils){
         super();
         this.monde = monde;
+        this.vueOutils = vueOutils;
 
         for(EtapeIG etape: this.monde){
             VueEtapeIG nouvelleEtape = null;
@@ -115,6 +117,7 @@ public class  VueMondeIG extends Pane implements Observateur{
 
                     try {
                         if (monde.estEnSimulation()){
+                            vueOutils.changeSimStop();
                             for (Client cl : monde.getClients()) {
                                 if(monde.getCorresEtap().get(etape).equals(cl.getEtape())) {
                                     Circle client = new Circle();
@@ -143,6 +146,9 @@ public class  VueMondeIG extends Pane implements Observateur{
                                     System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
                                 }
                             }
+                        }
+                        else {
+                            vueOutils.changeSimPlay();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

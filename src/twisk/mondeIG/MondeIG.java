@@ -515,6 +515,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public boolean estEnSimulation() {
         return this.estEnSimulation;
     }
+    public void setEstEnSimulation(boolean estEnSimulation){
+        this.estEnSimulation = estEnSimulation;
+    }
 
     /**
      * Fonction qui itère tous les arcs dans le monde
