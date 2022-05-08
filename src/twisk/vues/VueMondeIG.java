@@ -5,6 +5,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import twisk.mondeIG.*;
 import twisk.outils.TailleComposants;
@@ -122,6 +123,7 @@ public class  VueMondeIG extends Pane implements Observateur{
                                     client.setCenterX(etape.getPosX()+x+15);
                                     client.setCenterY(etape.getPosY()+y+15);
                                     client.setRadius(TailleComposants.getInstance().getTailleClient());
+                                    client.setFill(Paint.valueOf(cl.getCouleur()));
                                     panneau.getChildren().add(client);
                                     System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
                                 }
