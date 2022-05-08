@@ -118,10 +118,25 @@ public class  VueMondeIG extends Pane implements Observateur{
                             for (Client cl : monde.getClients()) {
                                 if(monde.getCorresEtap().get(etape).equals(cl.getEtape())) {
                                     Circle client = new Circle();
-                                    int x = (int) (Math.random() * (TailleComposants.getInstance().getLargeurZoneClient()));
-                                    int y = (int) (Math.random() * (TailleComposants.getInstance().getHauteurZoneClient()));
-                                    client.setCenterX(etape.getPosX()+x+15);
-                                    client.setCenterY(etape.getPosY()+y+15);
+
+                                    if(etape.estUneActivite()) {
+                                        int min_x = 20;
+                                        int max_x = 200;
+
+                                        int min_y = 50;
+                                        int max_y = 85;
+                                        int x = min_x + (int) (Math.random() * (max_x - min_x) + 1);
+                                        int y = min_y + (int) (Math.random() * (max_y - min_y) + 1);
+
+                                        client.setCenterX(etape.getPosX() + x);
+                                        client.setCenterY(etape.getPosY() + y);
+                                    }else if(etape.estUnGuichet()){
+                                        int x = 19;
+                                        int y = 49;
+
+                                        client.setCenterX(etape.getPosX() + (x*cl.getRang()));
+                                        client.setCenterY(etape.getPosY() + y);
+                                    }
                                     client.setRadius(TailleComposants.getInstance().getTailleClient());
                                     client.setFill(Paint.valueOf(cl.getCouleur()));
                                     panneau.getChildren().add(client);

@@ -21,7 +21,7 @@ public class VueGuichetIG extends VueEtapeIG implements Observateur{
 
         //Ajout des zones de clients
         HBox zoneClient = new HBox();
-        zoneClient.setPrefSize(constantes.getLargeurZoneClient(), constantes.getHauteurZoneClient());
+        zoneClient.setMinSize(constantes.getLargeurZoneClient(), 20);
         //zoneClient.setStyle("-fx-background-color: purple");
         zoneClient.setSpacing(2);
         for(int i = 0; i< 10;i++){
