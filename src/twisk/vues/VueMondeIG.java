@@ -147,7 +147,7 @@ public class  VueMondeIG extends Pane implements Observateur{
                                 }
                             }
                         }
-                        else {
+                        else{
                             vueOutils.changeSimPlay();
                         }
                     } catch (Exception e) {

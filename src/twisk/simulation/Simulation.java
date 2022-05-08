@@ -62,6 +62,7 @@ public class Simulation extends SujetObserve {
                     int[] tabJetonsGuichet = new int[nbGuichets];
 
                     boolean stop = false;
+                    monde.setEstEnSimulation(true); //le monde est donc en mode simulation
 
                     //initialisation des etapes et des jetons
                     for (int i = 0, jetons = 0; i < nbEtapes; i++) {
@@ -115,6 +116,7 @@ public class Simulation extends SujetObserve {
                             if (numeroEtape == 1) { //Si on est dans le sas de sortie
                                 if (nbClientsDansEtape == nbClients) {
                                     stop = true;
+                                    monde.setEstEnSimulation(false); //le monde n'est plus en mode simulation
                                 }
                             }
                             cptEtape++;

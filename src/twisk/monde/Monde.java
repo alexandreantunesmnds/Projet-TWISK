@@ -10,6 +10,8 @@ public class Monde implements Iterable<Etape> {
     private SasEntree sasEntree;
     private GestionnaireEtapes gestionEtapes;
 
+    private boolean estEnSimulation;
+
     /**
      * Constructeur
      */
@@ -20,6 +22,7 @@ public class Monde implements Iterable<Etape> {
         this.sasSortie = new SasSortie();
         this.gestionEtapes = new GestionnaireEtapes();
         this.gestionEtapes.ajouter(this.sasEntree, this.sasSortie);
+        this.estEnSimulation = false;
     }
 
     /**
@@ -126,6 +129,13 @@ public class Monde implements Iterable<Etape> {
                 //"\tsrand(ids);\n"+
                 "\t"+this.sasEntree.toC()+"}");
         return code.toString();
+    }
+    public void setEstEnSimulation(boolean estEnSimulation){
+        this.estEnSimulation = estEnSimulation;
+    }
+
+    public boolean getEstEnSimulation(){
+        return this.estEnSimulation;
     }
 
     /**

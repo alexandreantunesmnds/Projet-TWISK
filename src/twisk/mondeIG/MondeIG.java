@@ -485,8 +485,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                 } catch (MondeException e) {
                     throw new MondeException(e.getMessage());
                 }
-                estEnSimulation = true;
-                Monde world = creerMonde();
+                Monde world = creerMonde(); //notre monde
+                estEnSimulation =true;
                 ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
                 c = clp.loadClass("twisk.simulation.Simulation");
 
@@ -502,6 +502,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
                 md = c.getMethod("simuler", Monde.class);
                 md.invoke(play, world);
+                estEnSimulation =world.getEstEnSimulation();
                 return null;
             }
         };

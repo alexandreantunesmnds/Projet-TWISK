@@ -11,6 +11,8 @@ import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
 import twisk.outils.ThreadsManager;
 
+import java.sql.SQLOutput;
+
 public class VueOutils extends TilePane implements Observateur{
 
     private MondeIG monde;
