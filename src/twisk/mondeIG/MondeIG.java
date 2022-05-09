@@ -496,13 +496,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
                 ((SujetObserve) play).ajouterObservateur(mIG);
 
-                //Appel des autres fonctions
+                //Appel des autres fonctions5
                 Method md = c.getMethod("setNbClients", int.class);
                 md.invoke(play, 5);
 
                 md = c.getMethod("simuler", Monde.class);
                 md.invoke(play, world);
-                estEnSimulation =world.getEstEnSimulation();
+                estEnSimulation = world.getEstEnSimulation(); //à la fin de la simulation on regarde dans le modèle si la simulation est toujours en cours
                 return null;
             }
         };
