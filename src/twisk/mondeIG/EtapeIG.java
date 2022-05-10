@@ -233,6 +233,27 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
      */
     public abstract void deplacerPdcEtape();
 
+    /**
+     * Fonction qui nous informe si une étape est accessible depuis une autre étape
+     * @param etape L'étape dont on veut partir
+     * @return Vrai si il y a une boucle, faux sinon
+     */
+    public boolean estAccessibleDepuis(EtapeIG etape){
+        Boolean rep = false;
+
+        if(etape.getSucc().nbEtapes() > 0){
+            for(EtapeIG etapeSucc : etape.getSucc()){
+                if(etapeSucc.equals(this)){
+                    rep = true;
+                }else{
+                    estAccessibleDepuis(etapeSucc);
+                }
+            }
+        }
+
+        return rep;
+    }
+
     @Override
     public String toString() {
         return "EtapeIG{" +

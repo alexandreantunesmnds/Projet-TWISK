@@ -42,4 +42,21 @@ class EtapeIGTest {
         assertEquals("3",this.guichet1.getIdentifiant());
         assertEquals("4",this.guichet2.getIdentifiant());
     }
+
+    @Test
+    void estAcccessibleDepuis(){
+        this.activite1.ajouterSuccesseur(this.activite2);
+        assertEquals(true,this.activite2.estAccessibleDepuis(this.activite1));
+
+        this.guichet1.ajouterSuccesseur(activite1);
+        assertEquals(true,this.activite1.estAccessibleDepuis(this.guichet1));
+
+        assertEquals(false,this.guichet1.estAccessibleDepuis(this.activite1));
+
+        this.guichet2.ajouterSuccesseur(guichet1);
+        assertEquals(true,this.activite2.estAccessibleDepuis(this.guichet2));
+
+        this.activite2.ajouterSuccesseur(this.guichet2);
+        assertEquals(true,this.guichet2.estAccessibleDepuis(this.activite2));
+    }
 }
