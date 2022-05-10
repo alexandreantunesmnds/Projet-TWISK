@@ -91,8 +91,8 @@ public class ActiviteIG extends EtapeIG{
     /**
      * Fonction qui indique si l'étape doit être une activité restreinte ou non
      */
-    public void setEstRestreinte() {
-        this.estRestreinte = !estRestreinte;
+    public void setEstRestreinte(Boolean statut) {
+        this.estRestreinte =statut;
     }
 
     /**

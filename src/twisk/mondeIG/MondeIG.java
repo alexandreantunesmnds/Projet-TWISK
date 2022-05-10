@@ -377,6 +377,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private void verifierMondeIG() throws MondeException {
         int cptEntree = 0;
         int cptSortie = 0;
+
+        for(EtapeIG etape : this){
+            if(etape.estUneActivite()){
+                ActiviteIG act = (ActiviteIG) etape;
+                act.setEstRestreinte(false);
+            }
+        }
+
         //Le monde est faux si :
         for (EtapeIG etape : this) {
             //System.out.println(etape.getNom());
@@ -398,9 +406,11 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                     //Deux guichets se succèdent
                     if (etape.getSucc().getEtape(0).estUnGuichet()) {
                         throw new MondeException("Erreur : Deux guichets ne peuvent pas se succeder");
+
+                        //Si le successeur du guichet est une activité  alors elle devient une activité restreinte
                     } else if (etape.getSucc().getEtape(0).estUneActivite()) {
                         ActiviteIG act = (ActiviteIG) etape.getSucc().getEtape(0);
-                        act.setEstRestreinte();
+                        act.setEstRestreinte(true);
                     }
                 }
             }
