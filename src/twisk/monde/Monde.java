@@ -16,7 +16,6 @@ public class Monde implements Iterable<Etape> {
      * Constructeur
      */
     public Monde(){
-        FabriqueIdentifiant.getInstance().reset();
         FabriqueNumero.getInstance().reset();
         this.sasEntree = new SasEntree();
         this.sasSortie = new SasSortie();
