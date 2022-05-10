@@ -246,7 +246,7 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
                 if(etapeSucc.equals(this)){
                     rep = true;
                 }else{
-                    estAccessibleDepuis(etapeSucc);
+                    rep = estAccessibleDepuis(etapeSucc);
                 }
             }
         }

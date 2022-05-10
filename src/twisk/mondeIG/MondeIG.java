@@ -1,6 +1,7 @@
 package twisk.mondeIG;
 
 import javafx.concurrent.Task;
+import javafx.scene.shape.Arc;
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
 import twisk.monde.*;
@@ -150,6 +151,10 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         if (pdc1.getEtapeLiee().equals(pdc2.getEtapeLiee())) { //Si les deux points sont sur la même étape
             this.pointSelectionne = null;
             throw new ArcException("Erreur: Vous avez saisi deux points de la même étape");
+        }
+        if(pdc1.getEtapeLiee().estAccessibleDepuis(pdc2.getEtapeLiee())){
+            this.pointSelectionne = null;
+            throw new ArcException("Erreur : Vous avez créer une boucle");
         }
         for (ArcIG arcSaisi : this.listeArc) { //Si un des deux points à déjà été saisi
             PointDeControleIG pdcSaisi1 = arcSaisi.getPt1();
