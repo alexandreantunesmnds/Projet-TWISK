@@ -29,7 +29,7 @@ public class VueActiviteIG extends VueEtapeIG implements Observateur{
 
         //Ajout de la zone de client
         zoneClient.setStyle("-fx-background-color: #c9c9c9 ;-fx-border-color: "+ etape.getCouleurBord()+";-fx-border-width: 2");
-        zoneClient.setPrefSize(constantes.getLargeurZoneClient(), constantes.getHauteurZoneClient());
+        zoneClient.setMinSize(constantes.getLargeurZoneClient(), constantes.getHauteurZoneClient());
 
         this.getChildren().addAll(this.titre,zoneClient);
     }

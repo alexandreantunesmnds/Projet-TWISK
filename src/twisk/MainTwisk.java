@@ -21,8 +21,9 @@ public class MainTwisk extends Application {
 
         BorderPane root = new BorderPane() ;
         root.setTop(new VueMenu(monde));
-        root.setBottom(new VueOutils(monde)) ;
-        root.setCenter(new VueMondeIG(monde));
+        VueOutils vueOutils = new VueOutils(monde);
+        root.setBottom(vueOutils) ;
+        root.setCenter(new VueMondeIG(monde,vueOutils));
 
         primaryStage.setScene(new Scene(root, constantes.getLargeurFenetre(), constantes.getHauteurFenetre()));
         primaryStage.show();

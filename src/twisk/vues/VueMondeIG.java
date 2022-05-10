@@ -5,6 +5,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import twisk.mondeIG.*;
 import twisk.outils.TailleComposants;
@@ -16,14 +17,16 @@ import java.util.Random;
 public class  VueMondeIG extends Pane implements Observateur{
 
     private MondeIG monde;
+    private VueOutils vueOutils;
 
     /**
      * Constructeur
      * @param monde Un monde
      */
-    public VueMondeIG(MondeIG monde){
+    public VueMondeIG(MondeIG monde, VueOutils vueOutils){
         super();
         this.monde = monde;
+        this.vueOutils = vueOutils;
 
         for(EtapeIG etape: this.monde){
             VueEtapeIG nouvelleEtape = null;
@@ -114,18 +117,38 @@ public class  VueMondeIG extends Pane implements Observateur{
 
                     try {
                         if (monde.estEnSimulation()){
+                            vueOutils.changeSimStop();
                             for (Client cl : monde.getClients()) {
                                 if(monde.getCorresEtap().get(etape).equals(cl.getEtape())) {
                                     Circle client = new Circle();
-                                    int x = (int) (Math.random() * (TailleComposants.getInstance().getLargeurZoneClient()));
-                                    int y = (int) (Math.random() * (TailleComposants.getInstance().getHauteurZoneClient()));
-                                    client.setCenterX(etape.getPosX()+x+15);
-                                    client.setCenterY(etape.getPosY()+y+15);
+
+                                    if(etape.estUneActivite()) {
+                                        int min_x = 20;
+                                        int max_x = 200;
+
+                                        int min_y = 50;
+                                        int max_y = 85;
+                                        int x = min_x + (int) (Math.random() * (max_x - min_x) + 1);
+                                        int y = min_y + (int) (Math.random() * (max_y - min_y) + 1);
+
+                                        client.setCenterX(etape.getPosX() + x);
+                                        client.setCenterY(etape.getPosY() + y);
+                                    }else if(etape.estUnGuichet()){
+                                        int x = 19;
+                                        int y = 49;
+
+                                        client.setCenterX(etape.getPosX() + (x*cl.getRang()));
+                                        client.setCenterY(etape.getPosY() + y);
+                                    }
                                     client.setRadius(TailleComposants.getInstance().getTailleClient());
+                                    client.setFill(Paint.valueOf(cl.getCouleur()));
                                     panneau.getChildren().add(client);
                                     System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
                                 }
                             }
+                        }
+                        else{
+                            vueOutils.changeSimPlay();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

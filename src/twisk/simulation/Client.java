@@ -5,6 +5,7 @@ import twisk.monde.Etape;
 public class Client {
     int numeroClient;
     int rang;
+    String couleur;
     Etape etape;
 
     /**
@@ -13,6 +14,7 @@ public class Client {
      */
     public Client(int numero) {
         this.numeroClient = numero;
+        this.setCouleur();
     }
 
     /**
@@ -23,6 +25,50 @@ public class Client {
     public void allerA(Etape etape, int rang){
         this.etape = etape;
         this.rang = rang;
+    }
+
+    /**
+     * Fontion qui fixe la couleur au client de manière aléatoire
+     */
+    private void setCouleur(){
+        int nombreAleatoire = (int) (Math.random() * 9);
+        switch (nombreAleatoire){
+            case 0: //rouge
+                this.couleur = "#e51d1d";
+                break;
+            case 1: //orange
+                this.couleur = "#ed9c27";
+                break;
+            case 2: //jaune
+                this.couleur = "#f1e633";
+                break;
+            case 3: //vert clair
+                this.couleur = "#98d016";
+                break;
+            case 4: //vert foncé
+                this.couleur = "#32d016";
+                break;
+            case 5: //bleu clair
+                this.couleur = "#24e7c7";
+                break;
+            case 6: //bleu foncé
+                this.couleur = "#2762c9";
+                break;
+            case 7: //violet
+                this.couleur = "#7f27c9";
+                break;
+            case 8: //rose
+                this.couleur = "#f23eed";
+                break;
+        }
+    }
+
+    /**
+     * Guetteur
+     * @return Retourne la couleur associé au client
+     */
+    public String getCouleur(){
+        return this.couleur;
     }
 
     /**

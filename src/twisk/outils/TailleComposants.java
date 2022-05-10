@@ -63,7 +63,7 @@ public class TailleComposants {
      * @return Retourne la largeur de la zone client
      */
     public int getLargeurZoneClient(){
-        return 70;
+        return TailleComposants.getInstance().getLargeurEtape()-20;
     }
 
     /**
