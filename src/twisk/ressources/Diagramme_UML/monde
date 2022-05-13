@@ -1,0 +1,91 @@
+@startuml
+
+package twisk.monde{
+ class Monde implements Iterable{
+  - boolean estEnSimulation
+  +Monde()
+  +void aCommeEntree(Etape ... etapes)
+  +void aCommeSortie(Etape ... etapes)
+  +void ajouter(Etape ... etapes)
+  +int nbEtape()
+  +int nbGuichets()
+  +int nbEntree()
+  +String toC()
+ }
+ Monde -up-"1" GestionnaireEtapes
+ Monde --"1" SasEntree
+ Monde --"1" SasSortie
+
+ abstract class Etape implements Iterable{
+  # String nom
+  # int numero
+  +Etape(String nom)
+  +void ajouterSuccesseur(Etape ... etapes)
+  +{abstract} boolean estUneActivite()
+  +{abstract} boolean estUneActiviteRestreinte()
+  +{abstract} boolean estUnGuichet()
+  +{abstract} String toC()
+  +{abstract} String toDefine()
+  +{abstract} String toString()
+ }
+ Etape -up-"1" GestionnaireSuccesseurs
+
+ class Activite extends Etape{
+  -int temps
+  -int ecartTemps
+  +Activite(String nom)
+  +Activite(String nom, int t, int e)
+  +boolean estUneActivite()
+  +boolean estUneActiviteRestreinte()
+  +boolean estUnGuichet()
+  +String toC()
+  +String toString()
+ }
+
+ class Guichet extends Etape{
+  -int nbJetons
+  -int numSemaphore
+  +Guichet(String nom)
+  +Guichet(String nom, int nb)
+  +boolean estUneActivite()
+  +boolean estUneActiviteRestreinte()
+  +boolean estUnGuichet()
+  +String toC()
+  +String toString()
+ }
+
+ class ActiviteRestreinte extends Activite{
+  +ActiviteRestreinte(String nom)
+  +ActiviteRestreinte(String nom, int t, int e)
+  +String toC()
+  +String toString()
+ }
+
+ class SasEntree extends Activite{
+  +SasEntree()
+  +String toC()
+  +String toString()
+ }
+
+ class SasSortie extends Activite{
+  +SasSortie()
+  +String toC()
+  +String toString()
+ }
+
+ class GestionnaireEtapes implements Iterable{
+  +GestionnaireEtape()
+  +void ajouter(Etape... etapes)
+  +int nbEtape()
+  +Etape getEtape(int index)
+  +String toString()
+ }
+ class GestionnaireSuccesseurs implements Iterable{
+  +GestionnaireSucesseurs()
+  +void ajouter(Etape... etapes)
+  +int nbEtape()
+  +Etape getEtape(int index)
+  +String toString()
+ }
+}
+@enduml
