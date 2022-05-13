@@ -1,0 +1,66 @@
+@startuml
+package twisk{
+package monde{
+}
+package mondeIG{
+}
+package outils{
+ class ClassLoaderPerso extends ClassLoader{
+  +ClassLoaderPerso(ClassLoader parent)
+  +Class<?> loadClass(String name)
+  -Class<?> getClass(String name)
+  -byte[] loadClassData(String name)
+  +void finalize
+ }
+
+ class CorrespondanceEtape{
+  +CorrespondanceEtape()
+  +void ajouter(EtapeIG etig, Etape et)
+  +Etape get(EtapeIG etig)
+ }
+ CorrespondanceEtape -up-"*" monde.Etape
+ CorrespondanceEtape -up-"*" mondeIG.EtapeIG
+
+ class FabriqueIdentifiant{
+  -FabriqueIdentifiant()
+  -{static} FabriqueIdentifiant getInstance()
+  +String getIdentifiantEtape()
+  +void reset()
+ }
+ FabriqueIdentifiant --"1" FabriqueIdentifiant : static
+
+ class FabriqueNumero{
+  -int cptEtape
+  -int cptSemaphore
+  -FabriqueNumero()
+  -{static} FabriqueIdentifiant getInstance()
+  +String getNumeroEtape()
+  +String getNumeroSemaphore()
+  +void reset()
+ }
+ FabriqueNumero --"1" FabriqueNumero : static
+
+ class FabriqueSimulation{
+  -int noSimulation
+  -FabriqueSimulation()
+  -{static} FabriqueIdentifiant getInstance()
+  +String getNoSimulation()
+  +void reset()
+ }
+ FabriqueSimulation --"1" FabriqueSimulation: static
+
+ class KitC{
+  -int noSimulation
+  +KitC()
+  +void copier(InputStream source, File dest)
+  +void creerEnvironnement()
+  +void creerFichier(String codeC)
+  +void compiler()
+  +void construireLaLibrairie()
+  +int getNumeroSimulation()
+ }
+ KitC --"1" Runtime
+
+}
+}
+@enduml
