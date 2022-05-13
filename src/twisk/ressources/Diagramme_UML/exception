@@ -1,0 +1,20 @@
+@startuml
+package twisk.exceptions{
+ class ArcException extends TwiskException{
+  +ArcException(String message)
+ }
+
+ class MondeException extends TwiskException{
+  +MondeException(String message)
+ }
+
+ class TimeException extends TwiskException{
+  +TimeException(String message)
+ }
+
+ class TwiskException extends Exception{
+  +TwiskException(String message)
+ }
+
+}
+@enduml
