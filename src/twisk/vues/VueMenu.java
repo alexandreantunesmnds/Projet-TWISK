@@ -28,12 +28,14 @@ public class VueMenu extends MenuBar implements Observateur{
 
         //Menu Fichier
         Menu fichier = new Menu("Fichier");
+        MenuItem save = new MenuItem("Enregistrer-sous");
+        MenuItem open = new MenuItem("Ouvrir");
         MenuItem quitter = new MenuItem("Quitter");
         quitter.setOnAction(event-> {Platform.exit();
             ThreadsManager.getInstance().detruireTout();
         });
 
-        fichier.getItems().addAll(quitter);
+        fichier.getItems().addAll(save,open,quitter);
 
 
         //Menu Edition
