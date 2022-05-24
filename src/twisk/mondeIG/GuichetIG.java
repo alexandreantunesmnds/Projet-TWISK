@@ -7,6 +7,7 @@ import java.util.Iterator;
 
 public class GuichetIG extends EtapeIG{
     private int nbJetons;
+    private boolean sensGaucheDroite; //Sens de circulation
 
     /**
      * Constructeur
@@ -26,6 +27,7 @@ public class GuichetIG extends EtapeIG{
         this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+larg,this.getPosY()+haut/2,idf+" pdc 4",this)); //DROITE
 
         this.couleur = "#39bc58"; //Couleur verte de base
+        this.sensGaucheDroite = true;
     }
 
 
@@ -49,6 +51,34 @@ public class GuichetIG extends EtapeIG{
     @Override
     public boolean estUnGuichet() {
         return true;
+    }
+
+    /**
+     * Getteur
+     * @return vrai si le sens de circulation est gauche-droite, faux sinon
+     */
+    public boolean isSensGaucheDroite() {
+        return sensGaucheDroite;
+    }
+
+    /**
+     * Setteur
+     * @param sensGaucheDroite le sens de circulation
+     */
+    public void setSensGaucheDroite(boolean sensGaucheDroite) {
+        this.sensGaucheDroite = sensGaucheDroite;
+    }
+
+    /**
+     * Fonction qui vérifie quel point a été relier et en détermine le sens de circulation
+     * @param pointSelectionne
+     */
+    public void verifierSensCirculation(PointDeControleIG pointSelectionne) {
+        if(pointSelectionne.getPosX() == this.getPosX()- (int) TailleComposants.getInstance().getTaillePDC()*2){
+            this.sensGaucheDroite = true;
+        }else{
+            this.sensGaucheDroite = false;
+        }
     }
 
     /**

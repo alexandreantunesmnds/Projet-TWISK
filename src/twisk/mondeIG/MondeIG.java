@@ -130,6 +130,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             this.pointSelectionne = pointSelectionne;
         } else {
             this.ajouterArc(this.pointSelectionne, pointSelectionne);
+            if(pointSelectionne.getEtapeLiee().estUnGuichet()){
+                ((GuichetIG)pointSelectionne.getEtapeLiee()).verifierSensCirculation(pointSelectionne);
+            }
             this.pointSelectionne = null;
             //System.out.println("test");
         }

@@ -134,16 +134,24 @@ public class  VueMondeIG extends Pane implements Observateur{
                                         client.setCenterX(etape.getPosX() + x);
                                         client.setCenterY(etape.getPosY() + y);
                                     }else if(etape.estUnGuichet()){
-                                        int x = 19;
-                                        int y = 49;
+                                        int x = 0;
+                                        int y = 0;
 
-                                        client.setCenterX(etape.getPosX() + (x*cl.getRang()));
+                                        if(((GuichetIG)etape).isSensGaucheDroite()){
+                                            x = 200;
+                                            y = 50;
+                                            client.setCenterX(etape.getPosX() + x - (20*(cl.getRang()-1)) - cl.getRang()*0.25);
+                                        }else{
+                                            x = 20;
+                                            y = 50;
+                                            client.setCenterX(etape.getPosX() + x + (20*(cl.getRang()-1)) + cl.getRang()*0.25);
+                                        }
                                         client.setCenterY(etape.getPosY() + y);
                                     }
                                     client.setRadius(TailleComposants.getInstance().getTailleClient());
                                     client.setFill(Paint.valueOf(cl.getCouleur()));
                                     panneau.getChildren().add(client);
-                                    System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
+                                    //System.out.println("Coord client "+ cl.getNumeroClient() +" : ("+client.getCenterX()+", "+client.getCenterY()+")");
                                 }
                             }
                         }
