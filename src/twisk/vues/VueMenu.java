@@ -58,8 +58,10 @@ public class VueMenu extends MenuBar implements Observateur{
         Menu edition = new Menu("Edition");
         MenuItem suppr = new MenuItem("Supprimer la sélection");
         suppr.setOnAction(event -> {
+            for(EtapeIG etapeASuppr : this.monde.getEtapeSelectionnees()){
+                this.monde.supprimerArc(etapeASuppr);
+            }
             this.monde.supprimerEtapesSelectionnees();
-            this.monde.supprimerArc(null);
             this.monde.notifierObservateurs();
         });
         MenuItem renommer = new MenuItem("Renommer");

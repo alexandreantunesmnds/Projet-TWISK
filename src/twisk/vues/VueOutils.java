@@ -47,7 +47,6 @@ public class VueOutils extends TilePane implements Observateur{
         this.playSim.setOnAction(event-> {
             try {
                 this.monde.simuler();
-
             } catch (MondeException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeight(250);
@@ -55,8 +54,6 @@ public class VueOutils extends TilePane implements Observateur{
                 alert.setHeaderText("Simulation impossible");
                 alert.setContentText("La simulation est impossible car le monde n'est pas valide dû à :\n"+e.getMessage());
                 alert.showAndWait();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         });
         this.playSim.setTooltip(new Tooltip("Lancer la simulation"));

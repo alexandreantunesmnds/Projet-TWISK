@@ -18,11 +18,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observateur {
-    private HashMap<String, EtapeIG> listeEtapes; //La clé est l'identifiant de l'étape
-    private List<ArcIG> listeArc;
+    private final HashMap<String, EtapeIG> listeEtapes; //La clé est l'identifiant de l'étape
+    private final List<ArcIG> listeArc;
     private PointDeControleIG pointSelectionne;
-    private List<EtapeIG> etapeSelectionnees;
-    private List<ArcIG> arcSelectionnes;
+    private final List<EtapeIG> etapeSelectionnees;
+    private final List<ArcIG> arcSelectionnes;
     private String style;
     private String theme;
     private CorrespondanceEtapes corresEtap;
@@ -208,16 +208,33 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      * Fonction qui supprime les étapes selectionnées
      */
     public void supprimerEtapesSelectionnees() {
+        //System.out.println(listeEtapes);
         for (EtapeIG etapeASuppr : this.etapeSelectionnees) {
-            supprimerArc(etapeASuppr);
+            if(etapeASuppr.getSucc().nbEtapes()>0){
+                supprimerArc(etapeASuppr);
+            }
+
+            List<EtapeIG> etapeASuppSucc = new ArrayList<>();
+
+            for(EtapeIG etape : this){
+                for(EtapeIG etapeSucc : etape.getSucc()){
+                    if(etapeSucc.equals(etapeASuppr)){
+                        etapeASuppSucc.add(etape);
+                    }
+                }
+            }
+            for(EtapeIG etape : etapeASuppSucc){
+                etape.getSucc().retirer(etapeASuppr);
+            }
+
             this.listeEtapes.remove(etapeASuppr.getIdentifiant());
         }
+        System.out.println(listeEtapes);
         this.etapeSelectionnees.clear();
     }
 
     /**
      * Fonction qui supprime les arcs liées aux étapes selectionnées
-     *
      * @param etapeASuppr Les étapes selectionnées
      */
     public void supprimerArc(EtapeIG etapeASuppr) {
@@ -225,30 +242,22 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         for (ArcIG arc : this.iteratorArcIG()) {
             PointDeControleIG pdc1 = arc.getPt1();
             PointDeControleIG pdc2 = arc.getPt2();
-            EtapeIG etape1 = pdc1.getEtapeLiee();
-            EtapeIG etape2 = pdc2.getEtapeLiee();
-            etape1.retirerSuccesseur(etape2);
 
-            if (etapeASuppr != null && (pdc1.getEtapeLiee().equals(etapeASuppr) || pdc2.getEtapeLiee().equals(etapeASuppr))) {
-                listeArcASuprr.add(arc);
-            } else if (arcSelectionnes.contains(arc)) {
+            if (pdc1.getEtapeLiee().equals(etapeASuppr) || pdc2.getEtapeLiee().equals(etapeASuppr)) {
                 listeArcASuprr.add(arc);
             }
         }
         for (ArcIG arcASuppr : listeArcASuprr) {
-            EtapeIG etapePrec = arcASuppr.getPt1().getEtapeLiee();
-            EtapeIG etapeSucc = arcASuppr.getPt2().getEtapeLiee();
-            etapePrec.retirerSuccesseur(etapeSucc);
-            //System.out.println(etapePrec.getSucc().toString());
             this.listeArc.remove(arcASuppr);
         }
     }
 
-    /**
-     * Guetteur
-     *
-     * @return Retourne l'étape selectionnée
-     */
+
+        /**
+         * Guetteur
+         *
+         * @return Retourne l'étape selectionnée
+         */
     public List<EtapeIG> getEtapeSelectionnees() {
         return this.etapeSelectionnees;
     }
@@ -261,8 +270,6 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public List<ArcIG> getArcSelectionnes() {
         return this.arcSelectionnes;
     }
-
-    ;
 
     /**
      * Guetteur
@@ -390,10 +397,9 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
         //Le monde est faux si :
         for (EtapeIG etape : this) {
-            //System.out.println(etape.getNom());
             //Une etape n'a pas de successeur
             if (etape.getSucc().nbEtapes() == 0 && !etape.estUneSortie()) {
-                throw new MondeException("Erreur : Une ou des étapes ne possède pas de successeurs");
+                throw new MondeException("Erreur : L'étape "+ etape.getNom() +" ne possède pas de successeurs");
             }
             if (etape.estUneEntree()) {
                 cptEntree++;
@@ -493,35 +499,41 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      *
      * @throws MondeException
      */
-    public void simuler() throws Exception {
+    public void simuler() throws MondeException {
         MondeIG mIG = this;
+        //System.out.println(mIG);
         Task<Void> task = new Task<Void>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() throws MondeException {
                 try {
                     verifierMondeIG();
                 } catch (MondeException e) {
+                    System.out.println("bug : " + e.getMessage());
                     throw new MondeException(e.getMessage());
                 }
                 Monde world = creerMonde(); //notre monde
-                estEnSimulation =true;
+                estEnSimulation = true;
                 ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
-                c = clp.loadClass("twisk.simulation.Simulation");
+                try {
+                    c = clp.loadClass("twisk.simulation.Simulation");
 
-                //Récupération du construsteur
-                Constructor<?> co = c.getConstructor();
-                play = co.newInstance();
+                    //Récupération du construsteur
+                    Constructor<?> co = c.getConstructor();
+                    play = co.newInstance();
 
-                ((SujetObserve) play).ajouterObservateur(mIG);
+                    ((SujetObserve) play).ajouterObservateur(mIG);
 
-                //Appel des autres fonctions5
-                Method md = c.getMethod("setNbClients", int.class);
-                md.invoke(play, 5);
+                    //Appel des autres fonctions5
+                    Method md = c.getMethod("setNbClients", int.class);
+                    md.invoke(play, 5);
 
-                md = c.getMethod("simuler", Monde.class);
-                md.invoke(play, world);
-                estEnSimulation = world.getEstEnSimulation(); //à la fin de la simulation on regarde dans le modèle si la simulation est toujours en cours
-                return null;
+                    md = c.getMethod("simuler", Monde.class);
+                    md.invoke(play, world);
+                    estEnSimulation = world.getEstEnSimulation(); //à la fin de la simulation on regarde dans le modèle si la simulation est toujours en cours
+                }catch (Exception e){
+
+                }
+                    return null;
             }
         };
         ThreadsManager.getInstance().lancer(task);
