@@ -36,6 +36,23 @@ public class ActiviteIG extends EtapeIG{
         this.estRestreinte = false;
     }
 
+    public ActiviteIG(String nom, String identifiant, int posX, int posY, int largeur, int hauteur, boolean entree, boolean sortie, int temps, int ecartTemps, boolean estRestreinte) {
+        super(nom, identifiant, posX, posY, largeur, hauteur, entree, sortie);
+        this.temps = temps;
+        this.ecartTemps = ecartTemps;
+        this.estRestreinte = estRestreinte;
+
+        this.pointsDeControle = new ArrayList<PointDeControleIG>(4);
+
+        this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+largeur/2,this.getPosY()- (int)TailleComposants.getInstance().getTaillePDC()*2,identifiant+" pdc 1",this)); //HAUT
+        this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+largeur/2,this.getPosY()+hauteur,identifiant+" pdc 2",this)); //BAS
+        this.pointsDeControle.add(new PointDeControleIG(this.getPosX()- (int)TailleComposants.getInstance().getTaillePDC()*2,this.getPosY()+hauteur/2,identifiant+" pdc 3",this)); //GAUCHE
+        this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+largeur,this.getPosY()+hauteur/2,identifiant+" pdc 4",this)); //DROITE
+
+        this.couleur = "#619bdc"; //Couleur bleu de base
+        this.couleurBord = "#3b69a6";
+    }
+
     /**
      * Guetteur
      * @return Le temps
@@ -143,6 +160,16 @@ public class ActiviteIG extends EtapeIG{
 
     @Override
     public String toString() {
-        return super.toString();
+        return "ActiviteIG{" +
+                "nom='" + nom + '\'' +
+                ", identifiant='" + identifiant + '\'' +
+                ", posX=" + posX +
+                ", posY=" + posY +
+                ", largeur=" + largeur +
+                ", hauteur=" + hauteur +
+                ", entree=" + entree +
+                ", sortie=" + sortie +
+                ", succ=" + succ +
+                '}';
     }
 }

@@ -40,6 +40,18 @@ public abstract class EtapeIG implements Iterable<PointDeControleIG>{
         this.succ = new GestionnaireSuccesseursIG();
     }
 
+    public EtapeIG(String nom, String identifiant, int posX, int posY, int largeur, int hauteur, boolean entree, boolean sortie) {
+        this.nom = nom;
+        this.identifiant = identifiant;
+        this.posX = posX;
+        this.posY = posY;
+        this.largeur = largeur;
+        this.hauteur = hauteur;
+        this.entree = entree;
+        this.sortie = sortie;
+        this.succ = new GestionnaireSuccesseursIG();
+    }
+
     /**
      * Getteur
      * @return Nom de l'étape

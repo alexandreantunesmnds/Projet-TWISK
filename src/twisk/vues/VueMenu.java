@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import twisk.exceptions.FileException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
@@ -29,7 +30,22 @@ public class VueMenu extends MenuBar implements Observateur{
         //Menu Fichier
         Menu fichier = new Menu("Fichier");
         MenuItem save = new MenuItem("Enregistrer-sous");
+        save.setOnAction(event->{
+            try {
+                monde.enregistrer();
+            } catch (FileException e) {
+                e.printStackTrace();
+            }
+        });
         MenuItem open = new MenuItem("Ouvrir");
+        open.setOnAction(event-> {
+            try {
+                monde.ouvrirFichier();
+            } catch (FileException e) {
+                e.printStackTrace();
+            }
+
+        });
         MenuItem quitter = new MenuItem("Quitter");
         quitter.setOnAction(event-> {Platform.exit();
             ThreadsManager.getInstance().detruireTout();

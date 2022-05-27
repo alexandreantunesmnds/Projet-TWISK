@@ -47,4 +47,13 @@ public class ArcIG {
     public void setCouleur(String couleur) {
         this.couleur = couleur;
     }
+
+    @Override
+    public String toString() {
+        return "ArcIG{" +
+                "couleur='" + couleur + '\'' +
+                ", pt1=" + pt1 +
+                ", pt2=" + pt2 +
+                '}';
+    }
 }

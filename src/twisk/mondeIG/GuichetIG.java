@@ -31,6 +31,19 @@ public class GuichetIG extends EtapeIG{
     }
 
 
+    public GuichetIG(String nom, String identifiant, int posX, int posY, int largeur, int hauteur, boolean entree, boolean sortie, int nbJetons, boolean sensGaucheDroite) {
+        super(nom, identifiant, posX, posY, largeur, hauteur, entree, sortie);
+        this.nbJetons = nbJetons;
+
+        this.pointsDeControle = new ArrayList<PointDeControleIG>(2);
+
+        this.pointsDeControle.add(new PointDeControleIG(this.getPosX()- (int) TailleComposants.getInstance().getTaillePDC()*2,this.getPosY()+hauteur/2,identifiant+" pdc 3",this)); //GAUCHE
+        this.pointsDeControle.add(new PointDeControleIG(this.getPosX()+largeur,this.getPosY()+hauteur/2,identifiant+" pdc 4",this)); //DROITE
+
+        this.couleur = "#39bc58"; //Couleur verte de base
+        this.couleurBord = "#0c7c24";
+        this.sensGaucheDroite = sensGaucheDroite;
+    }
 
     /**
      * Getteur
@@ -101,5 +114,22 @@ public class GuichetIG extends EtapeIG{
     @Override
     public Iterator<PointDeControleIG> iterator() {
         return this.pointsDeControle.iterator();
+    }
+
+    @Override
+    public String toString() {
+        return "GuichetIG{" +
+                "nom='" + nom + '\'' +
+                ", identifiant='" + identifiant + '\'' +
+                ", posX=" + posX +
+                ", posY=" + posY +
+                ", largeur=" + largeur +
+                ", hauteur=" + hauteur +
+                ", entree=" + entree +
+                ", sortie=" + sortie +
+                ", succ=" + succ +
+                ", nbJetons=" + nbJetons +
+                ", sensGaucheDroite=" + sensGaucheDroite +
+                '}';
     }
 }

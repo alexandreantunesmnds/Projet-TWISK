@@ -29,6 +29,14 @@ public class FabriqueIdentifiant {
     }
 
     /**
+     * Setteur
+     * @param noEtape;
+     */
+    public void setIdentifiantEtape(int noEtape){
+        this.noEtape = noEtape;
+    }
+
+    /**
      * Fonction qui reset le compteur
      */
     public void reset(){

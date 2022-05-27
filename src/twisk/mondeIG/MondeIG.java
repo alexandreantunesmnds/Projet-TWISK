@@ -1,18 +1,16 @@
 package twisk.mondeIG;
 
 import javafx.concurrent.Task;
-import javafx.scene.shape.Arc;
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
+import twisk.exceptions.FileException;
 import twisk.monde.*;
 import twisk.outils.*;
 import twisk.simulation.GestionnaireClients;
-import twisk.simulation.Simulation;
 import twisk.vues.Observateur;
 import twisk.vues.SujetObserve;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +29,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private Class<?> c;
     private Object play;
     private boolean estEnSimulation;
+    private KitJson kjon;
 
     /**
      * Constructeur
@@ -44,6 +43,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.style = "white";
         this.ajouter("Activité");
         this.estEnSimulation = false;
+        this.kjon = new KitJson(this);
     }
 
     /**
@@ -534,8 +534,50 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public boolean estEnSimulation() {
         return this.estEnSimulation;
     }
+
+    /**
+     * Fonction qui fixe l'état de simulation du monde
+     * @param estEnSimulation l'état du monde
+     */
     public void setEstEnSimulation(boolean estEnSimulation){
         this.estEnSimulation = estEnSimulation;
+    }
+
+    /**
+     * Fonction qui appelle à la sauvegarde du monde
+     * @throws FileException
+     */
+    public void enregistrer() throws FileException {
+        kjon.sauvegarder();
+    }
+
+    /**
+     * Fonction qui appelle à la sauvegarde du monde
+     * @throws FileException
+     */
+    public void ouvrirFichier() throws FileException {
+        kjon.ouvrirFichier();
+    }
+
+    /**
+     * Permet d'obtenir la liste d'étape
+     * @return
+     */
+    public HashMap<String, EtapeIG> getListeEtape() {
+        return this.listeEtapes;
+    }
+
+    public List<ArcIG> getListeArc(){
+        return this.listeArc;
+    }
+
+
+    /**
+     * Fonction qui nettoie le monde
+     */
+    public void clear() {
+        this.listeArc.clear();
+        this.listeEtapes.clear();
     }
 
     /**
@@ -559,6 +601,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     public String toString() {
         return "MondeIG{" +
                 "listeEtapes=" + listeEtapes +
+                ", listeArc=" + listeArc +
                 '}';
     }
 
