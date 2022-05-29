@@ -1,6 +1,9 @@
 package twisk.mondeIG;
 
+import javafx.animation.PauseTransition;
 import javafx.concurrent.Task;
+import javafx.scene.control.Alert;
+import javafx.util.Duration;
 import twisk.exceptions.ArcException;
 import twisk.exceptions.MondeException;
 import twisk.exceptions.FileException;
@@ -501,40 +504,40 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      */
     public void simuler() throws MondeException {
         MondeIG mIG = this;
+        try {
+            verifierMondeIG();
+        } catch (MondeException e) {
+            System.out.println("bug : " + e.getMessage());
+            throw new MondeException(e.getMessage());
+        }
         //System.out.println(mIG);
         Task<Void> task = new Task<Void>() {
             @Override
-            protected Void call() throws MondeException {
-                try {
-                    verifierMondeIG();
-                } catch (MondeException e) {
-                    System.out.println("bug : " + e.getMessage());
-                    throw new MondeException(e.getMessage());
-                }
-                Monde world = creerMonde(); //notre monde
-                estEnSimulation = true;
-                ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
-                try {
-                    c = clp.loadClass("twisk.simulation.Simulation");
+            protected Void call() {
+                    Monde world = creerMonde(); //notre monde
+                    estEnSimulation = true;
+                    ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
+                    try {
+                        c = clp.loadClass("twisk.simulation.Simulation");
 
-                    //Récupération du construsteur
-                    Constructor<?> co = c.getConstructor();
-                    play = co.newInstance();
+                        //Récupération du construsteur
+                        Constructor<?> co = c.getConstructor();
+                        play = co.newInstance();
 
-                    ((SujetObserve) play).ajouterObservateur(mIG);
+                        ((SujetObserve) play).ajouterObservateur(mIG);
 
-                    //Appel des autres fonctions5
-                    Method md = c.getMethod("setNbClients", int.class);
-                    md.invoke(play, 5);
+                        //Appel des autres fonctions5
+                        Method md = c.getMethod("setNbClients", int.class);
+                        md.invoke(play, 5);
 
-                    md = c.getMethod("simuler", Monde.class);
-                    md.invoke(play, world);
-                    estEnSimulation = world.getEstEnSimulation(); //à la fin de la simulation on regarde dans le modèle si la simulation est toujours en cours
-                }catch (Exception e){
+                        md = c.getMethod("simuler", Monde.class);
+                        md.invoke(play, world);
+                        estEnSimulation = world.getEstEnSimulation(); //à la fin de la simulation on regarde dans le modèle si la simulation est toujours en cours
+                    } catch (Exception e) {
 
-                }
+                    }
                     return null;
-            }
+                }
         };
         ThreadsManager.getInstance().lancer(task);
     }
