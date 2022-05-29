@@ -1,0 +1,135 @@
+@startuml
+interface EventHandler{}
+package java.util {
+        interface Iterable<EtapeIG,PointDeControleIG,ArcIG> {
+          Iterator<EtapeIG> iterator()
+        }
+
+    }
+package twisk{
+
+    package twisk.mondeIG {
+       class ActiviteIG
+       class MondeIG
+       class EtapeIG
+       class GestionnaireSuccesseursIG
+       class GuichetIG
+       class PointDeControleIG
+       class ArcIG
+    }
+
+
+    package twisk.vues {
+
+        interface Observateur {
+        void reagir()
+        }
+
+        abstract VueEtapeIG extends VBox implements Observateur{
+            Label label
+            VueEtapeIG(MondeIG monde, EtapeIG etape)
+        }
+        class VueGuichetIG extends VueEtapeIG implements Observateur{
+            VueGuichetIG(MondeIG monde, GuichetIG guichet)
+            void reagir()
+        }
+
+
+        class VueActiviteIG extends VueEtapeIG implements Observateur {
+            VueActiviteIG(MondeIG monde, EtapeIG etape)
+            void reagir()
+        }
+
+        class VueMondeIG implements Observateur {
+            VueMondeIG(MondeIG monde)
+            void reagir()
+        }
+        class VueOutils implements Observateur {
+            private Button ajouterActivite;
+            private Button ajouterGuichet;
+            private Button playSim;
+            VueOutils(MondeIG monde)
+            void reagir()
+        }
+
+        class VueArcIG extends Pane implements Observateur{
+            private Polyline pl;
+            private Line ligne;
+            VueArcIG(MondeIG monde, ArcIG arc)
+            void reagir()
+        }
+
+
+        class VuePointDeControleIG extends Circle implements Observateur {
+            VuePointDeControleIG(MondeIG monde, PointDeControleIG point)
+            void reagir()
+        }
+        class EcouteurPDC implements EventHandler{
+                EcouteurPDC (MondeIG monde, PointDeControleIG point)
+                void handle(MouseEvent mouseEvent)
+        }
+        class SujetObserve{
+                ArrayList<Observateur> obs
+                void ajouterObservateur(Observateur v)
+                void notifierObservateurs()
+        }
+        class VueChangerEcartTemps extends TextInputDialog{
+            VueChangerEcartTemps(MondeIG monde)
+            void handle(DialogEvent dialogEvent)
+            void setEtapeAChanger(EtapeIG etapeAChanger)
+        }
+        class VueChangerNbJetons  extends TextInputDialog{
+            VueChangerNbJetons(MondeIG monde)
+            void handle(DialogEvent dialogEvent)
+            void setEtapeAChanger(EtapeIG etapeAChanger)
+        }
+        class VueChangerTemps extends TextInputDialog{
+            VueChangerTemps(MondeIG monde)
+            void handle(DialogEvent dialogEvent)
+            void setEtapeAChanger(EtapeIG etapeAChanger)
+        }
+       class VueMenu extends MenuBar implements Observateur{
+            private String style;
+            VueMenu(MondeIG monde)
+            void reagir()
+        }
+        class VueRenommerEtape extends TextInputDialog {
+            VueRenommerEtape(MondeIG monde)
+            void setEtapeARenom(EtapeIG etapeARenom)
+        }
+
+    }
+    EcouteurPDC -- "1" MondeIG
+    EcouteurPDC -- "1" PointDeControleIG
+    SujetObserve -- "*" Observateur
+    VueArcIG -- "1" ArcIG
+    VueArcIG --"1" MondeIG
+    VueChangerEcartTemps -- "1" MondeIG
+    VueChangerEcartTemps --"1" ActiviteIG
+    VueChangerNbJetons -- "1" MondeIG
+    VueChangerNbJetons -- "1" GuichetIG
+    VueChangerTemps -- "1" MondeIG
+    VueChangerTemps -- "1" ActiviteIG
+    VueEtapeIG -- "1" MondeIG
+    VueEtapeIG -- "1" EtapeIG
+    VueEtapeIG -- "1" Label
+    VueEtapeIG --|> VBox
+    VueGuichetIG --|> VueEtapeIG
+    VueMenu --|> MenuBar
+    VueMenu -- "1" MondeIG
+    VueMenu -- "1" VueRenommerEtape
+    VueMenu -- "1" VueChangerTemps
+    VueMenu -- "1" VueChangerEcartTemps
+    VueMenu -- "1" VueChangerNbJetons
+    VueMondeIG --|> Pane
+    VueMondeIG -- "1" MondeIG
+    VueOutils --|> TilePane
+    VueOutils -- "1" MondeIG
+    VueEtapeIG - "1" EtapeIG
+    VuePointDeControleIG --|> Circle
+    VueRenommerEtape --|> TextInputDialog
+    VueChangerNbJetons --|> TextInputDialog
+    VueChangerEcartTemps --|> TextInputDialog
+    VueChangerTemps --|> TextInputDialog
+}
+@enduml

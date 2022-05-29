@@ -1,0 +1,51 @@
+@startuml
+
+interface Iterable{
+Iterator<Client> iterator()
+}
+package twisk{
+
+    package monde{
+    class Etape
+    }
+
+    package outils{
+    class KitC
+    }
+
+    package simulation{
+
+
+        class Client{
+        int numeroClient
+        int rang
+        Client(int numero)
+        void allerA(Etape etape, int rang)
+        }
+
+
+        class GestionnaireClients implements Iterable{
+        GestionnaireClients()
+        GestionnaireClients(int nbClients)
+        void setClients(int... tabClients)
+        void allerA(int numeroClient, Etape etape, int rang)
+        void nettoyer()
+        Iterator<Client> iterator()
+        }
+
+
+        class Simulation implements Iterable{
+        int nbClients
+        Simulation()
+        void setNbClients(int n)
+        void simuler(Monde monde)
+        }
+    }
+
+}
+
+    Simulation -- "1" KitC
+    Client -- "1" Etape
+    GestionnaireClients -- "*" Client
+    Simulation -- "1" GestionnaireClients
+@enduml

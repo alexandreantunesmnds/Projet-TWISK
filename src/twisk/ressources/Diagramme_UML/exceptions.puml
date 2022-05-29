@@ -1,0 +1,16 @@
+@startuml
+
+package twisk.exceptions{
+    class ArcException{
+    }
+    class MondeException{
+    }
+    class TimeException{
+    }
+    class TwiskException{
+    }
+    class FileException{
+    }
+}
+
+@enduml
