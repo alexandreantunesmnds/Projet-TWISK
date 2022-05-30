@@ -80,6 +80,7 @@ public class VueMenu extends MenuBar implements Observateur{
         edition.getItems().addAll(suppr,renommer,effacerSelection);
 
 
+
         //Menu Monde
         Menu menuMonde = new Menu("Monde");
         MenuItem addEntree = new MenuItem("Entrée");
@@ -129,6 +130,19 @@ public class VueMenu extends MenuBar implements Observateur{
                 this.VueCET.show();
             }
         });
+
+        //Conditions sur les items
+        if (this.monde.getNbEtapesSelect() == 1){
+            renommer.setDisable(false);
+            temps.setDisable(false);
+            ecartTemps.setDisable(false);
+        }
+        else{
+            renommer.setDisable(true);
+            temps.setDisable(true);
+            ecartTemps.setDisable(true);
+        }
+
         MenuItem nbJetons = new MenuItem("Changer le nombre de jetons");
         nbJetons.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();

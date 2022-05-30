@@ -612,6 +612,13 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         return this.listeEtapes.values().iterator();
     }
 
+    /**
+     * Fonction qui retourne le nombre d'étapes sélectionnées
+     * @return
+     */
+    public int getNbEtapesSelect(){
+        return this.etapeSelectionnees.size();
+    }
     @Override
     public String toString() {
         return "MondeIG{" +
