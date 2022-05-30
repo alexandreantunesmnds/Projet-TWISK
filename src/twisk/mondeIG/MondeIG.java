@@ -232,7 +232,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
             this.listeEtapes.remove(etapeASuppr.getIdentifiant());
         }
-        System.out.println(listeEtapes);
+        //System.out.println(listeEtapes);
         this.etapeSelectionnees.clear();
     }
 
