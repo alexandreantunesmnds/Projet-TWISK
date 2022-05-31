@@ -19,6 +19,10 @@ public class VueMenu extends MenuBar implements Observateur{
     private VueChangerNbJetons VueCJ;
     private String style;
 
+    private MenuItem renommer;
+    private MenuItem temps;
+    private MenuItem ecartTemps;
+
     public VueMenu(MondeIG monde) {
         super();
         this.monde = monde;
@@ -64,7 +68,7 @@ public class VueMenu extends MenuBar implements Observateur{
             this.monde.supprimerEtapesSelectionnees();
             this.monde.notifierObservateurs();
         });
-        MenuItem renommer = new MenuItem("Renommer");
+        renommer = new MenuItem("Renommer");
         renommer.setOnAction(event -> {
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
             if(etapeSelectionnees != null && etapeSelectionnees.size() == 1){
@@ -110,7 +114,7 @@ public class VueMenu extends MenuBar implements Observateur{
 
         //Menu Paramètre
         Menu param = new Menu("Paramètre");
-        MenuItem temps = new MenuItem("Changer le temps");
+        temps = new MenuItem("Changer le temps");
         temps.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
             if(etapeSelectionnees != null && etapeSelectionnees.size() == 1 && etapeSelectionnees.get(0).estUneActivite()){
@@ -120,7 +124,7 @@ public class VueMenu extends MenuBar implements Observateur{
                 this.VueCT.show();
             }
         });
-        MenuItem ecartTemps = new MenuItem("Changer ecart-temps");
+        ecartTemps = new MenuItem("Changer ecart-temps");
         ecartTemps.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
             if(etapeSelectionnees != null && etapeSelectionnees.size() == 1 && etapeSelectionnees.get(0).estUneActivite()){
@@ -131,17 +135,6 @@ public class VueMenu extends MenuBar implements Observateur{
             }
         });
 
-        //Conditions sur les items
-        if (this.monde.getNbEtapesSelect() == 1){
-            renommer.setDisable(false);
-            temps.setDisable(false);
-            ecartTemps.setDisable(false);
-        }
-        else{
-            renommer.setDisable(true);
-            temps.setDisable(true);
-            ecartTemps.setDisable(true);
-        }
 
         MenuItem nbJetons = new MenuItem("Changer le nombre de jetons");
         nbJetons.setOnAction(event ->{
@@ -178,10 +171,22 @@ public class VueMenu extends MenuBar implements Observateur{
 
         //Ajout dans la barre de menu
         this.getMenus().addAll(fichier,edition,menuMonde,param,style);
+
+        this.monde.ajouterObservateur(this);
     }
 
     @Override
     public void reagir() {
-
+        //Conditions sur les items
+        if (this.monde.getNbEtapesSelect() == 1){
+            this.renommer.setDisable(false);
+            this.temps.setDisable(false);
+            this.ecartTemps.setDisable(false);
+        }
+        else{
+            this.renommer.setDisable(true);
+            this.temps.setDisable(true);
+            this.ecartTemps.setDisable(true);
+        }
     }
 }
