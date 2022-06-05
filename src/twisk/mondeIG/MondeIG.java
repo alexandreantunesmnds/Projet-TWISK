@@ -535,7 +535,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         try {
             verifierMondeIG();
         } catch (MondeException e) {
-            System.out.println("bug : " + e.getMessage());
+            //System.out.println("bug : " + e.getMessage());
             throw new MondeException(e.getMessage());
         }
         //System.out.println(mIG);
@@ -562,6 +562,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
                         md = c.getMethod("simuler", Monde.class);
                         md.invoke(play, world);
                         estEnSimulation = world.getEstEnSimulation(); //à la fin de la simulation on regarde dans le modèle si la simulation est toujours en cours
+                        notifierObservateurs();
                     } catch (Exception e) {
 
                     }

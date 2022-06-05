@@ -46,13 +46,13 @@ public class Simulation extends SujetObserve {
      */
     public void simuler(Monde monde){
                 try {
-                    System.out.println("\n\n===        Le Monde        ===\n\n");
+                    /*System.out.println("\n\n===        Le Monde        ===\n\n");
                     System.out.println(monde.toString());
-                    System.out.println("\n\n=== Début de la simulation ===\n\n");
+                    System.out.println("\n\n=== Début de la simulation ===\n\n");*/
                     kc.creerFichier(monde.toC());
                     kc.compiler();
                     kc.construireLaLibrairie();
-                    System.out.println("/tmp/twisk/libTwisk" + noSimulation + ".so");
+                    /*System.out.println("/tmp/twisk/libTwisk" + noSimulation + ".so");*/
                     System.load("/tmp/twisk/libTwisk" + noSimulation + ".so");
 
                     //Définition des variables locales
@@ -86,28 +86,28 @@ public class Simulation extends SujetObserve {
 
 
                     //On affiche les clients
-                    System.out.print("Les clients sont : ");
+                    //System.out.print("Les clients sont : ");
                     gc.setClients(idClients);
-                    for (Client client : gc) {
+                    /*for (Client client : gc) {
                         System.out.print(client.getNumeroClient() + " ");
-                    }
+                    }*/
 
                     while (!stop) {
                         //On récupère la position de tout les clients dans le monde
                         etatDeLaSimulation = ou_sont_les_clients(nbEtapes, nbClients);
                         //System.out.println(Arrays.toString(etatDeLaSimulation));
                         int cptEtape = 0;
-                        System.out.println("");
+                        //System.out.println("");
                         for (int numeroEtape = 0; numeroEtape < nbEtapes; numeroEtape++) {
                             //On récupère le nombre de clients dans l'étape
                             int nbClientsDansEtape = etatDeLaSimulation[cptEtape];
 
                             //On affiche l'étape
-                            System.out.print("\n" + tabEtape[numeroEtape].getNom() + " avec " + etatDeLaSimulation[cptEtape] + " clients : ");
+                            //System.out.print("\n" + tabEtape[numeroEtape].getNom() + " avec " + etatDeLaSimulation[cptEtape] + " clients : ");
 
                             //On affiche les clients dans l'étape
                             for (int client = 0, rang = 1; client < nbClientsDansEtape && rang < nbClientsDansEtape + 1; client++, rang++) {
-                                System.out.print(etatDeLaSimulation[cptEtape + client + 1] + " ");
+                                //System.out.print(etatDeLaSimulation[cptEtape + client + 1] + " ");
                                 gc.allerA(etatDeLaSimulation[cptEtape + client + 1], tabEtape[numeroEtape], rang); //a revoir
                             }
 
@@ -126,6 +126,7 @@ public class Simulation extends SujetObserve {
                     }
                     gc.nettoyer();
                     nettoyage();
+                    notifierObservateurs();
                 }
                     catch (InterruptedException e) {
                     }

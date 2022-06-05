@@ -85,8 +85,9 @@ public class VueOutils extends TilePane implements Observateur{
         this.playSim.setGraphic(iconPlay);
         this.playSim.setOnAction(event2-> {
             try {
+                this.ajouterGuichet.setDisable(true);
+                this.ajouterActivite.setDisable(true);
                 this.monde.simuler();
-
             } catch (MondeException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeight(250);
@@ -109,6 +110,8 @@ public class VueOutils extends TilePane implements Observateur{
             this.playSim.setOnAction(event-> {
                 ThreadsManager.getInstance().detruireTacheActive();
                 this.monde.setEstEnSimulation(false);
+                this.ajouterGuichet.setDisable(false);
+                this.ajouterActivite.setDisable(false);
                 Image image = new Image(getClass().getResourceAsStream("/twisk/ressources/images/play.png"),25,25,true,true);
                 ImageView iconPlay = new ImageView(image);
                 this.playSim.setGraphic(iconPlay);
@@ -119,6 +122,12 @@ public class VueOutils extends TilePane implements Observateur{
 
     @Override
     public void reagir() {
-
+        if(this.monde.estEnSimulation()){
+            this.ajouterGuichet.setDisable(true);
+            this.ajouterActivite.setDisable(true);
+        }else{
+            this.ajouterGuichet.setDisable(false);
+            this.ajouterActivite.setDisable(false);
+        }
     }
 }
