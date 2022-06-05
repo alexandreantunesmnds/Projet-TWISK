@@ -23,6 +23,13 @@ public class VueMenu extends MenuBar implements Observateur{
     private VueChangerNbJetons VueCJ;
     private String style;
 
+    private Menu fichier;
+    private Menu edition;
+    private Menu menuMonde;
+    private Menu simulation;
+    private Menu param;
+    private Menu menutyle;
+
     private MenuItem renommer;
     private MenuItem temps;
     private MenuItem ecartTemps;
@@ -37,7 +44,7 @@ public class VueMenu extends MenuBar implements Observateur{
         this.VueCJ = new VueChangerNbJetons(this.monde);
 
         //Menu Fichier
-        Menu fichier = new Menu("Fichier");
+        fichier = new Menu("Fichier");
         MenuItem save = new MenuItem("Enregistrer-sous");
         save.setOnAction(event->{
             try {
@@ -64,7 +71,7 @@ public class VueMenu extends MenuBar implements Observateur{
 
 
         //Menu Edition
-        Menu edition = new Menu("Edition");
+        edition = new Menu("Edition");
         MenuItem suppr = new MenuItem("Supprimer la sélection");
         suppr.setOnAction(event -> {
             for(EtapeIG etapeASuppr : this.monde.getEtapeSelectionnees()){
@@ -91,7 +98,7 @@ public class VueMenu extends MenuBar implements Observateur{
 
 
         //Menu Monde
-        Menu menuMonde = new Menu("Monde");
+        menuMonde = new Menu("Monde");
         MenuItem addEntree = new MenuItem("Entrée");
         Image imageEntree = new Image(getClass().getResourceAsStream("/twisk/ressources/images/entree.png"),18,18,true,true);
         ImageView iconEntree = new ImageView(imageEntree);
@@ -118,7 +125,7 @@ public class VueMenu extends MenuBar implements Observateur{
         menuMonde.getItems().addAll(addEntree,addSortie);
 
         //Menu Paramètre
-        Menu param = new Menu("Paramètre");
+        param = new Menu("Paramètre");
         temps = new MenuItem("Changer le temps");
         temps.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
@@ -155,7 +162,7 @@ public class VueMenu extends MenuBar implements Observateur{
         param.getItems().addAll(temps,ecartTemps,nbJetons);
 
         //Menu Simulation
-        Menu simulation = new Menu("Simulation");
+        simulation = new Menu("Simulation");
         MenuItem nbClients = new MenuItem("Changer le nombre de clients");
         nbClients.setOnAction(event ->{
             TextInputDialog cbClient = new TextInputDialog("");
@@ -203,7 +210,7 @@ public class VueMenu extends MenuBar implements Observateur{
         simulation.getItems().addAll(nbClients,choixLoi);
 
         //Menu Style
-        Menu style = new Menu("Style");
+        menutyle = new Menu("Style");
         Menu theme = new Menu("Theme");
         ToggleGroup tg = new ToggleGroup();
         RadioMenuItem white = new RadioMenuItem("Theme claire");
@@ -220,10 +227,10 @@ public class VueMenu extends MenuBar implements Observateur{
         });
 
         theme.getItems().addAll(white,black);
-        style.getItems().add(theme);
+        menutyle.getItems().add(theme);
 
         //Ajout dans la barre de menu
-        this.getMenus().addAll(fichier,edition,menuMonde,param,simulation,style);
+        this.getMenus().addAll(fichier,edition,menuMonde,param,simulation,menutyle);
 
         this.monde.ajouterObservateur(this);
     }
@@ -231,20 +238,35 @@ public class VueMenu extends MenuBar implements Observateur{
     @Override
     public void reagir() {
         //Conditions sur les items
-        if (this.monde.getNbEtapesSelect() == 1){
-            if(this.monde.getEtapeSelectionnees().get(0).estUneActivite()){
-                this.renommer.setDisable(false);
-                this.temps.setDisable(false);
-                this.ecartTemps.setDisable(false);
-            }else{
-                this.nbJetons.setDisable(false);
+        if(this.monde.estEnSimulation()){
+            fichier.setDisable(true);
+            edition.setDisable(true);
+            menuMonde.setDisable(true);
+            param.setDisable(true);
+            simulation.setDisable(true);
+            menutyle.setDisable(true);
+        }else{
+            fichier.setDisable(false);
+            edition.setDisable(false);
+            menuMonde.setDisable(false);
+            param.setDisable(false);
+            simulation.setDisable(false);
+            menutyle.setDisable(false);
+            if (this.monde.getNbEtapesSelect() == 1){
+                if(this.monde.getEtapeSelectionnees().get(0).estUneActivite()){
+                    this.renommer.setDisable(false);
+                    this.temps.setDisable(false);
+                    this.ecartTemps.setDisable(false);
+                }else{
+                    this.nbJetons.setDisable(false);
+                }
             }
-        }
-        else{
-            this.renommer.setDisable(true);
-            this.temps.setDisable(true);
-            this.ecartTemps.setDisable(true);
-            this.nbJetons.setDisable(true);
+            else{
+                this.renommer.setDisable(true);
+                this.temps.setDisable(true);
+                this.ecartTemps.setDisable(true);
+                this.nbJetons.setDisable(true);
+            }
         }
     }
 }
