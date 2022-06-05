@@ -18,6 +18,7 @@ public class MainTwisk extends Application {
         MondeIG monde = new MondeIG();
 
         primaryStage.setTitle("TwiskIG");
+        primaryStage.setResizable(false);
 
         BorderPane root = new BorderPane() ;
         root.setTop(new VueMenu(monde));
