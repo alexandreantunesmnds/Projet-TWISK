@@ -2,6 +2,7 @@ package twisk;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import twisk.mondeIG.MondeIG;
@@ -19,6 +20,7 @@ public class MainTwisk extends Application {
 
         primaryStage.setTitle("TwiskIG");
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icone.png"),100,150,true,true));
 
         BorderPane root = new BorderPane() ;
         root.setTop(new VueMenu(monde));
