@@ -26,6 +26,7 @@ public class VueMenu extends MenuBar implements Observateur{
     private MenuItem renommer;
     private MenuItem temps;
     private MenuItem ecartTemps;
+    private MenuItem nbJetons;
 
     public VueMenu(MondeIG monde) {
         super();
@@ -140,7 +141,7 @@ public class VueMenu extends MenuBar implements Observateur{
         });
 
 
-        MenuItem nbJetons = new MenuItem("Changer le nombre de jetons");
+        nbJetons = new MenuItem("Changer le nombre de jetons");
         nbJetons.setOnAction(event ->{
             List<EtapeIG> etapeSelectionnees = this.monde.getEtapeSelectionnees();
             if(etapeSelectionnees != null && etapeSelectionnees.size() == 1 && etapeSelectionnees.get(0).estUnGuichet()){
@@ -231,14 +232,19 @@ public class VueMenu extends MenuBar implements Observateur{
     public void reagir() {
         //Conditions sur les items
         if (this.monde.getNbEtapesSelect() == 1){
-            this.renommer.setDisable(false);
-            this.temps.setDisable(false);
-            this.ecartTemps.setDisable(false);
+            if(this.monde.getEtapeSelectionnees().get(0).estUneActivite()){
+                this.renommer.setDisable(false);
+                this.temps.setDisable(false);
+                this.ecartTemps.setDisable(false);
+            }else{
+                this.nbJetons.setDisable(false);
+            }
         }
         else{
             this.renommer.setDisable(true);
             this.temps.setDisable(true);
             this.ecartTemps.setDisable(true);
+            this.nbJetons.setDisable(true);
         }
     }
 }
