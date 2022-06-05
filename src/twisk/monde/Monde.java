@@ -11,6 +11,7 @@ public class Monde implements Iterable<Etape> {
     private GestionnaireEtapes gestionEtapes;
 
     private boolean estEnSimulation;
+    private String loi;
 
     /**
      * Constructeur
@@ -22,6 +23,7 @@ public class Monde implements Iterable<Etape> {
         this.gestionEtapes = new GestionnaireEtapes();
         this.gestionEtapes.ajouter(this.sasEntree, this.sasSortie);
         this.estEnSimulation = false;
+        this.loi = "uniforme";
     }
 
     /**
@@ -106,12 +108,56 @@ public class Monde implements Iterable<Etape> {
     }
 
     /**
+     * Setteur
+     * @param loi la loi
+     */
+    public void setLoi(String loi) {
+        this.loi = loi;
+    }
+
+    private String ecrireLoi(){
+        String loi = null;
+        switch (this.loi){
+            case "uniforme":
+                loi = "void delaiEntree() {\n" +
+                        "    int bi, bs ;\n" +
+                        "    int n, nbSec ;\n" +
+                        "    bi = 10 - 4 ;\n" +
+                        "    if (bi < 0) bi = 0 ;\n" +
+                        "    bs = 10 + 4 ;\n" +
+                        "    n = bs - bi ;\n" +
+                        "    nbSec = (rand()/ (float)RAND_MAX) * n ;\n" +
+                        "    nbSec += bi ;\n" +
+                        "    usleep(nbSec*1000000);\n" +
+                        "}\n\n";
+                break;
+            case "gaussienne":
+                loi = "void delaiEntree(){\n" +
+                        "    double u1 = rand()/ (float)RAND_MAX;\n" +
+                        "    double u2 = rand()/ (float)RAND_MAX;\n" +
+                        "    double x = sqrt((-2)*log(u1))*cos(2*M_PI*u2)*4+10;\n" +
+                        "    usleep(x*1000000);\n" +
+                        "}\n\n";
+                break;
+            case "poisson":
+                loi = "void delaiEntree(){\n" +
+                        "    double u = rand()/ (float)RAND_MAX;\n" +
+                        "    double x = -log(u)/0.1;\n" +
+                        "    usleep(x*1000000);\n" +
+                        "}\n\n";
+                break;
+        }
+        return loi;
+    }
+
+    /**
      * Fonction toC
      * @return le code C demandé pour la Simulation
      */
     public String toC(){
         StringBuilder code = new StringBuilder("#include <stdio.h>\n" +
                 "#include <stdlib.h>\n" +
+                "#include <math.h>\n"+
                 "#include \"def.h\"\n" +
                 "#include <time.h>\n"+
                 "\n");
@@ -124,8 +170,12 @@ public class Monde implements Iterable<Etape> {
         for (Etape e : this){
             code.append(e.toDefine());
         }
+
+        code.append("\n"+this.ecrireLoi());
+
         code.append("\nvoid simulation(int ids){\n" +
                 //"\tsrand(ids);\n"+
+                "\tsrand(getpid());\n"+
                 "\t"+this.sasEntree.toC()+"}");
         return code.toString();
     }

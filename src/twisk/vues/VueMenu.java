@@ -183,11 +183,20 @@ public class VueMenu extends MenuBar implements Observateur{
         Menu choixLoi = new Menu("Changer la loi d'arrivée des clients");
         ToggleGroup loi = new ToggleGroup();
         RadioMenuItem lUni = new RadioMenuItem("Loi uniforme");
+        lUni.setOnAction(event ->{
+            monde.setLoi("uniforme");
+        });
         lUni.setToggleGroup(loi);
         lUni.setSelected(true);
         RadioMenuItem lGau = new RadioMenuItem("Loi gaussienne");
+        lGau.setOnAction(event ->{
+            monde.setLoi("gaussienne");
+        });
         lGau.setToggleGroup(loi);
         RadioMenuItem lPoi = new RadioMenuItem("Loi de Poisson");
+        lPoi.setOnAction(event ->{
+            monde.setLoi("poisson");
+        });
         lPoi.setToggleGroup(loi);
         choixLoi.getItems().addAll(lUni,lGau,lPoi);
         simulation.getItems().addAll(nbClients,choixLoi);

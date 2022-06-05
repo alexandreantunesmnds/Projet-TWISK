@@ -34,6 +34,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private boolean estEnSimulation;
     private KitJson kjon;
     private int nbClients;
+    private String loi;
 
     /**
      * Constructeur
@@ -49,6 +50,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.estEnSimulation = false;
         this.kjon = new KitJson(this);
         this.nbClients = 5;
+        this.loi = "uniforme";
     }
 
     /**
@@ -320,6 +322,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
+     * Setteur
+     * @param loi Le nom de la loi de la simulation
+     */
+    public void setLoi(String loi) {
+        this.loi = loi;
+    }
+
+    /**
      * Fonction qui supprime les arcs et étapes selectionnés
      */
     public void effacerSelection() {
@@ -533,6 +543,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
             @Override
             protected Void call() {
                     Monde world = creerMonde(); //notre monde
+                    world.setLoi(loi);
                     estEnSimulation = true;
                     ClassLoaderPerso clp = new ClassLoaderPerso(world.getClass().getClassLoader());
                     try {

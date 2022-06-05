@@ -88,7 +88,7 @@ public class KitC {
      * Fonction qui compile les fichiers temporaires
      */
     public void compiler(){
-        String commande = "gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o";
+        String commande = "gcc -Wall -fPIC -c /tmp/twisk/client.c -o /tmp/twisk/client.o -lm";
 
         try {
             Process p = runtime.exec(commande);
