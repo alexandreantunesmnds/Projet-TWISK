@@ -33,6 +33,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     private Object play;
     private boolean estEnSimulation;
     private KitJson kjon;
+    private int nbClients;
 
     /**
      * Constructeur
@@ -47,6 +48,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
         this.ajouter("Activité");
         this.estEnSimulation = false;
         this.kjon = new KitJson(this);
+        this.nbClients = 5;
     }
 
     /**
@@ -293,12 +295,28 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
-     * Setteuur
+     * Setteur
      *
      * @param style le style a donné au monde
      */
     public void setStyle(String style) {
         this.style = style;
+    }
+
+    /**
+     * Guetteur
+     * @return Le nombre de clients
+     */
+    public int getNbClients() {
+        return nbClients;
+    }
+
+    /**
+     * Setteur
+     * @param nbClients Le nombre de clients
+     */
+    public void setNbClients(int nbClients) {
+        this.nbClients = nbClients;
     }
 
     /**
@@ -528,7 +546,7 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
 
                         //Appel des autres fonctions5
                         Method md = c.getMethod("setNbClients", int.class);
-                        md.invoke(play, 5);
+                        md.invoke(play, mIG.getNbClients());
 
                         md = c.getMethod("simuler", Monde.class);
                         md.invoke(play, world);

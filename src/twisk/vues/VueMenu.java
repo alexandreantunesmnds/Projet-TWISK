@@ -1,15 +1,19 @@
 package twisk.vues;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import twisk.exceptions.FileException;
+import twisk.exceptions.TwiskException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
 
 import java.util.List;
+import java.util.Optional;
 
 public class VueMenu extends MenuBar implements Observateur{
     private MondeIG monde;
@@ -149,6 +153,45 @@ public class VueMenu extends MenuBar implements Observateur{
 
         param.getItems().addAll(temps,ecartTemps,nbJetons);
 
+        //Menu Simulation
+        Menu simulation = new Menu("Simulation");
+        MenuItem nbClients = new MenuItem("Changer le nombre de clients");
+        nbClients.setOnAction(event ->{
+            TextInputDialog cbClient = new TextInputDialog("");
+            cbClient.setTitle("Choisir le nombre de clients");
+            cbClient.setHeaderText("Entrez un nombre de clients :");
+
+            Optional<String> result = cbClient.showAndWait();
+
+            result.ifPresent(cbC -> {
+                try {
+                    monde.setNbClients(Integer.parseInt(cbC));
+                }catch (NumberFormatException e){
+                    Alert panneauAlerte = new Alert(Alert.AlertType.ERROR);
+                    panneauAlerte.setTitle("Erreur: twisk");
+                    panneauAlerte.setHeaderText("Vous n'avez pas saisi un nombre correct");
+                    panneauAlerte.show();
+                    PauseTransition pauseTransition = new PauseTransition(Duration.seconds(5));
+                    pauseTransition.setOnFinished(actionEvent -> {
+                        panneauAlerte.hide();
+                    });
+                    pauseTransition.play();
+                }
+            });
+
+        });
+        Menu choixLoi = new Menu("Changer la loi d'arrivée des clients");
+        ToggleGroup loi = new ToggleGroup();
+        RadioMenuItem lUni = new RadioMenuItem("Loi uniforme");
+        lUni.setToggleGroup(loi);
+        lUni.setSelected(true);
+        RadioMenuItem lGau = new RadioMenuItem("Loi gaussienne");
+        lGau.setToggleGroup(loi);
+        RadioMenuItem lPoi = new RadioMenuItem("Loi de Poisson");
+        lPoi.setToggleGroup(loi);
+        choixLoi.getItems().addAll(lUni,lGau,lPoi);
+        simulation.getItems().addAll(nbClients,choixLoi);
+
         //Menu Style
         Menu style = new Menu("Style");
         Menu theme = new Menu("Theme");
@@ -170,7 +213,7 @@ public class VueMenu extends MenuBar implements Observateur{
         style.getItems().add(theme);
 
         //Ajout dans la barre de menu
-        this.getMenus().addAll(fichier,edition,menuMonde,param,style);
+        this.getMenus().addAll(fichier,edition,menuMonde,param,simulation,style);
 
         this.monde.ajouterObservateur(this);
     }
