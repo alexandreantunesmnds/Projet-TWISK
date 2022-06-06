@@ -263,6 +263,7 @@ public class VueMenu extends MenuBar implements Observateur{
             param.setDisable(true);
             simulation.setDisable(true);
             menutyle.setDisable(true);
+            exemples.setDisable(true);
         }else{
             fichier.setDisable(false);
             edition.setDisable(false);
@@ -270,6 +271,7 @@ public class VueMenu extends MenuBar implements Observateur{
             param.setDisable(false);
             simulation.setDisable(false);
             menutyle.setDisable(false);
+            exemples.setDisable(false);
             if (this.monde.getNbEtapesSelect() == 1){
                 if(this.monde.getEtapeSelectionnees().get(0).estUneActivite()){
                     this.renommer.setDisable(false);
