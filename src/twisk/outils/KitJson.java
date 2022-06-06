@@ -164,6 +164,81 @@ public class KitJson {
     }
 
     /**
+     * Fonction qui ouvre un monde donné en paramètre
+     *
+     * @param path chemin du fichier
+     */
+    public void ouvrirFichier(String path){
+        try {
+            this.monde.clear();
+            String content = Files.readString(Path.of(path));
+            //System.out.println(content);
+            JSONObject obj = new JSONObject(content);
+
+            //System.out.println(obj.toString());
+            JSONArray etapes = obj.getJSONArray("ListeEtape");
+
+            //On crée toutes les étapes
+            int nbEtape = 0;
+            for (Object etape : etapes) {
+                JSONObject jetape = (JSONObject) etape;
+                EtapeIG etapeIG = null;
+                if (etape.toString().contains("temps")) {
+                    etapeIG = new ActiviteIG(jetape.getString("nom"), jetape.getString("identifiant"),
+                            jetape.getInt("posX"), jetape.getInt("posY"),
+                            jetape.getInt("largeur"), jetape.getInt("hauteur"),
+                            false, false, jetape.getInt("temps"), jetape.getInt("ecartTemps")
+                            , false);
+                    this.monde.ajouter(etapeIG);
+                    //System.out.println("Act="+etape);
+
+                } else if (etape.toString().contains("nbJetons")) {
+                    etapeIG = new GuichetIG(jetape.getString("nom"), jetape.getString("identifiant"),
+                            jetape.getInt("posX"), jetape.getInt("posY"),
+                            jetape.getInt("largeur"), jetape.getInt("hauteur"),
+                            false, false, jetape.getInt("nbJetons"), jetape.getBoolean("sensGaucheDroite"));
+                    this.monde.ajouter(etapeIG);
+                    //System.out.println("Gui="+etape);
+                }
+                nbEtape++;
+            }
+
+            //On crée tout les arcs ce qui crée automatiquement les sucesseurs de chaque étape
+            JSONArray arcs = obj.getJSONArray("ListeArc");
+            for (Object arc : arcs) {
+                //System.out.println("Arc="+arc);
+                JSONObject jarc = (JSONObject) arc;
+                JSONObject jpt1 = jarc.getJSONObject("pt1");
+                JSONObject jpt2 = jarc.getJSONObject("pt2");
+                JSONObject jetape1 = jpt1.getJSONObject("etapeLiee");
+                JSONObject jetape2 = jpt2.getJSONObject("etapeLiee");
+                try {
+                    this.monde.ajouterArc(new PointDeControleIG(jpt1.getInt("posX"), jpt1.getInt("posY"), jpt1.getString("id"), this.monde.getListeEtape().get(jetape1.getString("identifiant"))),
+                            new PointDeControleIG(jpt2.getInt("posX"), jpt2.getInt("posY"), jpt2.getString("id"), this.monde.getListeEtape().get(jetape2.getString("identifiant"))));
+                } catch (ArcException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //On ajoute maintenant les entrées et les sorties
+            JSONArray entrees = obj.getJSONArray("ListeEntrees");
+            for (Object entree : entrees) {
+                this.monde.getListeEtape().get(entree).setEntree();
+            }
+
+            JSONArray sorties = obj.getJSONArray("ListeSorties");
+            for (Object sortie : sorties) {
+                this.monde.getListeEtape().get(sortie).setSortie();
+            }
+
+            FabriqueIdentifiant.getInstance().setIdentifiantEtape(nbEtape + 1);
+            this.monde.notifierObservateurs();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Fonction qui convertie une HashMap en une liste
      * @param hashMap une map
      * @return une liste

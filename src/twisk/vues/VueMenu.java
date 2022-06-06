@@ -62,12 +62,24 @@ public class VueMenu extends MenuBar implements Observateur{
             }
 
         });
+        MenuItem monde1 = new MenuItem("Cinema");
+        monde1.setOnAction(event-> {
+        monde.ouvrirFichier("src/twisk/ressources/monde1.json");
+        });
+        MenuItem monde2 = new MenuItem("Supermarché");
+        monde2.setOnAction(event-> {
+            monde.ouvrirFichier("src/twisk/ressources/monde2.json");
+        });
+        MenuItem monde3 = new MenuItem("TwiskLand");
+        monde3.setOnAction(event-> {
+            monde.ouvrirFichier("src/twisk/ressources/monde3.json");
+        });
         MenuItem quitter = new MenuItem("Quitter");
         quitter.setOnAction(event-> {Platform.exit();
             ThreadsManager.getInstance().detruireTout();
         });
 
-        fichier.getItems().addAll(save,open,quitter);
+        fichier.getItems().addAll(save,open,monde1,monde2,monde3,quitter);
 
 
         //Menu Edition
