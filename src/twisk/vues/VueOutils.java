@@ -1,11 +1,16 @@
 package twisk.vues;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.Font;
 import twisk.exceptions.MondeException;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
@@ -13,12 +18,14 @@ import twisk.outils.ThreadsManager;
 
 import java.sql.SQLOutput;
 
-public class VueOutils extends TilePane implements Observateur{
+public class VueOutils extends HBox implements Observateur{
 
     private MondeIG monde;
     private Button ajouterActivite;
     private Button ajouterGuichet;
     private Button playSim;
+
+    private Label infoSimulation;
 
     /**
      * Constructeur
@@ -75,7 +82,13 @@ public class VueOutils extends TilePane implements Observateur{
         this.ajouterGuichet.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
         this.playSim.setPrefSize(constantes.getLargeurBoutonAjouter(),constantes.getLargeurBoutonAjouter());
 
-        this.getChildren().addAll(ajouterActivite,ajouterGuichet,playSim);
+        //Label
+        infoSimulation = new Label("Simulation : "+this.monde.getNbClients()+" clients, loi de probabilité : "+this.monde.getLoi());
+        infoSimulation.setPrefHeight(TailleComposants.getInstance().getLargeurBoutonAjouter());
+        infoSimulation.setPadding(new Insets(10));
+        infoSimulation.setFont(new Font(18));
+
+        this.getChildren().addAll(ajouterActivite,ajouterGuichet,playSim,infoSimulation);
 
         this.monde.ajouterObservateur(this);
     }
@@ -122,6 +135,7 @@ public class VueOutils extends TilePane implements Observateur{
 
     @Override
     public void reagir() {
+        infoSimulation.setText("Simulation : "+this.monde.getNbClients()+" clients, loi de probabilité : " + this.monde.getLoi());
         if(this.monde.estEnSimulation()){
             this.ajouterGuichet.setDisable(true);
             this.ajouterActivite.setDisable(true);

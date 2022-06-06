@@ -192,6 +192,7 @@ public class VueMenu extends MenuBar implements Observateur{
             result.ifPresent(cbC -> {
                 try {
                     monde.setNbClients(Integer.parseInt(cbC));
+                    monde.notifierObservateurs();
                 }catch (NumberFormatException e){
                     Alert panneauAlerte = new Alert(Alert.AlertType.ERROR);
                     panneauAlerte.setTitle("Erreur: twisk");
@@ -211,17 +212,20 @@ public class VueMenu extends MenuBar implements Observateur{
         RadioMenuItem lUni = new RadioMenuItem("Loi uniforme");
         lUni.setOnAction(event ->{
             monde.setLoi("uniforme");
+            monde.notifierObservateurs();
         });
         lUni.setToggleGroup(loi);
         lUni.setSelected(true);
         RadioMenuItem lGau = new RadioMenuItem("Loi gaussienne");
         lGau.setOnAction(event ->{
             monde.setLoi("gaussienne");
+            monde.notifierObservateurs();
         });
         lGau.setToggleGroup(loi);
         RadioMenuItem lPoi = new RadioMenuItem("Loi de Poisson");
         lPoi.setOnAction(event ->{
             monde.setLoi("poisson");
+            monde.notifierObservateurs();
         });
         lPoi.setToggleGroup(loi);
         choixLoi.getItems().addAll(lUni,lGau,lPoi);

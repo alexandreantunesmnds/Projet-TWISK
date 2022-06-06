@@ -330,6 +330,14 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
     }
 
     /**
+     * Getteur
+     * @return Le nom de la loi de probabilité
+     */
+    public String getLoi() {
+        return loi;
+    }
+
+    /**
      * Fonction qui supprime les arcs et étapes selectionnés
      */
     public void effacerSelection() {
