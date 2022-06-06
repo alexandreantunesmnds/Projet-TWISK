@@ -29,6 +29,7 @@ public class VueMenu extends MenuBar implements Observateur{
     private Menu simulation;
     private Menu param;
     private Menu menutyle;
+    private Menu exemples;
 
     private MenuItem renommer;
     private MenuItem temps;
@@ -62,9 +63,19 @@ public class VueMenu extends MenuBar implements Observateur{
             }
 
         });
+
+        MenuItem quitter = new MenuItem("Quitter");
+        quitter.setOnAction(event-> {Platform.exit();
+            ThreadsManager.getInstance().detruireTout();
+        });
+
+        fichier.getItems().addAll(save,open,quitter);
+
+        //Menu Exemples
+        exemples = new Menu("Exemples");
         MenuItem monde1 = new MenuItem("Cinema");
         monde1.setOnAction(event-> {
-        monde.ouvrirFichier("src/twisk/ressources/monde1.json");
+            monde.ouvrirFichier("src/twisk/ressources/monde1.json");
         });
         MenuItem monde2 = new MenuItem("Supermarché");
         monde2.setOnAction(event-> {
@@ -74,12 +85,7 @@ public class VueMenu extends MenuBar implements Observateur{
         monde3.setOnAction(event-> {
             monde.ouvrirFichier("src/twisk/ressources/monde3.json");
         });
-        MenuItem quitter = new MenuItem("Quitter");
-        quitter.setOnAction(event-> {Platform.exit();
-            ThreadsManager.getInstance().detruireTout();
-        });
-
-        fichier.getItems().addAll(save,open,monde1,monde2,monde3,quitter);
+        exemples.getItems().addAll(monde1,monde2,monde3);
 
 
         //Menu Edition
@@ -242,7 +248,7 @@ public class VueMenu extends MenuBar implements Observateur{
         menutyle.getItems().add(theme);
 
         //Ajout dans la barre de menu
-        this.getMenus().addAll(fichier,edition,menuMonde,param,simulation,menutyle);
+        this.getMenus().addAll(fichier,edition,menuMonde,param,simulation,menutyle,exemples);
 
         this.monde.ajouterObservateur(this);
     }
