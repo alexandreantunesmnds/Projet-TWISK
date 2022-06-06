@@ -1,7 +1,6 @@
 package twisk.vues;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,14 +8,11 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.text.Font;
 import twisk.exceptions.MondeException;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.TailleComposants;
 import twisk.outils.ThreadsManager;
-
-import java.sql.SQLOutput;
 
 public class VueOutils extends HBox implements Observateur{
 
@@ -66,13 +62,13 @@ public class VueOutils extends HBox implements Observateur{
         this.playSim.setTooltip(new Tooltip("Lancer la simulation"));
 
         //Ajout icône
-        Image imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterActivite.png"),25,25,true,true);
+        Image imagePlus = new Image(getClass().getResourceAsStream("/images/boutonAjouterActivite.png"),25,25,true,true);
         ImageView iconPlus = new ImageView(imagePlus);
         this.ajouterActivite.setGraphic(iconPlus);
-        imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/boutonAjouterGuichet.png"),25,25,true,true);
+        imagePlus = new Image(getClass().getResourceAsStream("/images/boutonAjouterGuichet.png"),25,25,true,true);
         iconPlus = new ImageView(imagePlus);
         this.ajouterGuichet.setGraphic(iconPlus);
-        imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/play.png"),25,25,true,true);
+        imagePlus = new Image(getClass().getResourceAsStream("/images/play.png"),25,25,true,true);
         iconPlus = new ImageView(imagePlus);
         this.playSim.setGraphic(iconPlus);
 
@@ -93,7 +89,7 @@ public class VueOutils extends HBox implements Observateur{
         this.monde.ajouterObservateur(this);
     }
     public void changeSimPlay() {
-        Image image = new Image(getClass().getResourceAsStream("/twisk/ressources/images/play.png"),25,25,true,true);
+        Image image = new Image(getClass().getResourceAsStream("/images/play.png"),25,25,true,true);
         ImageView iconPlay = new ImageView(image);
         this.playSim.setGraphic(iconPlay);
         this.playSim.setOnAction(event2-> {
@@ -117,7 +113,7 @@ public class VueOutils extends HBox implements Observateur{
      * Fonction qui s'occupe de modifier l'image du bouton play en bouton stop
      */
     public void changeSimStop(){
-            Image imagePlus = new Image(getClass().getResourceAsStream("/twisk/ressources/images/stop.png"), 25, 25, true, true);
+            Image imagePlus = new Image(getClass().getResourceAsStream("/images/stop.png"), 25, 25, true, true);
             ImageView iconPlus = new ImageView(imagePlus);
             this.playSim.setGraphic(iconPlus);
             this.playSim.setOnAction(event-> {
@@ -125,7 +121,7 @@ public class VueOutils extends HBox implements Observateur{
                 this.monde.setEstEnSimulation(false);
                 this.ajouterGuichet.setDisable(false);
                 this.ajouterActivite.setDisable(false);
-                Image image = new Image(getClass().getResourceAsStream("/twisk/ressources/images/play.png"),25,25,true,true);
+                Image image = new Image(getClass().getResourceAsStream("/images/play.png"),25,25,true,true);
                 ImageView iconPlay = new ImageView(image);
                 this.playSim.setGraphic(iconPlay);
                 this.playSim.setOnAction(event2-> this.changeSimPlay());

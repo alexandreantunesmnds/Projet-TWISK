@@ -7,9 +7,7 @@ import twisk.exceptions.FileException;
 import twisk.mondeIG.*;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -165,13 +163,29 @@ public class KitJson {
 
     /**
      * Fonction qui ouvre un monde donné en paramètre
-     *
-     * @param path chemin du fichier
+     * @param numExemples numero de l'exemple
      */
-    public void ouvrirFichier(String path){
+    public void ouvrirFichier(int numExemples){
         try {
             this.monde.clear();
-            String content = Files.readString(Path.of(path));
+            InputStream in = null;
+            switch (numExemples) {
+                case 1:
+                    in = getClass().getResourceAsStream("/exemples/monde1.json");
+                    break;
+                case 2:
+                    in = getClass().getResourceAsStream("/exemples/monde2.json");
+                    break;
+                case 3:
+                    in = getClass().getResourceAsStream("/exemples/monde3.json");
+                    break;
+                default:
+                    break;
+            }
+            BufferedReader input = new BufferedReader(new InputStreamReader(in));
+
+            String content = input.readLine();
+
             //System.out.println(content);
             JSONObject obj = new JSONObject(content);
 

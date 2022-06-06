@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import twisk.exceptions.FileException;
-import twisk.exceptions.TwiskException;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 import twisk.outils.ThreadsManager;
@@ -75,15 +74,15 @@ public class VueMenu extends MenuBar implements Observateur{
         exemples = new Menu("Exemples");
         MenuItem monde1 = new MenuItem("Cinema");
         monde1.setOnAction(event-> {
-            monde.ouvrirFichier("src/twisk/ressources/monde1.json");
+            monde.ouvrirFichier(1);
         });
         MenuItem monde2 = new MenuItem("Supermarché");
         monde2.setOnAction(event-> {
-            monde.ouvrirFichier("src/twisk/ressources/monde2.json");
+            monde.ouvrirFichier(2);
         });
         MenuItem monde3 = new MenuItem("TwiskLand");
         monde3.setOnAction(event-> {
-            monde.ouvrirFichier("src/twisk/ressources/monde3.json");
+            monde.ouvrirFichier(3);
         });
         exemples.getItems().addAll(monde1,monde2,monde3);
 
@@ -118,7 +117,7 @@ public class VueMenu extends MenuBar implements Observateur{
         //Menu Monde
         menuMonde = new Menu("Monde");
         MenuItem addEntree = new MenuItem("Entrée");
-        Image imageEntree = new Image(getClass().getResourceAsStream("/twisk/ressources/images/entree.png"),18,18,true,true);
+        Image imageEntree = new Image(getClass().getResourceAsStream("/images/entree.png"),18,18,true,true);
         ImageView iconEntree = new ImageView(imageEntree);
         addEntree.setGraphic(iconEntree);
         addEntree.setOnAction(event -> {
@@ -129,7 +128,7 @@ public class VueMenu extends MenuBar implements Observateur{
             this.monde.notifierObservateurs();
         });
         MenuItem addSortie = new MenuItem("Sortie");
-        Image imageSortie = new Image(getClass().getResourceAsStream("/twisk/ressources/images/sortie.png"),14,14,true,true);
+        Image imageSortie = new Image(getClass().getResourceAsStream("/images/sortie.png"),14,14,true,true);
         ImageView iconSortie = new ImageView(imageSortie);
         addSortie.setGraphic(iconSortie);
         addSortie.setOnAction(event -> {

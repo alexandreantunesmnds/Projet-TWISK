@@ -10,7 +10,6 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
-import twisk.mondeIG.ActiviteIG;
 import twisk.mondeIG.EtapeIG;
 import twisk.mondeIG.MondeIG;
 
@@ -41,13 +40,13 @@ public abstract class VueEtapeIG extends VBox implements Observateur {
         //Ajout du symbole entree/sortie
         if(this.etape.estUneEntree()){
             //Label entree = new Label("E");
-            Image imageEntree = new Image(getClass().getResourceAsStream("/twisk/ressources/images/entree.png"),18,18,true,true);
+            Image imageEntree = new Image(getClass().getResourceAsStream("/images/entree.png"),18,18,true,true);
             ImageView iconEntree = new ImageView(imageEntree);
             this.titre.setGraphic(iconEntree);
         }
         if(this.etape.estUneSortie()){
             //Label sortie = new Label("S");
-            Image imageSortie = new Image(getClass().getResourceAsStream("/twisk/ressources/images/sortie.png"),14,14,true,true);
+            Image imageSortie = new Image(getClass().getResourceAsStream("/images/sortie.png"),14,14,true,true);
             ImageView iconSortie = new ImageView(imageSortie);
             this.titre.setGraphic(iconSortie);
         }

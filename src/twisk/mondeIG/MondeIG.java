@@ -616,8 +616,8 @@ public class MondeIG extends SujetObserve implements Iterable<EtapeIG>, Observat
      * Fonction qui appelle à 'ouverture du monde donné en paramètre
      * @throws FileException
      */
-    public void ouvrirFichier(String path) {
-        kjon.ouvrirFichier(path);
+    public void ouvrirFichier(int numExemple) {
+        kjon.ouvrirFichier(numExemple);
     }
 
     /**
